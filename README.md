@@ -124,7 +124,7 @@ Promp-Academicos/
 - Coloca tu logo en el directorio raíz
 - Modifica las líneas 66-70 en `index.html` para referenciar tu imagen:
 ```html
-<img src="tu-logo.png" alt="Logo" class="w-32 h-16 object-contain">
+<img src="logo-CMSI.png" alt="Logo" class="w-32 h-16 object-contain">
 ```
 
 ### Colores
