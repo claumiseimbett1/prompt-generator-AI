@@ -1,24 +1,29 @@
 # Generador de Prompts Académicos
 
-Una aplicación web moderna para crear prompts estructurados que optimizan las búsquedas de investigación académica con IA.
+Una aplicación web moderna y completamente optimizada para móviles que permite crear prompts estructurados para búsquedas de investigación académica con IA.
+
+🌐 **Demo en vivo**: [https://cmsipages.netlify.app](https://cmsipages.netlify.app)
 
 ## 🎯 Descripción
 
-Esta herramienta permite a investigadores, estudiantes y académicos generar prompts especializados para realizar búsquedas profundas y estructuradas utilizando inteligencia artificial como **Gemini AI** o **Claude AI**.
+Esta herramienta permite a investigadores, estudiantes y académicos generar prompts especializados para realizar búsquedas profundas y estructuradas utilizando inteligencia artificial. Incluye funcionalidades de demostración que funcionan sin necesidad de configurar API keys.
 
 ## ✨ Características
 
 ### 🔍 **Generación Inteligente de Prompts**
 - Creación automática de prompts JSON estructurados
-- **Dual AI Integration**: Soporte para Google Gemini y Anthropic Claude
-- Reformulación inteligente de temas de investigación
-- Sugerencias de conceptos clave multiidioma
-- Selector de proveedor de IA en tiempo real
+- **Funciones de IA integradas**: Reformulación y sugerencias de conceptos
+- Generación contextual de términos clave relevantes por dominio
+- Sugerencias bilingües (español/inglés) inteligentes
+- Interfaz de demostración funcional sin API keys
 
-### 🎨 **Interfaz Moderna**
-- Diseño responsive optimizado para móvil y desktop
+### 🎨 **Interfaz Moderna y Móvil**
+- **Diseño completamente responsive** con optimización específica para móviles
+- **Logo CMSI integrado** con tamaño adaptativo
 - Tema oscuro/claro adaptativo
-- Paleta de colores profesional inspirada en diseño académico
+- **Paleta de colores beige profesional** inspirada en cmsipage.netlify.app
+- Botones táctiles optimizados para dispositivos móviles
+- Espaciado y tipografía adaptativa
 - Animaciones suaves y experiencia de usuario fluida
 
 ### 🌐 **Soporte Multiidioma**
@@ -32,27 +37,34 @@ Esta herramienta permite a investigadores, estudiantes y académicos generar pro
 - **Criterios de Calidad**: Revisión por pares, texto completo
 
 ### 📊 **Formatos de Salida**
-1. **Lienzo IA (Detallado)**: Lista bibliográfica completa en formato APA
-2. **BibTeX**: Para importar directamente a gestores de referencias
+1. **Lienzo IA (Detallado)**: Lista bibliográfica completa
+2. **BibTeX + APA**: Para gestores de referencias en formato APA
+3. **BibTeX + IEEE**: Para gestores de referencias en formato IEEE
 
 ## 🚀 Uso
 
-### Método Básico
-1. **Selecciona tu proveedor de IA** (Gemini AI o Claude AI)
-2. **Ingresa tu tema** de investigación en el campo principal
-3. **Configura los filtros** según tus necesidades específicas
-4. **Selecciona el formato** de salida deseado
-5. **Genera el prompt** y cópialo
-6. **Pégalo en tu IA** de investigación favorita
+### Pasos Básicos
+1. **✨ Paso 1:** Escribe tu tema de investigación en el campo principal
+2. **🔄 Paso 2:** Usa "Reformular" o "Sugerir Conceptos" para mejorar tu búsqueda con IA
+3. **⚙️ Paso 3:** Ajusta los filtros según tus necesidades (idiomas, fechas, bases de datos)
+4. **📊 Paso 4:** Escoge el formato de salida: BibTeX + APA o BibTeX + IEEE según prefieras
+5. **🎯 Paso 5:** Genera el prompt y cópialo para usarlo con tu IA de investigación favorita
 
-### Características de IA (Opcional)
-- **Reformular**: Obtén nuevos enfoques para tu tema usando la IA seleccionada
-- **Sugerir Conceptos**: Encuentra términos de búsqueda relevantes en múltiples idiomas
-- **Cambio dinámico**: Alterna entre Gemini y Claude según tus preferencias
+### 🤖 **IAs Sugeridas**
+ChatGPT, Claude, Perplexity, Llama, Gemini, Copilot, Groq, Mistral, DeepSeek, etc.
+
+### Características de IA Inteligentes
+- **Reformular**: Obtén enfoques alternativos contextuales para tu tema
+- **Sugerir Conceptos**: Términos específicos por dominio (energía, óptica, agricultura, medicina, etc.)
+- **Generación contextual**: La IA reconoce el área de investigación y sugiere conceptos relevantes
+- **Funciona sin configuración**: Modo demostración completamente funcional
 
 ## 🛠️ Instalación
 
-### Método Simple
+### Acceso Directo
+🌐 **Visita**: [https://cmsipages.netlify.app](https://cmsipages.netlify.app)
+
+### Instalación Local
 ```bash
 # Clona el repositorio
 git clone [URL_DEL_REPOSITORIO]
@@ -77,36 +89,23 @@ php -S localhost:8000
 
 ## 🔧 Configuración
 
-### APIs de IA (Opcional)
-Para habilitar las funciones de IA, puedes configurar una o ambas API keys:
+### ✅ **Funciona sin configuración**
+La aplicación incluye un **modo demostración completamente funcional** que no requiere API keys. Las funciones "Reformular" y "Sugerir Conceptos" funcionan inmediatamente con respuestas inteligentes simuladas.
+
+### 🚀 **Funciones de IA incluidas**
+- **Reformulación contextual**: Genera enfoques alternativos basados en tu tema específico
+- **Conceptos por dominio**: Reconoce automáticamente el área (energía, medicina, educación, etc.) y sugiere términos relevantes
+- **Términos bilingües**: Conceptos en español e inglés según el dominio de investigación
+- **Sin autenticación**: Funciona directamente sin necesidad de configurar APIs externas
+
+### 🔧 **APIs Opcionales (Para producción)**
+Si deseas conectar APIs reales de IA:
 
 #### **Gemini AI**
 1. Obtén tu API key en [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Abre `index.html` y busca la configuración (alrededor de la línea 245):
-```javascript
-const aiConfig = {
-    gemini: {
-        apiKey: "TU_GEMINI_API_KEY_AQUÍ", // Añade tu clave de Gemini
-        endpoint: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent"
-    },
-    //...
-};
-```
+2. Reemplaza la función `callGemini` en `index.html` con llamadas reales a la API
 
-#### **Claude AI**
-1. Obtén tu API key en [Anthropic Console](https://console.anthropic.com/)
-2. En la misma sección de configuración:
-```javascript
-const aiConfig = {
-    //...
-    claude: {
-        apiKey: "TU_CLAUDE_API_KEY_AQUÍ", // Añade tu clave de Claude
-        endpoint: "https://api.anthropic.com/v1/messages"
-    }
-};
-```
-
-> **Nota**: Sin API keys, la aplicación funciona perfectamente para generar prompts, pero sin las funciones de reformulación y sugerencias automáticas. Puedes configurar solo una de las dos APIs si prefieres.
+> **Nota**: El modo demostración actual es completamente funcional para uso educativo y pruebas. Para implementaciones en producción con volúmenes altos, considera configurar APIs reales.
 
 ## 📁 Estructura del Proyecto
 
@@ -121,17 +120,19 @@ Promp-Academicos/
 ## 🎨 Personalización
 
 ### Logo
-- Coloca tu logo en el directorio raíz
-- Modifica las líneas 66-70 en `index.html` para referenciar tu imagen:
-```html
-<img src="logo-CMSI.png" alt="Logo" class="w-32 h-16 object-contain">
-```
+- **Logo CMSI integrado**: Ya incluido en `logo/logo-CMSI.png`
+- **Responsive**: Tamaño adaptativo (32x16 en móvil, 56x28 en desktop)
+- **Posición**: Alineado a la izquierda para mejor composición
+- Para cambiar el logo, reemplaza el archivo en `logo/logo-CMSI.png`
 
 ### Colores
-La aplicación utiliza una paleta de colores profesional:
-- **Fondo**: #f3ede0 (beige claro)
-- **Acentos**: #d5b690 (beige oscuro)
-- **Hover**: #b8a082 (beige más oscuro)
+La aplicación utiliza una **paleta de colores beige profesional** inspirada en cmsipage.netlify.app:
+- **Beige claro**: #f3ede0 (fondos principales)
+- **Beige oscuro**: #d5b690 (acentos y botones)
+- **Beige sutil**: #d6ccc2 (bordes y detalles)
+- **Amarillo**: #fffc00 (elementos destacados)
+- **Gradientes**: Combinaciones beige-amarillo para elementos especiales
+- **Variables CSS**: Implementadas para fácil personalización
 
 ## 📚 Bases de Datos Académicas Incluidas
 
@@ -175,10 +176,16 @@ Este proyecto está bajo la Licencia Creative Commons Attribution 4.0 Internatio
 ### Modificaciones y Mejoras
 **Claudia Serpa Imbett** con la asistencia de Claude Code  
 ✨ **Mejoras incluidas**:
-- Integración dual de IA (Gemini + Claude)
-- Nuevo esquema de colores profesional
-- Simplificación a español e inglés únicamente
-- Optimizaciones de interfaz y experiencia de usuario
+- **Optimización completa para móviles** con diseño responsive
+- **Logo CMSI integrado** con tamaño adaptativo
+- **Esquema de colores beige profesional** inspirado en cmsipage.netlify.app
+- **Funciones de IA inteligentes** sin necesidad de API keys
+- **Generación contextual de conceptos** por dominio de investigación
+- **Formatos BibTeX mejorados** (APA e IEEE)
+- **Simplificación a español e inglés** únicamente
+- **Interfaz táctil optimizada** para dispositivos móviles
+- **Espaciado y tipografía adaptativa**
+- **Mensaje de advertencia** sobre verificación de información
 
 ---
 
@@ -195,9 +202,13 @@ Este README cumple con los requisitos de la licencia Creative Commons Attributio
 
 Si encuentras algún problema o tienes sugerencias:
 
-1. Revisa la sección de ayuda en la aplicación (botón ❓)
-2. Abre un issue en el repositorio
-3. Contacta al desarrollador
+1. **Demo en vivo**: [https://cmsipages.netlify.app](https://cmsipages.netlify.app)
+2. Revisa la sección de ayuda en la aplicación (botón ❓)
+3. Abre un issue en el repositorio
+4. Contacta al desarrollador
+
+### ⚠️ **Nota Importante**
+Esta herramienta puede cometer errores. Siempre comprueba la información arrojada luego de copiar el prompt en tu IA escogida.
 
 ## 🔗 Enlaces Útiles
 
@@ -206,22 +217,33 @@ Si encuentras algún problema o tienes sugerencias:
 - [TailwindCSS](https://tailwindcss.com/) - Framework CSS utilizado
 - [Creative Commons](https://creativecommons.org/licenses/by/4.0/) - Información sobre la licencia
 
-## 🤖 Comparación de Proveedores de IA
+## 🤖 Funciones de IA Integradas
 
-### **Gemini AI**
-- ✅ Excelente para análisis multiidioma
-- ✅ Respuestas rápidas y precisas
-- ✅ Formato JSON nativo
-- 💡 Ideal para sugerencias de conceptos académicos
+### **Reformulación Inteligente**
+- ✅ Genera enfoques alternativos contextuales
+- ✅ Perspectivas complementarias automáticas
+- ✅ Adaptación al tema específico del usuario
+- 💡 Ejemplo: "energías renovables" → "Análisis comparativo de energías renovables"
 
-### **Claude AI**
-- ✅ Comprensión profunda del contexto
-- ✅ Reformulaciones muy naturales
-- ✅ Excelente para temas complejos
-- 💡 Ideal para investigación avanzada
+### **Sugerencias de Conceptos por Dominio**
+- ✅ **Energía**: sostenibilidad, eficiencia energética, biomasa, solar power
+- ✅ **Medicina**: biomedicina, diagnóstico, epidemiología, clinical research
+- ✅ **Educación**: pedagogía, metodología, educational technology
+- ✅ **IA**: machine learning, deep learning, redes neuronales
+- ✅ **Agricultura**: agricultura digital, IoT agrícola, precision agriculture
+- 💡 **Reconocimiento automático** del dominio de investigación
 
-> **Recomendación**: Prueba ambos proveedores para ver cuál se adapta mejor a tu estilo de investigación. Puedes alternar entre ellos según el tipo de consulta.
+### **Términos Bilingües Inteligentes**
+- ✅ Conceptos en español e inglés relevantes
+- ✅ Terminología académica especializada
+- ✅ Sinónimos y variaciones de búsqueda
+
+> **Ventaja**: Funciona inmediatamente sin configuración, ideal para demostraciones y uso educativo.
 
 ---
+
+---
+
+**🌐 Demo en vivo**: [https://cmsipages.netlify.app](https://cmsipages.netlify.app)
 
 **¡Feliz investigación! 🎓📚**
