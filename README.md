@@ -2,7 +2,7 @@
 
 Una aplicación web moderna y completamente optimizada para móviles que permite crear prompts estructurados para búsquedas de investigación académica con IA.
 
-🌐 **Demo en vivo**: [https://cmsipages.netlify.app](https://cmsipages.netlify.app)
+🌐 **Demo en vivo**: [https://cmsipage.netlify.app/](https://cmsipage.netlify.app/)
 
 ## 🎯 Descripción
 
@@ -62,7 +62,7 @@ ChatGPT, Claude, Perplexity, Llama, Gemini, Copilot, Groq, Mistral, DeepSeek, et
 ## 🛠️ Instalación
 
 ### Acceso Directo
-🌐 **Visita**: [https://cmsipages.netlify.app](https://cmsipages.netlify.app)
+🌐 **Visita**: [https://cmsipage.netlify.app/](https://cmsipage.netlify.app/)
 
 ### Instalación Local
 ```bash
@@ -202,7 +202,7 @@ Este README cumple con los requisitos de la licencia Creative Commons Attributio
 
 Si encuentras algún problema o tienes sugerencias:
 
-1. **Demo en vivo**: [https://cmsipages.netlify.app](https://cmsipages.netlify.app)
+1. **Demo en vivo**: [https://cmsipage.netlify.app/](https://cmsipage.netlify.app/)
 2. Revisa la sección de ayuda en la aplicación (botón ❓)
 3. Abre un issue en el repositorio
 4. Contacta al desarrollador
@@ -244,6 +244,6 @@ Esta herramienta puede cometer errores. Siempre comprueba la información arroja
 
 ---
 
-**🌐 Demo en vivo**: [https://cmsipages.netlify.app](https://cmsipages.netlify.app)
+**🌐 Demo en vivo**: [https://cmsipage.netlify.app/](https://cmsipage.netlify.app/)
 
 **¡Feliz investigación! 🎓📚**
