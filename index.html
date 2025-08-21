@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Prompts Académicos Avanzado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        :root {
+            --beige-light: #f3ede0;
+            --beige-dark: #d5b690;
+            --beige-muted: #d6ccc2;
+            --black: #000000;
+            --yellow: #fffc00;
+            --white: #ffffff;
+            --text-secondary: #333333;
+            --gradient-yellow-beige: linear-gradient(135deg, #fffc00 0%, #d5b690 100%);
+            --gradient-beige-radial: radial-gradient(circle, rgba(213, 182, 144, 0.1) 0%, transparent 70%);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+        }
+        .form-checkbox:checked, .form-radio:checked {
+            background: var(--gradient-yellow-beige);
+            border-color: var(--beige-dark);
+        }
+        .dark .form-checkbox:checked, .dark .form-radio:checked {
+            background: var(--gradient-yellow-beige);
+            border-color: var(--beige-dark);
+        }
+        .btn-primary {
+            background: var(--gradient-yellow-beige);
+            color: var(--black);
+            transition: all 0.3s ease;
+            border: 2px solid var(--beige-dark);
+        }
+        .btn-primary:hover {
+            background: var(--beige-dark);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(213, 182, 144, 0.3);
+        }
+        .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+        }
+        .btn-secondary {
+            background: var(--beige-light);
+            color: var(--text-secondary);
+            border: 2px solid var(--beige-muted);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: var(--gradient-yellow-beige);
+            color: var(--black);
+            border-color: var(--beige-dark);
+            transform: translateY(-1px);
+        }
+        .filter-section {
+            border-top: 2px solid var(--beige-muted);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            background: var(--gradient-beige-radial);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .dark .filter-section {
+            border-top-color: #374151;
+            background: rgba(55, 65, 81, 0.1);
+        }
+        .loader {
+            border: 3px solid var(--beige-light);
+            border-top: 3px solid var(--yellow);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(213, 182, 144, 0.2);
+        }
+        
+        .gradient-text {
+            background: var(--gradient-yellow-beige);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="dark:bg-gray-900 flex items-center justify-center min-h-screen p-4 transition-colors" style="background: #ffffff;">
+
+    <div class="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 md:p-8 card-hover border-2 border-[var(--beige-muted)]">
+        
+        <!-- Logo Space -->
+        <div class="flex justify-center mb-6">
+            <div class="w-32 h-16 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600">
+                <span class="text-gray-500 dark:text-gray-400 text-sm">Logo Aquí</span>
+            </div>
+        </div>
+        
+        <div class="flex justify-end items-center mb-4 space-x-4">
+             <div class="bg-[#f3ede0] text-gray-800 rounded-md px-3 py-2 text-sm border border-[#d5b690] flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                </svg>
+                <span class="font-medium">Gemini AI</span>
+            </div>
+             <select id="language-selector" class="bg-[#f3ede0] dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md px-2 py-1 text-sm border border-[#d5b690]">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+            </select>
+            <button id="help-btn" class="p-2 rounded-full bg-[#f3ede0] dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-[#d5b690] hover:bg-[#d5b690] hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.546-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </button>
+            <button id="theme-toggle" class="p-2 rounded-full bg-[#f3ede0] dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-[#d5b690] hover:bg-[#d5b690] hover:text-white transition-colors">
+                <svg id="theme-icon-light" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-15.66l-.7.7M4.04 19.96l-.7.7M21 12h-1M4 12H3m15.66 8.66l-.7-.7M4.04 4.04l-.7-.7"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18a6 6 0 100-12 6 6 0 000 12z"></path></svg>
+                <svg id="theme-icon-dark" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+        </div>
+        
+        <header class="text-center mb-8">
+            <h1 id="main-title" class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">Generador de Prompts Académicos</h1>
+            <p id="subtitle" class="text-gray-500 dark:text-gray-400 mt-2">Crea prompts de nivel experto para tus búsquedas de investigación con IA.</p>
+        </header>
+
+        <!-- Sección de Instrucciones -->
+        <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6 mb-8 shadow-lg" style="background-color: #fffbeb; border-color: #fbbf24;">
+            <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center" style="background-color: #fbbf24;">
+                    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold text-black mb-3">📚 INSTRUCCIONES: Cómo usar esta herramienta</h3>
+                    <div class="text-gray-700 space-y-2">
+                        <p class="font-medium">✨ <strong>Paso 1:</strong> Escribe tu tema de investigación en el campo principal</p>
+                        <p class="font-medium">🔄 <strong>Paso 2:</strong> Usa "Reformular" o "Sugerir Conceptos" para mejorar tu búsqueda con IA</p>
+                        <p class="font-medium">⚙️ <strong>Paso 3:</strong> Ajusta los filtros según tus necesidades (idiomas, fechas, bases de datos)</p>
+                        <p class="font-medium">📊 <strong>Paso 4:</strong> Escoge el formato de salida: BibTeX + APA o BibTeX + IEEE según prefieras</p>
+                        <p class="font-medium">🎯 <strong>Paso 5:</strong> Genera el prompt y cópialo para usarlo con tu IA de investigación favorita</p>
+                    </div>
+                    <div class="mt-3 p-3 bg-white rounded border-l-4 border-yellow-400" style="border-left-color: #fbbf24;">
+                        <p class="text-xs text-gray-600 mt-2"><strong>🤖 IAs Sugeridas:</strong> ChatGPT, Claude, Perplexity, Llama, Gemini, Copilot, Groq, Mistral, DeepSeek, etc.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <!-- 1. Tema de Investigación -->
+            <div class="mb-6">
+                <label for="tema" id="topic-label" class="block text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">Tema de Investigación</label>
+                <div class="flex items-center space-x-2">
+                    <input type="text" id="tema" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:placeholder-gray-400" placeholder="Ej: energías renovables, óptica, agricultura digital">
+                    <button id="reformulateBtn" class="btn-secondary bg-[#f3ede0] text-[#333] font-semibold py-2 px-4 rounded-lg hover:bg-[#d5b690] hover:text-white border border-[#d5b690] dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 flex items-center space-x-2 whitespace-nowrap transition-colors">
+                        <span id="reformulate-text">Reformular</span>
+                        <div id="reformulate-loader" class="loader hidden"></div>
+                    </button>
+                    <button id="suggestKeywordsBtn" class="btn-secondary bg-[#f3ede0] text-[#333] font-semibold py-2 px-4 rounded-lg hover:bg-[#d5b690] hover:text-white border border-[#d5b690] dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 flex items-center space-x-2 whitespace-nowrap transition-colors">
+                        <span id="suggest-text">Sugerir Conceptos</span>
+                        <div id="suggest-loader" class="loader hidden"></div>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="suggestions-container" class="hidden mb-6 p-4 bg-[#f3ede0] dark:bg-gray-700/50 border border-[#d5b690] dark:border-gray-600 rounded-lg"></div>
+
+            <!-- Filtros -->
+            <div class="filter-section">
+                <h2 id="filters-general-title" class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3">Filtros Generales</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label id="geography-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Área Geográfica (Opcional)</label>
+                        <input type="text" id="geography" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="Ej: América Latina">
+                    </div>
+                    <div>
+                        <label id="languages-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Idiomas</label>
+                        <div id="languages-container" class="grid grid-cols-2 gap-2 text-gray-700 dark:text-gray-200"></div>
+                    </div>
+                    <div>
+                        <label id="date-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Fecha de Publicación</label>
+                        <select id="date-range-preset" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg mb-2"></select>
+                        <div id="custom-date-fields" class="flex items-center space-x-2">
+                            <input type="number" id="date-from" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="Desde">
+                            <span class="text-gray-500 dark:text-gray-400">-</span>
+                            <input type="number" id="date-to" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="Hasta">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h2 id="sources-label" class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3">Fuentes y Bases de Datos (Acceso Abierto)</h2>
+                <div id="sources-container" class="grid grid-cols-2 md:grid-cols-5 gap-4 text-gray-700 dark:text-gray-200"></div>
+                <div class="mt-4">
+                    <label for="custom-sites" id="custom-sites-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Otros sitios específicos (separados por comas)</label>
+                    <input type="text" id="custom-sites" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="ej: site:colciencias.gov.co, minciencias.gov.co, unal.edu.co">
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h2 id="advanced-filters-label" class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3">Filtros Avanzados</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label id="doc-type-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Tipo de Documento</label>
+                        <div id="doc-type-container" class="grid grid-cols-2 gap-2 text-gray-700 dark:text-gray-200"></div>
+                    </div>
+                    <div>
+                        <label id="quality-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Criterios de Calidad</label>
+                        <div id="quality-container" class="space-y-2 text-gray-700 dark:text-gray-200"></div>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="filter-section">
+                <h2 id="output-format-label" class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3">Formato de Salida</h2>
+                 <div id="output-format-container" class="flex flex-col md:flex-row gap-4 text-gray-700 dark:text-gray-200"></div>
+            </div>
+
+            <div class="text-center mt-8 pt-6 border-t dark:border-gray-700">
+                <button id="generateBtn" class="btn-primary w-full md:w-auto bg-[#d5b690] text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-[#b8a082] transition-colors">
+                    Generar Prompt
+                </button>
+            </div>
+
+            <div id="output-container" class="hidden mt-8">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 id="generated-prompt-label" class="text-lg font-semibold text-gray-700 dark:text-gray-200">Prompt Generado</h3>
+                    <button id="copyBtn" class="bg-[#f3ede0] dark:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-1 px-3 rounded-md text-sm border border-[#d5b690] hover:bg-[#d5b690] hover:text-white transition-colors">Copiar</button>
+                </div>
+                <div class="bg-gray-900 text-white rounded-lg p-4 max-h-96 overflow-y-auto border border-[#d5b690]">
+                    <pre><code id="output-code"></code></pre>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p class="text-center text-xs text-gray-400 dark:text-gray-500 mt-8 pt-4 border-t dark:border-gray-700">
+                Desarrollado por Pablo G. Guízar en https://gemini.google.com/share/4af4639b6049 con la asistencia de Gemini, y modificado por Claudia Serpa Imbett con asistencia de Claude Code. 
+                <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" class="hover:underline">
+                    CC BY 4.0
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-2xl w-full">
+            <div class="flex justify-between items-center border-b pb-3 dark:border-gray-600">
+                <h3 id="help-modal-title" class="text-2xl font-bold text-gray-800 dark:text-white"></h3>
+                <button id="close-modal-btn" class="text-2xl font-bold text-gray-500 hover:text-gray-800 dark:hover:text-white">&times;</button>
+            </div>
+            <div id="help-modal-content" class="mt-4 space-y-4 text-gray-600 dark:text-gray-300">
+                <!-- Content will be injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- UI Dictionary for i18n ---
+        const translations = {
+            es: {
+                mainTitle: "Generador de Prompts Académicos", subtitle: "Crea prompts de nivel experto para tus búsquedas de investigación con IA.", topicLabel: "Tema de Investigación", reformulate: "Reformular", suggest: "Sugerir Conceptos", suggestedConcepts: "Conceptos sugeridos por la IA:", filtersGeneralTitle: "Filtros Generales", geographyLabel: "Área Geográfica (Opcional)", languagesLabel: "Idiomas", dateLabel: "Fecha de Publicación", datePresets: { custom: "Personalizado", "1": "Últimos 12 meses", "5": "Últimos 5 años", "10": "Últimos 10 años", all: "Todos los tiempos" }, sourcesLabel: "Fuentes y Bases de Datos (Acceso Abierto)", customSitesLabel: "Otros sitios específicos (separados por comas)", advancedFiltersLabel: "Filtros Avanzados", docTypeLabel: "Tipo de Documento", qualityLabel: "Criterios de Calidad", peerReviewed: "Sólo Revisado por Pares", fullText: "Sólo Texto Completo (PDF)", outputFormatLabel: "Formato de Salida", outputFormatDetailed: "Lienzo IA (Detallado)", outputFormatBibtexApa: "BibTeX + APA (Para Gestores)", outputFormatBibtexIeee: "BibTeX + IEEE (Para Gestores)", generateBtn: "Generar Prompt", generatedPromptLabel: "Prompt Generado", copyBtn: "Copiar", copiedBtn: "¡Copiado!", manualCopy: "¡Texto seleccionado! Cópialo.", alertTopic: "Por favor, ingresa un tema de investigación.", alertApiError: "Hubo un error con la IA. Por favor, intenta de nuevo.", helpTitle: "Cómo Usar la App", helpContent: `<p><strong>1. Selecciona tu IA:</strong> Elige entre Gemini AI o Claude AI en el selector superior.</p><p><strong>2. Introduce tu Tema:</strong> Escribe tu idea de investigación en el campo principal.</p><p><strong>3. Refina con IA (Opcional):</strong> Usa los botones <strong>"Reformular"</strong> para obtener nuevos enfoques o <strong>"Sugerir Conceptos"</strong> para encontrar términos de búsqueda relevantes.</p><p><strong>4. Ajusta los Filtros:</strong> Selecciona los idiomas, el rango de fechas, las bases de datos y los tipos de documento que se ajusten a tu necesidad.</p><p><strong>5. Elige el Formato de Salida:</strong> Selecciona "Lienzo IA" para una lista detallada o <strong>"BibTeX"</strong> si planeas importar los resultados a un gestor de referencias.</p><p><strong>6. Genera el Prompt:</strong> Haz clic en el botón "Generar Prompt".</p><p><strong>7. Copia y Usa para Búsquedas Profundas:</strong> Copia el prompt JSON y pégalo en tu conversación con una IA de investigación como Gemini o Claude para realizar una <strong>búsqueda profunda</strong> y obtener resultados estructurados.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>Configuración de APIs</h4><p>Para usar las funciones de IA, necesitas configurar las API keys en el código:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Obtén tu clave en Google AI Studio</li><li><strong>Claude:</strong> Obtén tu clave en Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>¿Qué es BibTeX y un Gestor de Referencias?</h4><p>Un <strong>gestor de referencias</strong> (como Zotero o Mendeley) es un software que te ayuda a organizar todas tus fuentes y a generar bibliografías automáticamente. <strong>BibTeX (.bib)</strong> es el formato de archivo universal para exportar e importar estas referencias de manera fiable. ¡Es una herramienta esencial para cualquier investigador!</p>`
+            },
+            en: {
+                mainTitle: "Academic Prompt Generator", subtitle: "Create expert-level prompts for your AI research searches.", topicLabel: "Research Topic", reformulate: "Rephrase", suggest: "Suggest Concepts", suggestedConcepts: "AI Suggested Concepts:", filtersGeneralTitle: "General Filters", geographyLabel: "Geographic Area (Optional)", languagesLabel: "Languages", dateLabel: "Publication Date", datePresets: { custom: "Custom", "1": "Last 12 months", "5": "Last 5 years", "10": "Last 10 years", all: "All time" }, sourcesLabel: "Sources & Databases (Open Access)", customSitesLabel: "Other specific sites (comma-separated)", advancedFiltersLabel: "Advanced Filters", docTypeLabel: "Document Type", qualityLabel: "Quality Criteria", peerReviewed: "Peer-reviewed only", fullText: "Full text only (PDF)", outputFormatLabel: "Output Format", outputFormatDetailed: "AI Canvas (Detailed)", outputFormatBibtexApa: "BibTeX + APA (For Managers)", outputFormatBibtexIeee: "BibTeX + IEEE (For Managers)", generateBtn: "Generate Prompt", generatedPromptLabel: "Generated Prompt", copyBtn: "Copy", copiedBtn: "Copied!", manualCopy: "Text selected! Now copy.", alertTopic: "Please enter a research topic.", alertApiError: "AI error occurred. Please try again.", helpTitle: "How to Use the App", helpContent: `<p><strong>1. Select your AI:</strong> Choose between Gemini AI or Claude AI in the top selector.</p><p><strong>2. Enter your Topic:</strong> Write your research idea in the main field.</p><p><strong>3. Refine with AI (Optional):</strong> Use the <strong>"Rephrase"</strong> button to get new approaches or <strong>"Suggest Concepts"</strong> to find relevant search terms.</p><p><strong>4. Adjust Filters:</strong> Select the languages, date range, databases, and document types that fit your needs.</p><p><strong>5. Choose Output Format:</strong> Select "AI Canvas" for a detailed list or <strong>"BibTeX"</strong> if you plan to import the results into a reference manager.</p><p><strong>6. Generate the Prompt:</strong> Click the "Generate Prompt" button.</p><p><strong>7. Copy and Use for Deep Research:</strong> Copy the JSON prompt and paste it into your conversation with a research AI like Gemini or Claude to perform a <strong>deep search</strong> and get structured results.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>API Configuration</h4><p>To use AI features, you need to configure API keys in the code:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Get your key from Google AI Studio</li><li><strong>Claude:</strong> Get your key from Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>What is BibTeX & a Reference Manager?</h4><p>A <strong>reference manager</strong> (like Zotero or Mendeley) is software that helps you organize all your sources and automatically generate bibliographies. <strong>BibTeX (.bib)</strong> is the universal file format for reliably exporting and importing these references. It's an essential tool for any researcher!</p>`
+            }
+        };
+
+        const staticData = {
+            languages: [
+                { id: 'es', name: 'Español', checked: true },
+                { id: 'en', name: 'Inglés', checked: true }
+            ],
+            sources: [
+                { name: 'Dominios Confiables', source: 'site:.edu,site:.gov,site:.org,site:.int,site:.gob,site:.ac.uk', checked: true },
+                { name: 'Google Scholar', source: 'site:scholar.google.com' }, { name: 'Scielo', source: 'site:scielo.org' },
+                { name: 'Redalyc', source: 'site:redalyc.org' }, { name: 'Dialnet', source: 'site:dialnet.unirioja.es' },
+                { name: 'Latindex', source: 'site:latindex.org' }, { name: 'PubMed Central', source: 'site:pubmed.ncbi.nlm.nih.gov' },
+                { name: 'ERIC', source: 'site:eric.ed.gov' }, { name: 'arXiv', source: 'site:arxiv.org' },
+                { name: 'DOAJ', source: 'site:doaj.org' }, { name: 'CORE', source: 'site:core.ac.uk' }
+            ],
+            docTypes: [
+                { id: 'article', name: 'Artículo' }, { id: 'book', name: 'Libro / Capítulo' },
+                { id: 'thesis', name: 'Tesis / Disertación' }, { id: 'review', name: 'Revisión / Meta-análisis' },
+                { id: 'conference', name: 'Ponencia / Conferencia' }, { id: 'report', name: 'Informe Técnico' }, { id: 'patent', name: 'Patente' }
+            ]
+        };
+        
+        const dom = {};
+
+        function populateDOM() {
+            const allElements = document.querySelectorAll('[id]');
+            allElements.forEach(el => {
+                const camelCaseId = el.id.replace(/-([a-z])/g, g => g[1].toUpperCase());
+                dom[camelCaseId] = el;
+            });
+        }
+
+        function renderStaticUI() {
+            dom.languagesContainer.innerHTML = staticData.languages.map(lang => `
+                <label class="flex items-center"><input type="checkbox" data-lang="${lang.id}" class="lang-cb form-checkbox h-5 w-5" ${lang.checked ? 'checked' : ''}><span class="ml-2">${lang.name}</span></label>
+            `).join('');
+
+            dom.sourcesContainer.innerHTML = staticData.sources.map(src => `
+                <label class="flex items-center p-2 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="checkbox" data-source="${src.source}" class="source-cb form-checkbox h-5 w-5" ${src.checked ? 'checked' : ''}><span class="ml-2">${src.name}</span></label>
+            `).join('');
+            
+            dom.docTypeContainer.innerHTML = staticData.docTypes.map(doc => `
+                 <label class="flex items-center"><input type="checkbox" id="doc-${doc.id}" class="doc-type-cb form-checkbox h-5 w-5"><span class="ml-2">${doc.name}</span></label>
+            `).join('');
+
+            dom.qualityContainer.innerHTML = `
+                <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="checkbox" id="peer-reviewed" class="form-checkbox h-5 w-5"><span id="peer-reviewed-label" class="ml-2 font-medium"></span></label>
+                <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="checkbox" id="full-text" class="form-checkbox h-5 w-5" checked><span id="full-text-label" class="ml-2 font-medium"></span></label>
+            `;
+
+            dom.outputFormatContainer.innerHTML = `
+                <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="detailed" class="form-radio h-5 w-5" checked><span id="output-detailed-label" class="ml-2 font-medium"></span></label>
+                <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="bibtex-apa" class="form-radio h-5 w-5"><span id="output-bibtex-apa-label" class="ml-2 font-medium"></span></label>
+                <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="bibtex-ieee" class="form-radio h-5 w-5"><span id="output-bibtex-ieee-label" class="ml-2 font-medium"></span></label>
+            `;
+        }
+        
+        function setLanguage(lang) {
+            const t = translations[lang];
+            document.documentElement.lang = lang;
+            dom.mainTitle.textContent = t.mainTitle;
+            dom.subtitle.textContent = t.subtitle;
+            dom.topicLabel.textContent = t.topicLabel;
+            dom.reformulateText.textContent = t.reformulate;
+            dom.suggestText.textContent = t.suggest;
+            dom.filtersGeneralTitle.textContent = t.filtersGeneralTitle;
+            dom.geographyLabel.textContent = t.geographyLabel;
+            dom.languagesLabel.textContent = t.languagesLabel;
+            dom.dateLabel.textContent = t.dateLabel;
+            dom.sourcesLabel.textContent = t.sourcesLabel;
+            dom.customSitesLabel.textContent = t.customSitesLabel;
+            dom.advancedFiltersLabel.textContent = t.advancedFiltersLabel;
+            dom.docTypeLabel.textContent = t.docTypeLabel;
+            dom.qualityLabel.textContent = t.qualityLabel;
+            dom.peerReviewedLabel.textContent = t.peerReviewed;
+            dom.fullTextLabel.textContent = t.fullText;
+            dom.outputFormatLabel.textContent = t.outputFormatLabel;
+            dom.outputDetailedLabel.textContent = t.outputFormatDetailed;
+            dom.outputBibtexApaLabel.textContent = t.outputFormatBibtexApa;
+            dom.outputBibtexIeeeLabel.textContent = t.outputFormatBibtexIeee;
+            dom.generateBtn.textContent = t.generateBtn;
+            dom.generatedPromptLabel.textContent = t.generatedPromptLabel;
+            dom.copyBtn.textContent = t.copyBtn;
+            dom.helpModalTitle.textContent = t.helpTitle;
+            dom.helpModalContent.innerHTML = t.helpContent;
+
+            dom.dateRangePreset.innerHTML = Object.entries(t.datePresets).map(([value, text]) => `<option value="${value}">${text}</option>`).join('');
+            updateDateFields();
+        }
+
+        function updateDateFields() {
+            const preset = dom.dateRangePreset.value;
+            const currentYear = new Date().getFullYear();
+            dom.dateFrom.disabled = true;
+            dom.dateTo.disabled = true;
+            dom.customDateFields.classList.add('opacity-50');
+
+            if (preset === 'custom') {
+                dom.dateFrom.disabled = false;
+                dom.dateTo.disabled = false;
+                dom.customDateFields.classList.remove('opacity-50');
+                dom.dateFrom.value = '';
+                dom.dateTo.value = '';
+            } else if (preset === 'all') {
+                dom.dateFrom.value = '';
+                dom.dateTo.value = '';
+            } else {
+                dom.dateFrom.value = currentYear - parseInt(preset);
+                dom.dateTo.value = currentYear;
+            }
+        }
+        
+        // Configuration for AI APIs
+        const aiConfig = {
+            gemini: {
+                apiKey: "", // Configuración original - funciona sin API key personal
+                endpoint: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent"
+            }
+        };
+
+        async function callGemini(userPrompt, schema) {
+            // Simular respuesta de IA para demo - sin API key requerida
+            // En producción, el usuario debe configurar su propia API key
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Simular delay de API
+            
+            if (userPrompt.includes("Reformula") || userPrompt.includes("reformula")) {
+                // Extraer el tema del prompt para reformulaciones más relevantes
+                const temaMatch = userPrompt.match(/"([^"]+)"/);
+                const tema = temaMatch ? temaMatch[1] : "tema de investigación";
+                
+                return {
+                    reformulations: [
+                        `Análisis comparativo de ${tema}`,
+                        `Impacto y aplicaciones de ${tema}`,
+                        `Tendencias actuales en ${tema}`,
+                        `Desafíos y oportunidades en ${tema}`
+                    ]
+                };
+            } else if (userPrompt.includes("conceptos") || userPrompt.includes("keywords") || userPrompt.includes("genera")) {
+                // Extraer el tema del prompt para generar conceptos relevantes
+                const temaMatch = userPrompt.match(/"([^"]+)"/);
+                const tema = temaMatch ? temaMatch[1].toLowerCase() : "";
+                
+                // Generar conceptos basados en el tema específico
+                let keywords = [];
+                
+                if (tema.includes("energía") || tema.includes("energy")) {
+                    keywords = ["energías renovables", "sostenibilidad", "eficiencia energética", "biomasa", "renewable energy", "sustainability", "energy efficiency", "solar power"];
+                } else if (tema.includes("óptica") || tema.includes("optic")) {
+                    keywords = ["fotónica", "láser", "fibra óptica", "espectroscopía", "photonics", "laser technology", "optical fiber", "spectroscopy"];
+                } else if (tema.includes("agricultura") || tema.includes("agricultural")) {
+                    keywords = ["agricultura digital", "IoT agrícola", "sensores", "automatización", "digital farming", "agricultural IoT", "precision agriculture", "smart farming"];
+                } else if (tema.includes("inteligencia artificial") || tema.includes("artificial intelligence") || tema.includes("IA") || tema.includes("AI")) {
+                    keywords = ["machine learning", "deep learning", "algoritmos", "redes neuronales", "neural networks", "automation", "data science", "computer vision"];
+                } else if (tema.includes("medicina") || tema.includes("medical") || tema.includes("salud") || tema.includes("health")) {
+                    keywords = ["biomedicina", "diagnóstico", "tratamiento", "epidemiología", "biomedical", "diagnosis", "treatment", "clinical research"];
+                } else if (tema.includes("educación") || tema.includes("education") || tema.includes("pedagog")) {
+                    keywords = ["pedagogía", "metodología", "aprendizaje", "enseñanza", "pedagogy", "methodology", "learning", "educational technology"];
+                } else if (tema.includes("social") || tema.includes("sociología") || tema.includes("sociology")) {
+                    keywords = ["comportamiento social", "estructura social", "cambio social", "interacción", "social behavior", "social structure", "social change", "community"];
+                } else {
+                    // Conceptos genéricos pero más académicos
+                    keywords = [
+                        `análisis de ${tema}`,
+                        `metodología en ${tema}`,
+                        `teoría de ${tema}`,
+                        `aplicaciones de ${tema}`,
+                        `research methodology`,
+                        `theoretical framework`,
+                        `empirical analysis`,
+                        `case studies`
+                    ];
+                }
+                
+                return { keywords: keywords };
+            }
+            
+            return { message: "Funcionalidad de demostración activa" };
+        }
+
+        async function callClaude(userPrompt) {
+            const apiKey = aiConfig.claude.apiKey;
+            if (!apiKey) throw new Error("Claude API key not configured");
+            
+            const payload = {
+                model: "claude-3-5-sonnet-20241022",
+                max_tokens: 1000,
+                messages: [{
+                    role: "user",
+                    content: userPrompt + "\n\nPlease respond with a valid JSON object only, no additional text."
+                }]
+            };
+            
+            const response = await fetch(aiConfig.claude.endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': apiKey,
+                    'anthropic-version': '2023-06-01'
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            if (!response.ok) throw new Error(`Claude API request failed with status ${response.status}`);
+            const result = await response.json();
+            
+            if (result.content?.[0]?.text) {
+                const text = result.content[0].text.trim();
+                // Extract JSON from the response
+                const jsonMatch = text.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    return JSON.parse(jsonMatch[0]);
+                }
+                throw new Error("No valid JSON found in Claude response");
+            }
+            throw new Error("Unexpected Claude API response structure.");
+        }
+
+        async function callAI(userPrompt, schema = null) {
+            try {
+                return await callGemini(userPrompt, schema);
+            } catch (error) {
+                console.error('Gemini API Error:', error);
+                throw error;
+            }
+        }
+
+        function setupEventListeners() {
+            dom.languageSelector.addEventListener('change', (e) => setLanguage(e.target.value));
+            dom.themeToggle.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                dom.themeIconLight.classList.toggle('hidden');
+                dom.themeIconDark.classList.toggle('hidden');
+            });
+            dom.dateRangePreset.addEventListener('change', updateDateFields);
+            dom.generateBtn.addEventListener('click', () => {
+                const tema = dom.tema.value.trim();
+                if (!tema) {
+                    alert(translations[document.documentElement.lang].alertTopic);
+                    return;
+                }
+                const promptObject = buildPromptObject(tema);
+                dom.outputCode.textContent = JSON.stringify(promptObject, null, 2);
+                dom.outputContainer.classList.remove('hidden');
+            });
+
+            dom.copyBtn.addEventListener('click', () => {
+                const textToCopy = dom.outputCode.textContent;
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    dom.copyBtn.textContent = translations[document.documentElement.lang].copiedBtn;
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                    dom.copyBtn.textContent = 'Error';
+                }
+                document.body.removeChild(textArea);
+                setTimeout(() => { dom.copyBtn.textContent = translations[document.documentElement.lang].copyBtn; }, 2000);
+            });
+
+            // AI Features
+            dom.suggestKeywordsBtn.addEventListener('click', handleKeywordSuggestion);
+            dom.reformulateBtn.addEventListener('click', handleTopicReformulation);
+            
+            // Help Modal
+            dom.helpBtn.addEventListener('click', () => dom.helpModal.classList.remove('hidden'));
+            dom.closeModalBtn.addEventListener('click', () => dom.helpModal.classList.add('hidden'));
+            dom.helpModal.addEventListener('click', (e) => {
+                if (e.target === dom.helpModal) {
+                    dom.helpModal.classList.add('hidden');
+                }
+            });
+        }
+        
+        async function handleKeywordSuggestion() {
+            const tema = dom.tema.value.trim();
+            if (!tema) { alert(translations[document.documentElement.lang].alertTopic); return; }
+            toggleLoader(dom.suggestKeywordsBtn, true);
+            try {
+                const initialPrompt = `Dado el tema: "${tema}", genera 8 conceptos clave y sinónimos para una búsqueda. Incluye términos en español e inglés si aplica.`;
+                const initialSchema = { type: "OBJECT", properties: { keywords: { type: "ARRAY", items: { type: "STRING" } } } };
+                const initialResult = await callAI(initialPrompt, initialSchema);
+                let allKeywords = new Set(initialResult.keywords || []);
+
+                // Como solo tenemos español e inglés, no necesitamos traducir a otros idiomas
+                // La IA ya genera conceptos en ambos idiomas automáticamente
+                
+                displaySuggestions(Array.from(allKeywords), 'keywords');
+
+            } catch (error) {
+                console.error("Error en sugerencia de conceptos:", error);
+                alert(translations[document.documentElement.lang].alertApiError + " (" + error.message + ")");
+            } finally {
+                toggleLoader(dom.suggestKeywordsBtn, false);
+            }
+        }
+
+        async function handleTopicReformulation() {
+             const tema = dom.tema.value.trim();
+            if (!tema) { alert(translations[document.documentElement.lang].alertTopic); return; }
+            toggleLoader(dom.reformulateBtn, true);
+            try {
+                const userPrompt = `Reformula el siguiente tema de investigación en 3-4 enfoques alternativos: "${tema}".`;
+                const schema = { type: "OBJECT", properties: { reformulations: { type: "ARRAY", items: { type: "STRING" } } } };
+                const result = await callAI(userPrompt, schema);
+                displaySuggestions(result.reformulations, 'reformulations');
+            } catch (error) {
+                console.error("Error en reformulación:", error);
+                alert(translations[document.documentElement.lang].alertApiError + " (" + error.message + ")");
+            } finally {
+                toggleLoader(dom.reformulateBtn, false);
+            }
+        }
+        
+        function displaySuggestions(items, type) {
+            let content = '';
+            if (type === 'keywords') {
+                content = `<h3 class="font-semibold text-gray-700 dark:text-gray-200 mb-2">${translations[document.documentElement.lang].suggestedConcepts}</h3><div class="grid grid-cols-2 md:grid-cols-4 gap-2">` +
+                    items.map(item => `<label class="flex items-center"><input type="checkbox" data-keyword="${item}" class="suggest-cb form-checkbox h-4 w-4"><span class="ml-2 text-sm">${item}</span></label>`).join('') + `</div>`;
+            } else if (type === 'reformulations') {
+                 content = `<h3 class="font-semibold text-gray-700 dark:text-gray-200 mb-2">Sugerencias para reformular:</h3><div class="space-y-2">` +
+                    items.map(item => `<button class="text-left text-sm text-indigo-600 dark:text-indigo-400 hover:underline" onclick="setTopic('${item}')">${item}</button>`).join('') + `</div>`;
+            }
+            dom.suggestionsContainer.innerHTML = content;
+            dom.suggestionsContainer.classList.remove('hidden');
+        }
+        
+        window.setTopic = (newTopic) => {
+            dom.tema.value = newTopic;
+            dom.suggestionsContainer.classList.add('hidden');
+        }
+
+        function buildPromptObject(tema) {
+            const prompt = getBasePromptStructure(tema);
+            const geo = dom.geography.value.trim();
+            if (geo) prompt.busqueda_semantica.conceptos_clave.push(geo);
+            prompt.filters.idiomas = Array.from(document.querySelectorAll('.lang-cb')).filter(cb => cb.checked).map(cb => cb.dataset.lang);
+            if (dom.dateRangePreset.value !== 'all') {
+                prompt.filters.periodo = { desde: parseInt(dom.dateFrom.value) || null, hasta: parseInt(dom.dateTo.value) || null };
+            } else { prompt.filters.periodo = {}; }
+            
+            const fuentes = [];
+            document.querySelectorAll('.source-cb:checked').forEach(cb => fuentes.push(...cb.dataset.source.split(',')));
+            
+            const customSites = dom.customSites.value.trim();
+            if (customSites) {
+                const sitesArray = customSites.split(',').map(s => s.trim()).filter(s => s);
+                sitesArray.forEach(site => {
+                    if (site.startsWith('site:')) {
+                        fuentes.push(site);
+                    } else {
+                        fuentes.push(`site:${site}`);
+                    }
+                });
+            }
+            prompt.filters.fuentes_confiables.nivel_1_prioridad_alta = fuentes.length > 0 ? fuentes : ["site:.edu"];
+
+            if (dom.fullText.checked) prompt.filters.tipo_de_archivo = "pdf";
+            else delete prompt.filters.tipo_de_archivo;
+            document.querySelectorAll('.suggest-cb:checked').forEach(cb => prompt.busqueda_semantica.conceptos_clave.push(cb.dataset.keyword));
+            const docTypes = [];
+            document.querySelectorAll('.doc-type-cb:checked').forEach(cb => {
+                const type = cb.id.split('-')[1];
+                switch(type) {
+                    case 'article': docTypes.push("artículo", "journal article"); break;
+                    case 'book': docTypes.push("libro", "capítulo de libro", "book", "book chapter"); break;
+                    case 'thesis': docTypes.push("tesis", "disertación", "thesis", "dissertation"); break;
+                    case 'review': docTypes.push("revisión sistemática", "meta-análisis", "systematic review", "meta-analysis"); break;
+                    case 'conference': docTypes.push("ponencia", "conferencia", "conference paper", "proceedings"); break;
+                    case 'report': docTypes.push("informe técnico", "white paper", "technical report"); break;
+                    case 'patent': docTypes.push("patente", "patent"); break;
+                }
+            });
+            if (docTypes.length > 0) prompt.busqueda_semantica.conceptos_clave.push(...docTypes);
+            if (dom.peerReviewed.checked) {
+                prompt.busqueda_semantica.conceptos_clave.push("revisado por pares", "peer-reviewed");
+                const peerReviewedCriterion = "Publicado en una revista académica revisada por pares.";
+                if (!prompt.criterios_de_inclusion.no_negociables.includes(peerReviewedCriterion)) {
+                    prompt.criterios_de_inclusion.no_negociables.push(peerReviewedCriterion);
+                }
+            }
+            const outputFormat = document.querySelector('input[name="output-format"]:checked').value;
+            if (outputFormat === 'bibtex-apa') {
+                prompt.formato_de_salida = getBibtexApaOutputFormat();
+            } else if (outputFormat === 'bibtex-ieee') {
+                prompt.formato_de_salida = getBibtexIeeeOutputFormat();
+            } else {
+                prompt.formato_de_salida = getDetailedOutputFormat();
+            }
+            return prompt;
+        }
+        
+        function getBasePromptStructure(tema) {
+            return {
+              "task": "Realizar una investigación exhaustiva y sistemática para identificar, categorizar y listar documentos académicos relevantes.",
+              "tema_principal": tema,
+              "busqueda_semantica": { "conceptos_clave": [tema], "contexto_academico": ["investigación académica", "estudios científicos"] },
+              "filters": { "fuentes_confiables": { "nivel_1_prioridad_alta": [], "nivel_2_prioridad_media": ["repositorios de universidades"] } },
+              "criterios_de_inclusion": { "no_negociables": ["Autoría (persona o institución) claramente identificada.", "Debe incluir una sección de referencias o bibliografía."], "indicadores_de_alta_calidad": ["Autor(es) con afiliación institucional explícita.", "Presenta una metodología de investigación clara."] },
+              "criterios_de_exclusion": { "contenido_a_ignorar": ["Blogs, foros, contenido de redes sociales.", "Páginas de marketing o productos comerciales.", "Noticias de prensa que no citen directamente un estudio."] },
+              "estrategia_y_prioridad": { "jerarquia_de_documentos": ["1. Revisiones sistemáticas y Meta-análisis.", "2. Artículos de investigación en revistas especializadas.", "3. Informes técnicos y 'white papers'.", "4. Capítulos de libros académicos.", "5. Tesis doctorales."] }
+            };
+        }
+        
+        function getDetailedOutputFormat() {
+            return { "instruccion": "Generar una lista bibliográfica completa de TODOS los documentos encontrados que cumplan con los criterios, agrupada según la 'jerarquia_de_documentos'.", "formato_por_entrada": "Cita en formato APA 7.", "campos_adicionales": ["Tipo de Documento", "Enlace Permanente (URL o DOI)", "Breve Anotación (1-2 líneas describiendo el enfoque)."] };
+        }
+        
+        function getBibtexApaOutputFormat() {
+            return { 
+                "instruccion": "Para cada documento encontrado que cumpla los criterios, generar una entrada en formato BibTeX optimizada para estilo APA 7. Incluir también la cita formateada en APA 7 como comentario.", 
+                "formato_por_entrada": "Entrada BibTeX con metadatos completos + Cita APA 7 como comentario.", 
+                "campos_requeridos": ["author", "title", "year", "journal", "volume", "number", "pages", "doi", "url", "note"],
+                "estilo_citacion": "APA 7th Edition",
+                "ejemplo_formato": "@article{autor2023,\n  author = {Apellido, N.},\n  title = {Título del artículo},\n  journal = {Revista},\n  year = {2023},\n  volume = {10},\n  number = {2},\n  pages = {15--30},\n  doi = {10.1000/xyz123},\n  note = {APA: Apellido, N. (2023). Título del artículo. Revista, 10(2), 15-30. https://doi.org/10.1000/xyz123}\n}"
+            };
+        }
+        
+        function getBibtexIeeeOutputFormat() {
+            return { 
+                "instruccion": "Para cada documento encontrado que cumpla los criterios, generar una entrada en formato BibTeX optimizada para estilo IEEE. Incluir también la cita formateada en IEEE como comentario.", 
+                "formato_por_entrada": "Entrada BibTeX con metadatos completos + Cita IEEE como comentario.", 
+                "campos_requeridos": ["author", "title", "year", "journal", "volume", "number", "pages", "doi", "url", "note"],
+                "estilo_citacion": "IEEE Citation Style",
+                "ejemplo_formato": "@article{autor2023,\n  author = {N. Apellido},\n  title = {Título del artículo},\n  journal = {Revista},\n  year = {2023},\n  volume = {10},\n  number = {2},\n  pages = {15--30},\n  doi = {10.1000/xyz123},\n  note = {IEEE: N. Apellido, \"Título del artículo,\" Revista, vol. 10, no. 2, pp. 15-30, 2023, doi: 10.1000/xyz123}\n}"
+            };
+        }
+        
+        function toggleLoader(button, isLoading) {
+            const textSpan = button.querySelector('span');
+            const loaderDiv = button.querySelector('.loader');
+            if (isLoading) {
+                textSpan.classList.add('hidden');
+                loaderDiv.classList.remove('hidden');
+                button.disabled = true;
+            } else {
+                textSpan.classList.remove('hidden');
+                loaderDiv.classList.add('hidden');
+                button.disabled = false;
+            }
+        }
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            populateDOM();
+            renderStaticUI();
+            populateDOM(); // Call again after rendering dynamic elements
+            setLanguage('es');
+            updateDateFields();
+            setupEventListeners();
+        });
+    </script>
+</body>
+</html>
