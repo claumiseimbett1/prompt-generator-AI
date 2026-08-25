@@ -1,0 +1,23 @@
+# Dependencies / tooling (static site — not needed)
+node_modules/
+package.json
+package-lock.json
+npm-debug.log*
+yarn-error.log*
+
+# Temp / diagnostic scripts
+_*.py
+_*.js
+_check_js.js
+_runtime_test.js
+_diag*.py
+
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+.idea/
+.vscode/
+*.log
