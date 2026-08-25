@@ -359,7 +359,8 @@ textarea:focus {
   background-color: #ffffff;
   border: 2px solid var(--beige-dark);
   border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.65rem 0.75rem;
+  min-height: 2.75rem;
   color: var(--text-secondary);
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -580,6 +581,7 @@ html.dark .form-radio:checked {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.45) 55%, transparent 100%);
   color: #fff;
   pointer-events: none;
+  padding: 1.25rem 1rem 1.35rem;
 }
 
 /* Pie de créditos: banda de marca + panel al hover */
@@ -631,6 +633,8 @@ html.dark .form-radio:checked {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   padding: 0 1rem;
   background: rgba(255, 255, 255, 0.55);
   border-top: 0 solid transparent;
@@ -656,7 +660,6 @@ html.dark .form-radio:checked {
   text-underline-offset: 2px;
 }
 
-.app-credits .credits-bar:hover,
 .app-credits .credits-bar:focus-within,
 .app-credits .credits-bar.is-open {
   box-shadow: 0 10px 28px rgba(255, 252, 0, 0.35), 0 6px 18px rgba(184, 160, 130, 0.35);
@@ -664,13 +667,11 @@ html.dark .form-radio:checked {
   border-color: var(--beige-hover);
 }
 
-.app-credits .credits-bar:hover .credits-hint-chevron,
 .app-credits .credits-bar:focus-within .credits-hint-chevron,
 .app-credits .credits-bar.is-open .credits-hint-chevron {
   transform: rotate(180deg);
 }
 
-.app-credits .credits-bar:hover .credits-panel,
 .app-credits .credits-bar:focus-within .credits-panel,
 .app-credits .credits-bar.is-open .credits-panel {
   max-height: 22rem;
@@ -678,6 +679,26 @@ html.dark .form-radio:checked {
   padding: 0.85rem 1rem 1rem;
   border-top: 1px solid rgba(184, 160, 130, 0.45);
   pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .app-credits .credits-bar:hover {
+    box-shadow: 0 10px 28px rgba(255, 252, 0, 0.35), 0 6px 18px rgba(184, 160, 130, 0.35);
+    transform: translateY(-2px);
+    border-color: var(--beige-hover);
+  }
+
+  .app-credits .credits-bar:hover .credits-hint-chevron {
+    transform: rotate(180deg);
+  }
+
+  .app-credits .credits-bar:hover .credits-panel {
+    max-height: 22rem;
+    opacity: 1;
+    padding: 0.85rem 1rem 1rem;
+    border-top: 1px solid rgba(184, 160, 130, 0.45);
+    pointer-events: auto;
+  }
 }
 
 html.dark .app-credits .credits-bar {
@@ -1062,6 +1083,8 @@ html.dark .btn-icon:hover {
   .sm\:w-auto { width: auto; }
   .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sm\:flex-1 { flex: 1 1 0%; }
+  .sm\:p-4 { padding: 1rem; }
+  .sm\:p-6 { padding: 1.5rem; }
 }
 
 @media (min-width: 768px) {
@@ -1176,4 +1199,102 @@ html.dark .suggestion-chip {
 html.dark .suggestion-chip:hover {
   background: var(--yellow);
   color: var(--black);
+}
+
+/* Utilities used in markup */
+.py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+.opacity-80 { opacity: 0.8; }
+.inline-flex { display: inline-flex; }
+
+#language-selector {
+  font-size: 16px;
+  min-height: 2.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+#instructions-toggle,
+#download-manual-btn {
+  min-height: 2.75rem;
+}
+
+#doc-type-container > label {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.6rem;
+  border: 2px solid var(--beige-dark);
+  border-radius: 0.5rem;
+  background: #fff;
+  min-width: 0;
+}
+
+#doc-type-container > label span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: 0.875rem;
+  line-height: 1.25;
+}
+
+html.dark #doc-type-container > label {
+  background: var(--gray-700);
+  border-color: var(--gray-500);
+  color: var(--gray-100);
+}
+
+/* Mobile refinements */
+@media (max-width: 640px) {
+  body {
+    align-items: flex-start;
+  }
+
+  .app-card {
+    padding: 1rem;
+  }
+
+  .filter-section {
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .app-hero .hero-logo img {
+    width: 5.75rem;
+    height: 2.85rem;
+  }
+
+  .app-hero .hero-img {
+    max-height: 190px;
+  }
+
+  .app-hero .hero-copy #main-title {
+    font-size: 1.35rem;
+    line-height: 1.3;
+  }
+
+  .app-hero .hero-copy #subtitle {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+
+  .app-credits .credits-hint {
+    min-height: 2.75rem;
+    padding: 0.75rem 0.85rem;
+    font-size: 0.78rem;
+    text-align: center;
+  }
+
+  #sources-container > label.choice-btn {
+    min-height: 2.75rem;
+  }
+
+  #output-format-container > label.choice-btn {
+    min-height: 2.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:mb-6 { margin-bottom: 1.5rem; }
+  .md\:py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+
+  .app-hero .hero-copy {
+    padding-bottom: 1.75rem;
+  }
 }
