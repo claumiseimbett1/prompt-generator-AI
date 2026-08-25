@@ -341,22 +341,23 @@ textarea:focus {
 .form-checkbox { border-radius: 0.25rem; }
 .form-radio { border-radius: 9999px; }
 
+
 .form-checkbox:checked,
 .form-radio:checked {
-  background-color: var(--black);
-  border-color: var(--black);
+  background-color: var(--beige-dark);
+  border-color: var(--beige-dark);
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
-  box-shadow: 0 0 0 2px var(--yellow);
+  box-shadow: 0 0 0 2px rgba(255, 252, 0, 0.35);
 }
 
 .form-checkbox:checked {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='%23fffc00' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
 }
 
 .form-radio:checked {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3.5'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='%23fffc00' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3.2'/%3E%3C/svg%3E");
 }
 
 .form-checkbox:focus-visible,
@@ -365,16 +366,16 @@ textarea:focus {
   outline-offset: 2px;
 }
 
-/* Choice buttons: high-contrast selection (light + dark) */
+/* Choice buttons: subtle brand selection */
 .choice-btn,
 #output-format-container > label,
 #sources-container > label,
 #quality-container > label {
   position: relative;
-  background-color: #ffffff;
+  background-color: var(--beige-light);
   background-image: none;
-  border: 2px solid #c4b5a0;
-  color: #333333;
+  border: 2px solid var(--beige-muted);
+  color: var(--text-secondary);
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
@@ -384,8 +385,8 @@ textarea:focus {
 #output-format-container > label:hover,
 #sources-container > label:hover,
 #quality-container > label:hover {
-  border-color: #d5b690;
-  background-color: #f7f1e6;
+  border-color: var(--beige-dark);
+  background-color: #efe6d6;
 }
 
 .choice-btn.is-selected,
@@ -400,48 +401,28 @@ textarea:focus {
 #quality-container > label:has(input:checked):hover,
 .choice-btn:has(input:checked),
 .choice-btn:has(input:checked):hover {
-  background-color: var(--yellow) !important;
+  background-color: rgba(255, 252, 0, 0.35) !important;
   background-image: none !important;
-  border: 3px solid #111111 !important;
-  color: #111111 !important;
-  box-shadow: inset 0 0 0 3px #ffffff, 0 0 0 3px var(--yellow), 0 6px 16px rgba(0, 0, 0, 0.2) !important;
-}
-
-.choice-btn.is-selected::before,
-.choice-btn[data-selected="true"]::before,
-.choice-btn:has(input:checked)::before {
-  content: "✓";
-  position: absolute;
-  top: 0.4rem;
-  right: 0.45rem;
-  width: 1.35rem;
-  height: 1.35rem;
-  border-radius: 9999px;
-  background: #111111;
-  color: var(--yellow);
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1.35rem;
-  text-align: center;
-  z-index: 2;
-  pointer-events: none;
+  border: 2px solid var(--beige-dark) !important;
+  color: var(--text-secondary) !important;
+  box-shadow: 0 2px 10px rgba(213, 182, 144, 0.35) !important;
 }
 
 .choice-btn.is-selected .font-medium,
 .choice-btn[data-selected="true"] .font-medium,
 #output-format-container > label:has(input:checked) .font-medium,
 .choice-btn:has(input:checked) .font-medium {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 html.dark .choice-btn,
 html.dark #output-format-container > label,
 html.dark #sources-container > label,
 html.dark #quality-container > label {
-  background-color: #374151;
+  background-color: var(--gray-700);
   background-image: none;
-  border-color: #6b7280;
-  color: #e5e7eb;
+  border-color: var(--gray-600);
+  color: var(--gray-200);
 }
 
 html.dark .choice-btn.is-selected,
@@ -456,18 +437,18 @@ html.dark #quality-container > label:has(input:checked),
 html.dark #quality-container > label:has(input:checked):hover,
 html.dark .choice-btn:has(input:checked),
 html.dark .choice-btn:has(input:checked):hover {
-  background-color: var(--yellow) !important;
+  background-color: rgba(255, 252, 0, 0.22) !important;
   background-image: none !important;
-  border: 3px solid var(--yellow) !important;
-  color: #111111 !important;
-  box-shadow: inset 0 0 0 2px #111111, 0 0 0 3px var(--yellow), 0 6px 16px rgba(255, 252, 0, 0.25) !important;
+  border: 2px solid var(--beige-dark) !important;
+  color: var(--beige-light) !important;
+  box-shadow: 0 2px 12px rgba(255, 252, 0, 0.12) !important;
 }
 
-html.dark .choice-btn.is-selected::before,
-html.dark .choice-btn[data-selected="true"]::before,
-html.dark .choice-btn:has(input:checked)::before {
-  background: #111111;
-  color: var(--yellow);
+html.dark .form-checkbox:checked,
+html.dark .form-radio:checked {
+  background-color: var(--beige-dark);
+  border-color: var(--beige-dark);
+  box-shadow: 0 0 0 2px rgba(255, 252, 0, 0.35);
 }
 
 /* â€”â€”â€” Components â€”â€”â€” */
@@ -1285,10 +1266,10 @@ html.dark .suggestion-chip:hover {
                 label.classList.toggle('is-selected', on);
                 label.setAttribute('data-selected', on ? 'true' : 'false');
                 if (on) {
-                    label.style.setProperty('background-color', '#fffc00', 'important');
-                    label.style.setProperty('border', '3px solid #111111', 'important');
-                    label.style.setProperty('color', '#111111', 'important');
-                    label.style.setProperty('box-shadow', 'inset 0 0 0 3px #ffffff, 0 0 0 3px #fffc00, 0 6px 16px rgba(0,0,0,0.2)', 'important');
+                    label.style.setProperty('background-color', 'rgba(255, 252, 0, 0.35)', 'important');
+                    label.style.setProperty('border', '2px solid #d5b690', 'important');
+                    label.style.setProperty('color', '#333333', 'important');
+                    label.style.setProperty('box-shadow', '0 2px 10px rgba(213, 182, 144, 0.35)', 'important');
                 } else {
                     label.style.removeProperty('background-color');
                     label.style.removeProperty('border');
