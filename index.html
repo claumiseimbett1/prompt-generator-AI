@@ -493,10 +493,16 @@ html.dark .form-radio:checked {
   .app-hero .hero-banner:hover .hero-logo img {
     transform: scale(1.04);
   }
+  .app-hero .hero-banner:hover .hero-logo {
+    transform: translateX(-50%);
+  }
 }
 
 .app-hero .hero-logo {
   z-index: 3;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
   transition: transform 0.35s ease;
 }
 
@@ -509,6 +515,7 @@ html.dark .form-radio:checked {
   border-radius: 0.45rem;
   padding: 0.25rem 0.4rem;
   transition: transform 0.35s ease;
+  display: block;
 }
 
 .app-hero .hero-copy {
@@ -549,8 +556,9 @@ html.dark .app-hero .hero-logo img {
     max-height: 320px;
   }
   .app-hero .hero-logo {
-    top: 0.75rem;
-    left: 0.75rem;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .app-hero .hero-logo img {
     width: 10rem;
@@ -962,7 +970,7 @@ html.dark .suggestion-chip:hover {
                     class="hero-img w-full"
                     decoding="async"
                 >
-                <div class="hero-logo absolute top-3 left-3">
+                <div class="hero-logo absolute">
                     <img
                         src="logo/logo-CMSI.png"
                         alt="Logo CMSI"
