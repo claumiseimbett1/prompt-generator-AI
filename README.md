@@ -67,10 +67,11 @@ Al elegir **BibTeX + APA** o **BibTeX + IEEE**, la app:
 ## Uso rápido
 
 1. Escribe tu **tema de investigación**
-2. (Opcional) Elige una **plantilla por área** para precargar filtros
-3. Usa **Reformular** o **Sugerir Conceptos** para refinar la búsqueda
-4. Ajusta filtros, fuentes y formato de salida
-5. Pulsa **Generar Prompt**, revisa la validación BibTeX si aplica, y **Copiar**
+2. (Opcional) Elige una **plantilla** por área o tipo de revisión
+3. Usa **Reformular** o **Sugerir Conceptos** para refinar
+4. Ajusta filtros, fuentes y criterios de calidad
+5. Escoge el **formato de salida** (lienzo, PRISMA, alcance, meta-análisis, estado del arte o BibTeX)
+6. Genera el prompt, revisa avisos BibTeX si aplica, y **Copia** para pegarlo en tu IA
 
 ### IAs sugeridas
 ChatGPT, Claude, Perplexity, Llama, Gemini, Copilot, Groq, Mistral, DeepSeek, etc.
