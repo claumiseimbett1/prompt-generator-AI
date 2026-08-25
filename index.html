@@ -362,6 +362,49 @@ textarea:focus {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
 }
 
+/* Idiomas: cajas blancas */
+#languages-container .lang-option {
+  background-color: #ffffff;
+  border: 2px solid var(--beige-dark);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#languages-container .lang-option:hover {
+  border-color: var(--beige-hover);
+}
+
+#languages-container .lang-option:has(.lang-cb:checked) {
+  border-color: var(--beige-hover);
+  box-shadow: 0 0 0 2px rgba(255, 252, 0, 0.35);
+}
+
+#languages-container .lang-cb.form-checkbox,
+#languages-container .lang-cb.form-checkbox:checked {
+  background-color: #ffffff;
+  border-color: var(--beige-dark);
+}
+
+#languages-container .lang-cb.form-checkbox:checked {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+  box-shadow: none;
+}
+
+html.dark #languages-container .lang-option {
+  background-color: var(--gray-700);
+  border-color: var(--gray-500);
+  color: var(--gray-100);
+}
+
+html.dark #languages-container .lang-cb.form-checkbox,
+html.dark #languages-container .lang-cb.form-checkbox:checked {
+  background-color: #ffffff;
+  border-color: var(--beige-dark);
+}
+
 .form-radio:checked {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3.2'/%3E%3C/svg%3E");
 }
@@ -1435,7 +1478,7 @@ html.dark .suggestion-chip:hover {
 
         function renderStaticUI() {
             dom.languagesContainer.innerHTML = staticData.languages.map(lang => `
-                <label class="flex items-center"><input type="checkbox" data-lang="${lang.id}" class="lang-cb form-checkbox h-5 w-5" ${lang.checked ? 'checked' : ''}><span class="ml-2">${lang.name}</span></label>
+                <label class="lang-option flex items-center"><input type="checkbox" data-lang="${lang.id}" class="lang-cb form-checkbox h-5 w-5" ${lang.checked ? 'checked' : ''}><span class="ml-2">${lang.name}</span></label>
             `).join('');
 
             dom.sourcesContainer.innerHTML = staticData.sources.map(src => `
