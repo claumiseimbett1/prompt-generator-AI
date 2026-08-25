@@ -499,13 +499,13 @@ html.dark .choice-btn:has(input:checked)::before {
 }
 
 .app-hero .hero-logo img {
-  width: 4.25rem;
-  height: 2.125rem;
+  width: 7.5rem;
+  height: 3.75rem;
   object-fit: contain;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 0.35rem;
-  padding: 0.15rem 0.25rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.28));
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 0.45rem;
+  padding: 0.25rem 0.4rem;
   transition: transform 0.35s ease;
 }
 
@@ -551,8 +551,8 @@ html.dark .app-hero .hero-logo img {
     left: 0.75rem;
   }
   .app-hero .hero-logo img {
-    width: 5.25rem;
-    height: 2.625rem;
+    width: 10rem;
+    height: 5rem;
   }
   .app-hero .hero-copy {
     padding-bottom: 1.75rem;
