@@ -315,10 +315,11 @@ textarea {
 .form-checkbox:checked,
 .form-radio:checked {
   background-color: var(--beige-dark);
-  border-color: var(--beige-dark);
+  border-color: var(--black);
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
+  box-shadow: 0 0 0 2px var(--yellow);
 }
 
 .form-checkbox:checked {
@@ -326,13 +327,37 @@ textarea {
 }
 
 .form-radio:checked {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3.5'/%3E%3C/svg%3E");
 }
 
 .form-checkbox:focus-visible,
 .form-radio:focus-visible {
   outline: 2px solid var(--beige-dark);
   outline-offset: 2px;
+}
+
+/* Selected option cards (formato, fuentes, calidad) */
+#output-format-container > label,
+#sources-container > label,
+#quality-container > label {
+  border-width: 2px;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#output-format-container > label:has(input:checked),
+#sources-container > label:has(input:checked),
+#quality-container > label:has(input:checked) {
+  background-color: var(--beige-light);
+  border-color: var(--beige-dark);
+  box-shadow: 0 0 0 2px var(--yellow);
+}
+
+html.dark #output-format-container > label:has(input:checked),
+html.dark #sources-container > label:has(input:checked),
+html.dark #quality-container > label:has(input:checked) {
+  background-color: rgba(213, 182, 144, 0.22);
+  border-color: var(--beige-dark);
+  box-shadow: 0 0 0 2px var(--yellow);
 }
 
 /* â€”â€”â€” Components â€”â€”â€” */
@@ -342,17 +367,17 @@ textarea {
 }
 
 .btn-primary {
-  background: var(--beige-dark);
-  color: #fff;
+  background: var(--gradient-yellow-beige);
+  color: var(--black);
   transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   border: 2px solid var(--beige-dark);
 }
 
 .btn-primary:hover {
-  background: var(--beige-hover);
-  color: #fff;
+  background: var(--beige-dark);
+  color: var(--white);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(213, 182, 144, 0.35);
+  box-shadow: 0 8px 25px rgba(213, 182, 144, 0.3);
 }
 
 .btn-primary:active {
@@ -362,13 +387,13 @@ textarea {
 .btn-secondary {
   background: var(--beige-light);
   color: var(--text-secondary);
-  border: 2px solid var(--beige-dark);
+  border: 2px solid var(--beige-muted);
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-secondary:hover {
-  background: var(--beige-dark);
-  color: #fff;
+  background: var(--gradient-yellow-beige);
+  color: var(--black);
   border-color: var(--beige-dark);
   transform: translateY(-1px);
 }
@@ -495,7 +520,8 @@ html.dark .form-radio {
 html.dark .form-checkbox:checked,
 html.dark .form-radio:checked {
   background-color: var(--beige-dark);
-  border-color: var(--beige-dark);
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 2px var(--yellow);
 }
 
 html.dark .filter-section {
