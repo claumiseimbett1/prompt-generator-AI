@@ -1,4 +1,4 @@
-﻿/* Local stylesheet â€” no CDN / no Tailwind Play JS (Edge Tracking Prevention safe) */
+/* Local stylesheet â€” no CDN / no Tailwind Play JS (Edge Tracking Prevention safe) */
 
 :root {
   --beige-light: #f3ede0;
@@ -582,26 +582,27 @@ html.dark .app-hero .hero-logo img {
 }
 
 .btn-primary {
-  background: var(--yellow);
-  color: var(--black);
-  border: 2px solid var(--beige-hover);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  background-color: #fffc00;
+  background-image: none;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .btn-primary:hover,
 a.btn-primary:hover {
-  background: var(--beige-hover);
-  color: var(--black);
-  border-color: var(--beige-hover);
+  background-color: #b8a082;
+  color: #000000;
+  border-color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(184, 160, 130, 0.45);
 }
 
 .btn-primary:active {
   transform: translateY(0) scale(0.98);
-  background: var(--beige-dark);
-  color: var(--black);
+  background-color: #d5b690;
+  color: #000000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
@@ -611,20 +612,21 @@ a.btn-primary:hover {
 }
 
 .btn-secondary {
-  background: var(--beige-hover);
-  color: var(--black);
-  border: 2px solid var(--beige-hover);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  background-color: #b8a082;
+  background-image: none;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .btn-secondary:hover,
 a.btn-secondary:hover {
-  background: var(--yellow);
-  color: var(--black);
-  border-color: var(--beige-hover);
+  background-color: #fffc00;
+  color: #000000;
+  border-color: #000000;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(255, 252, 0, 0.4);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
 }
 
 .btn-secondary:active,
@@ -921,10 +923,38 @@ html.dark .btn-icon:hover {
 #instructions-toggle.is-open .instructions-chevron {
   transform: rotate(180deg);
 }
+/* Instrucciones + manual: contraste forzado sobre fondo blanco */
+#instructions-toggle,
+#download-manual-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+}
+
+#instructions-toggle {
+  background-color: #b8a082 !important;
+  background-image: none !important;
+}
+
+#download-manual-btn {
+  background-color: #fffc00 !important;
+  background-image: none !important;
+}
+
+#instructions-toggle:hover {
+  background-color: #fffc00 !important;
+}
+
+#download-manual-btn:hover {
+  background-color: #b8a082 !important;
+}
+
 #instructions-toggle.is-open {
-  background-color: var(--yellow);
-  color: var(--black);
-  border-color: var(--beige-dark);
+  background-color: #fffc00 !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
 }
 
 
