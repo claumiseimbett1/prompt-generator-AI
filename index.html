@@ -600,10 +600,10 @@ a.btn-primary:hover {
 }
 
 .btn-secondary {
-  background: var(--beige-light);
-  color: var(--text-secondary);
-  border: 2px solid var(--beige-dark);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  background: var(--beige-dark);
+  color: var(--black);
+  border: 2px solid var(--beige-hover);
+  box-shadow: 0 2px 6px rgba(213, 182, 144, 0.35);
   transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
@@ -645,9 +645,9 @@ a.btn-secondary:hover {
 
 /* Icon toolbar buttons (help / theme) */
 .btn-icon {
-  background: var(--beige-light);
-  color: var(--text-secondary);
-  border: 2px solid var(--beige-dark);
+  background: var(--beige-dark);
+  color: var(--black);
+  border: 2px solid var(--beige-hover);
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 .btn-icon:hover {
@@ -816,9 +816,9 @@ html.dark a.btn-primary:hover {
 }
 
 html.dark .btn-secondary {
-  background: var(--beige-light);
-  color: var(--text-secondary);
-  border-color: var(--beige-dark);
+  background: var(--beige-dark);
+  color: var(--black);
+  border-color: var(--beige-hover);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
 }
 
@@ -840,9 +840,9 @@ html.dark #suggestKeywordsBtn.is-active {
 }
 
 html.dark .btn-icon {
-  background: var(--gray-700);
-  color: var(--gray-200);
-  border-color: var(--beige-dark);
+  background: var(--beige-dark);
+  color: var(--black);
+  border-color: var(--beige-hover);
 }
 html.dark .btn-icon:hover {
   background: var(--yellow);
@@ -980,7 +980,7 @@ html.dark .suggestion-chip:hover {
 
         <!-- Idioma y controles -->
         <div class="flex flex-col sm:flex-row justify-center sm:justify-end items-center mb-6 md:mb-8 space-y-2 sm:space-y-0 sm:space-x-4">
-             <select id="language-selector" class="bg-[#f3ede0] dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md px-2 py-1 text-sm border border-[#d5b690]">
+             <select id="language-selector" class="bg-[#d5b690] text-[#333] rounded-md px-2 py-1 text-sm border border-[#b8a082]">
                 <option value="es">Español</option>
                 <option value="en">English</option>
             </select>
