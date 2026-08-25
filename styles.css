@@ -828,22 +828,22 @@ a.btn-primary:hover {
 }
 
 .btn-secondary {
-  background-color: var(--beige-hover);
-  background-image: var(--gradient-beige-warm);
-  color: #000000;
-  border: 2px solid var(--beige-dark);
-  box-shadow: 0 2px 10px rgba(184, 160, 130, 0.35);
-  transition: background-image 0.25s ease, background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  background-color: #000000;
+  background-image: none;
+  color: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .btn-secondary:hover,
 a.btn-secondary:hover {
   background-color: var(--yellow);
-  background-image: var(--gradient-yellow-beige);
+  background-image: none;
   color: #000000;
-  border-color: var(--beige-hover);
+  border-color: #000000;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(255, 252, 0, 0.35);
+  box-shadow: 0 8px 22px rgba(255, 252, 0, 0.4);
 }
 
 .btn-secondary:active,
@@ -853,9 +853,9 @@ a.btn-secondary:hover {
 #reformulateBtn:active,
 #suggestKeywordsBtn:active {
   background-color: var(--yellow) !important;
-  background-image: var(--gradient-yellow-beige) !important;
+  background-image: none !important;
   color: #000000 !important;
-  border-color: var(--beige-hover) !important;
+  border-color: #000000 !important;
   transform: translateY(0) scale(0.98);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14) !important;
 }
@@ -864,7 +864,7 @@ a.btn-secondary:hover {
 #reformulateBtn:disabled.is-active,
 #suggestKeywordsBtn:disabled.is-active {
   background-color: var(--yellow) !important;
-  background-image: var(--gradient-yellow-beige) !important;
+  background-image: none !important;
   color: #000000 !important;
   opacity: 1;
   cursor: wait;
@@ -873,6 +873,30 @@ a.btn-secondary:hover {
 .btn-secondary:focus-visible {
   outline: 3px solid var(--yellow);
   outline-offset: 2px;
+}
+
+/* Generar Prompt: mismo estilo docencia (negro → amarillo) */
+#generateBtn {
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+}
+
+#generateBtn:hover {
+  background-color: var(--yellow) !important;
+  background-image: none !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 252, 0, 0.4);
+}
+
+#generateBtn:active {
+  background-color: var(--yellow) !important;
+  color: #000000 !important;
+  transform: translateY(0) scale(0.98);
 }
 
 /* Icon toolbar buttons (help / theme) */
@@ -1053,19 +1077,19 @@ html.dark a.btn-primary:hover {
 }
 
 html.dark .btn-secondary {
-  background-color: var(--beige-hover);
-  background-image: var(--gradient-beige-warm);
-  color: var(--black);
-  border-color: var(--beige-hover);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+  background-color: #000000;
+  background-image: none;
+  color: #ffffff;
+  border-color: #000000;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
 }
 
 html.dark .btn-secondary:hover,
 html.dark a.btn-secondary:hover {
   background-color: var(--yellow);
-  background-image: var(--gradient-yellow-beige);
-  color: var(--black);
-  border-color: var(--beige-hover);
+  background-image: none;
+  color: #000000;
+  border-color: #000000;
   box-shadow: 0 8px 22px rgba(255, 252, 0, 0.3);
 }
 
@@ -1074,9 +1098,21 @@ html.dark .btn-secondary.is-active,
 html.dark #reformulateBtn.is-active,
 html.dark #suggestKeywordsBtn.is-active {
   background-color: var(--yellow);
-  background-image: var(--gradient-yellow-beige);
-  color: var(--black);
-  border-color: var(--beige-hover);
+  background-image: none;
+  color: #000000;
+  border-color: #000000;
+}
+
+html.dark #generateBtn {
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+html.dark #generateBtn:hover {
+  background-color: var(--yellow) !important;
+  color: #000000 !important;
 }
 
 html.dark .btn-icon {
@@ -1156,38 +1192,42 @@ html.dark .btn-icon:hover {
 #download-manual-btn {
   -webkit-appearance: none;
   appearance: none;
-  color: #000000 !important;
-  border: 2px solid var(--beige-hover) !important;
-  box-shadow: 0 2px 12px rgba(213, 182, 144, 0.4);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
 }
 
 #instructions-toggle {
-  background-color: var(--beige-hover) !important;
-  background-image: var(--gradient-beige-warm) !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
 }
 
 #download-manual-btn {
   background-color: var(--beige-dark) !important;
   background-image: var(--gradient-yellow-deep) !important;
+  color: #000000 !important;
+  border: 2px solid var(--beige-hover) !important;
 }
 
 #instructions-toggle:hover {
   background-color: var(--yellow) !important;
-  background-image: var(--gradient-yellow-beige) !important;
-  border-color: var(--beige-dark) !important;
+  background-image: none !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
 }
 
 #download-manual-btn:hover {
   background-color: var(--beige-hover) !important;
   background-image: var(--gradient-beige-warm) !important;
   border-color: var(--beige-hover) !important;
+  color: #000000 !important;
 }
 
 #instructions-toggle.is-open {
   background-color: var(--yellow) !important;
-  background-image: var(--gradient-yellow-beige) !important;
+  background-image: none !important;
   color: #000000 !important;
-  border-color: var(--beige-dark) !important;
+  border-color: #000000 !important;
 }
 
 
