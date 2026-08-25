@@ -18,7 +18,7 @@
   --gray-700: #374151;
   --gray-800: #1f2937;
   --gray-900: #111827;
-  --indigo-500: #6366f1;
+  --focus-ring: var(--beige-dark);
   --gradient-yellow-beige: linear-gradient(135deg, #fffc00 0%, #d5b690 100%);
   --gradient-beige-radial: radial-gradient(circle, rgba(213, 182, 144, 0.1) 0%, transparent 70%);
   color-scheme: light;
@@ -226,7 +226,8 @@ a {
 .text-gray-800 { color: var(--gray-800); }
 .text-gray-900 { color: var(--gray-900); }
 .text-\[\#333\] { color: #333; }
-.text-indigo-600 { color: #4f46e5; }
+.text-indigo-600, .text-brand { color: var(--beige-hover); }
+.text-brand-strong { color: var(--text-secondary); }
 
 .list-disc { list-style-type: disc; }
 .list-inside { list-style-position: inside; }
@@ -251,7 +252,7 @@ a {
 .border-b { border-bottom: 1px solid var(--gray-200); }
 .border-\[\#d5b690\] { border-color: var(--beige-dark); }
 .border-gray-200 { border-color: var(--gray-200); }
-.border-gray-300 { border-color: var(--gray-300); }
+.border-gray-300 { border-color: var(--beige-dark); }
 
 .rounded { border-radius: 0.25rem; }
 .rounded-md { border-radius: 0.375rem; }
@@ -280,10 +281,11 @@ a {
 .focus\:ring-2:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--indigo-500);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--beige-dark);
 }
-.focus\:ring-indigo-500:focus {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--indigo-500);
+.focus\:ring-indigo-500:focus,
+.focus\:ring-brand:focus {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--yellow);
 }
 
 /* â€”â€”â€” Forms â€”â€”â€” */
@@ -293,6 +295,16 @@ select,
 textarea {
   font-size: 16px; /* prevents Edge/iOS zoom */
   width: 100%;
+  border-color: var(--beige-dark);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--beige-hover);
+  box-shadow: 0 0 0 3px rgba(255, 252, 0, 0.45);
 }
 
 .form-checkbox,
@@ -749,7 +761,8 @@ html.dark .dark\:placeholder-gray-400::placeholder { color: var(--gray-400); }
 html.dark .dark\:hover\:bg-gray-700:hover { background-color: var(--gray-700); }
 html.dark .dark\:hover\:bg-gray-600:hover { background-color: var(--gray-600); }
 html.dark .dark\:hover\:text-white:hover { color: #fff; }
-html.dark .dark\:text-indigo-400 { color: #818cf8; }
+html.dark .dark\:text-indigo-400,
+html.dark .dark\:text-brand { color: var(--yellow); }
 
 html.dark .app-card {
   background-color: var(--gray-800);
@@ -893,4 +906,32 @@ html.dark #suggestKeywordsBtn.is-active {
   background-color: var(--yellow);
   color: #000;
   border-color: #111;
+}
+
+
+.suggestion-chip {
+  text-align: left;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background: var(--beige-light);
+  border: 2px solid var(--beige-dark);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+.suggestion-chip:hover {
+  background: var(--yellow);
+  color: var(--black);
+  border-color: var(--black);
+}
+
+html.dark .suggestion-chip {
+  background: var(--gray-700);
+  color: var(--gray-200);
+  border-color: var(--beige-dark);
+}
+html.dark .suggestion-chip:hover {
+  background: var(--yellow);
+  color: var(--black);
 }
