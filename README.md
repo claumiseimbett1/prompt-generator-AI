@@ -169,13 +169,30 @@ Reemplaza `logo/logo-CMSI.png`. El tamaño es responsive (192×96 px en móvil, 
 
 Creative Commons Attribution 4.0 International ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
 
-## Autoría
+Esta obra se basa en el proyecto original de Pablo G. Guízar. Se mantiene la atribución al autor, se indican las modificaciones y se conserva la misma licencia, conforme a CC BY 4.0.
 
-**Desarrollo inicial** — Pablo G. Guízar, con asistencia de Gemini  
+## Autoría y atribución
+
+**Desarrollo original** — Pablo G. Guízar, con asistencia de Gemini  
 Proyecto original: [Generador de Prompts Académicos Avanzado](https://gemini.google.com/share/4af4639b6049)
 
-**Modificaciones** — Claudia Serpa Imbett, con asistencia de Claude Code  
-Incluye: optimización móvil, logo CMSI, plantillas por área, validación BibTeX, compatibilidad cross-browser, nuevas fuentes académicas y formatos BibTeX APA/IEEE.
+**Modificado y ampliado** — Claudia Serpa Imbett, con asistencia de Claude Code / Cursor  
+
+Entre otras mejoras:
+- Optimización móvil y logo CMSI
+- Plantillas por área y por tipo de revisión
+- Lienzos de **revisión sistemática (PRISMA)**, **revisión de alcance (PRISMA-ScR)**, **meta-análisis** y **estado del arte**
+- Validación BibTeX al generar y copiar
+- Compatibilidad cross-browser (CSS local, sin dependencia del CDN de Tailwind)
+- Nuevas fuentes académicas (Semantic Scholar, Cochrane, ResearchGate, JSTOR OA, BASE, Crossref, etc.)
+- Formatos BibTeX APA / IEEE e instrucciones actualizadas (ES/EN)
+
+### Cumplimiento CC BY 4.0
+- Atribución al autor original
+- Enlace al trabajo original
+- Indicación de cambios / ampliaciones
+- Misma licencia CC BY 4.0
+- Aviso de licencia en la aplicación y en este README
 
 ## Soporte
 
