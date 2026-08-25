@@ -638,7 +638,7 @@ html.dark .btn-secondary:hover {
                         <p class="font-medium"><strong>Paso 1:</strong> Escribe tu tema de investigación en el campo principal</p>
                         <p class="font-medium"><strong>Paso 2:</strong> Usa "Reformular" o "Sugerir Conceptos" para mejorar tu búsqueda con IA</p>
                         <p class="font-medium"><strong>Paso 3:</strong> Ajusta los filtros según tus necesidades (idiomas, fechas, bases de datos)</p>
-                        <p class="font-medium"><strong>Paso 4:</strong> Escoge el formato de salida: BibTeX + APA o BibTeX + IEEE según prefieras</p>
+                        <p class="font-medium"><strong>Paso 4:</strong> Escoge el formato: Lienzo IA, Revisión sistemática, Revisión de alcance, Meta-análisis, Estado del arte, BibTeX + APA o BibTeX + IEEE</p>
                         <p class="font-medium"><strong>Paso 5:</strong> Genera el prompt y cópialo para usarlo con tu IA de investigación favorita</p>
                     </div>
                     <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded instructions-tip">
@@ -723,7 +723,7 @@ html.dark .btn-secondary:hover {
             
              <div class="filter-section">
                 <h2 id="output-format-label" class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3">Formato de Salida</h2>
-                 <div id="output-format-container" class="flex flex-col md:flex-row gap-4 text-gray-700 dark:text-gray-200"></div>
+                 <div id="output-format-container" class="flex flex-col md:flex-row md:flex-wrap gap-4 text-gray-700 dark:text-gray-200"></div>
             </div>
 
             <div class="text-center mt-6 md:mt-8 pt-4 md:pt-6 border-t dark:border-gray-700">
@@ -778,10 +778,10 @@ html.dark .btn-secondary:hover {
         // --- UI Dictionary for i18n ---
         const translations = {
             es: {
-                mainTitle: "Generador de Prompts Académicos", subtitle: "Crea prompts de nivel experto para tus búsquedas de investigación con IA.", topicLabel: "Tema de Investigación", reformulate: "Reformular", suggest: "Sugerir Conceptos", suggestedConcepts: "Conceptos sugeridos por la IA:", filtersGeneralTitle: "Filtros Generales", geographyLabel: "Área Geográfica (Opcional)", languagesLabel: "Idiomas", dateLabel: "Fecha de Publicación", datePresets: { custom: "Personalizado", "1": "Últimos 12 meses", "5": "Últimos 5 años", "10": "Últimos 10 años", all: "Todos los tiempos" }, sourcesLabel: "Fuentes y Bases de Datos (Acceso Abierto)", customSitesLabel: "Otros sitios específicos (separados por comas)", advancedFiltersLabel: "Filtros Avanzados", docTypeLabel: "Tipo de Documento", qualityLabel: "Criterios de Calidad", peerReviewed: "Sólo Revisado por Pares", fullText: "Sólo Texto Completo (PDF)", outputFormatLabel: "Formato de Salida", outputFormatDetailed: "Lienzo IA (Detallado)", outputFormatBibtexApa: "BibTeX + APA (Para Gestores)", outputFormatBibtexIeee: "BibTeX + IEEE (Para Gestores)", generateBtn: "Generar Prompt", generatedPromptLabel: "Prompt Generado", copyBtn: "Copiar", copiedBtn: "¡Copiado!", manualCopy: "¡Texto seleccionado! Cópialo.", alertTopic: "Por favor, ingresa un tema de investigación.", alertApiError: "Hubo un error con la IA. Por favor, intenta de nuevo.", areaTemplateLabel: "Plantilla por área", areaTemplateHint: "Precarga fuentes, tipos de documento y formato según el campo de estudio.", areaTemplates: { none: "Sin plantilla (manual)", medicine: "Medicina y salud", education: "Educación", engineering: "Ingeniería", social: "Ciencias sociales", environment: "Ciencias ambientales", law: "Derecho", techai: "Tecnología e IA" }, bibtexOk: "Validación BibTeX: el prompt pide los campos clave (author, title, year, DOI/URL).", bibtexWarnTitle: "Revisa antes de copiar (BibTeX):", bibtexMissingFields: "Faltan campos BibTeX en el prompt:", bibtexNoSources: "No hay fuentes seleccionadas; las citas pueden ser incompletas.", bibtexNoPeer: "Sugerencia: activa «Revisado por pares» para bibliografía académica más fiable.", bibtexCopyConfirm: "Hay advertencias de BibTeX. ¿Copiar de todos modos?", helpTitle: "Cómo Usar la App", closeBtn: "Cerrar", helpContent: `<p><strong>1. Selecciona tu IA:</strong> Elige entre Gemini AI o Claude AI en el selector superior.</p><p><strong>2. Introduce tu Tema:</strong> Escribe tu idea de investigación en el campo principal.</p><p><strong>3. Refina con IA (Opcional):</strong> Usa los botones <strong>"Reformular"</strong> para obtener nuevos enfoques o <strong>"Sugerir Conceptos"</strong> para encontrar términos de búsqueda relevantes.</p><p><strong>4. Ajusta los Filtros:</strong> Selecciona los idiomas, el rango de fechas, las bases de datos y los tipos de documento que se ajusten a tu necesidad.</p><p><strong>5. Elige el Formato de Salida:</strong> Selecciona "Lienzo IA" para una lista detallada o <strong>"BibTeX"</strong> si planeas importar los resultados a un gestor de referencias.</p><p><strong>6. Genera el Prompt:</strong> Haz clic en el botón "Generar Prompt".</p><p><strong>7. Copia y Usa para Búsquedas Profundas:</strong> Copia el prompt JSON y pégalo en tu conversación con una IA de investigación como Gemini o Claude para realizar una <strong>búsqueda profunda</strong> y obtener resultados estructurados.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>Configuración de APIs</h4><p>Para usar las funciones de IA, necesitas configurar las API keys en el código:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Obtén tu clave en Google AI Studio</li><li><strong>Claude:</strong> Obtén tu clave en Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>¿Qué es BibTeX y un Gestor de Referencias?</h4><p>Un <strong>gestor de referencias</strong> (como Zotero o Mendeley) es un software que te ayuda a organizar todas tus fuentes y a generar bibliografías automáticamente. <strong>BibTeX (.bib)</strong> es el formato de archivo universal para exportar e importar estas referencias de manera fiable. ¡Es una herramienta esencial para cualquier investigador!</p>`
+                mainTitle: "Generador de Prompts Académicos", subtitle: "Crea prompts de nivel experto para tus búsquedas de investigación con IA.", topicLabel: "Tema de Investigación", reformulate: "Reformular", suggest: "Sugerir Conceptos", suggestedConcepts: "Conceptos sugeridos por la IA:", filtersGeneralTitle: "Filtros Generales", geographyLabel: "Área Geográfica (Opcional)", languagesLabel: "Idiomas", dateLabel: "Fecha de Publicación", datePresets: { custom: "Personalizado", "1": "Últimos 12 meses", "5": "Últimos 5 años", "10": "Últimos 10 años", all: "Todos los tiempos" }, sourcesLabel: "Fuentes y Bases de Datos (Acceso Abierto)", customSitesLabel: "Otros sitios específicos (separados por comas)", advancedFiltersLabel: "Filtros Avanzados", docTypeLabel: "Tipo de Documento", qualityLabel: "Criterios de Calidad", peerReviewed: "Sólo Revisado por Pares", fullText: "Sólo Texto Completo (PDF)", outputFormatLabel: "Formato de Salida", outputFormatDetailed: "Lienzo IA (Detallado)", outputFormatBibtexApa: "BibTeX + APA (Para Gestores)", outputFormatBibtexIeee: "BibTeX + IEEE (Para Gestores)", outputFormatSystematic: "Lienzo IA — Revisión sistemática (PRISMA)", outputFormatScoping: "Lienzo IA — Revisión de alcance (PRISMA-ScR)", outputFormatMeta: "Lienzo IA — Meta-análisis", generateBtn: "Generar Prompt", generatedPromptLabel: "Prompt Generado", copyBtn: "Copiar", copiedBtn: "¡Copiado!", manualCopy: "¡Texto seleccionado! Cópialo.", alertTopic: "Por favor, ingresa un tema de investigación.", alertApiError: "Hubo un error con la IA. Por favor, intenta de nuevo.", areaTemplateLabel: "Plantilla por área", areaTemplateHint: "Precarga fuentes, tipos de documento y formato según el campo de estudio.", areaTemplates: { none: "Sin plantilla (manual)", medicine: "Medicina y salud", education: "Educación", engineering: "Ingeniería", social: "Ciencias sociales", environment: "Ciencias ambientales", law: "Derecho", techai: "Tecnología e IA", systematicreview: "Revisión sistemática", scopingreview: "Revisión de alcance", metaanalysis: "Meta-análisis" }, bibtexOk: "Validación BibTeX: el prompt pide los campos clave (author, title, year, DOI/URL).", bibtexWarnTitle: "Revisa antes de copiar (BibTeX):", bibtexMissingFields: "Faltan campos BibTeX en el prompt:", bibtexNoSources: "No hay fuentes seleccionadas; las citas pueden ser incompletas.", bibtexNoPeer: "Sugerencia: activa «Revisado por pares» para bibliografía académica más fiable.", bibtexCopyConfirm: "Hay advertencias de BibTeX. ¿Copiar de todos modos?", helpTitle: "Cómo Usar la App", closeBtn: "Cerrar", helpContent: `<p><strong>1. Selecciona tu IA:</strong> Elige entre Gemini AI o Claude AI en el selector superior.</p><p><strong>2. Introduce tu Tema:</strong> Escribe tu idea de investigación en el campo principal.</p><p><strong>3. Refina con IA (Opcional):</strong> Usa los botones <strong>"Reformular"</strong> para obtener nuevos enfoques o <strong>"Sugerir Conceptos"</strong> para encontrar términos de búsqueda relevantes.</p><p><strong>4. Ajusta los Filtros:</strong> Selecciona los idiomas, el rango de fechas, las bases de datos y los tipos de documento que se ajusten a tu necesidad.</p><p><strong>5. Elige el Formato de Salida:</strong> Selecciona "Lienzo IA" para una lista detallada o <strong>"BibTeX"</strong> si planeas importar los resultados a un gestor de referencias.</p><p><strong>6. Genera el Prompt:</strong> Haz clic en el botón "Generar Prompt".</p><p><strong>7. Copia y Usa para Búsquedas Profundas:</strong> Copia el prompt JSON y pégalo en tu conversación con una IA de investigación como Gemini o Claude para realizar una <strong>búsqueda profunda</strong> y obtener resultados estructurados.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>Configuración de APIs</h4><p>Para usar las funciones de IA, necesitas configurar las API keys en el código:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Obtén tu clave en Google AI Studio</li><li><strong>Claude:</strong> Obtén tu clave en Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>¿Qué es BibTeX y un Gestor de Referencias?</h4><p>Un <strong>gestor de referencias</strong> (como Zotero o Mendeley) es un software que te ayuda a organizar todas tus fuentes y a generar bibliografías automáticamente. <strong>BibTeX (.bib)</strong> es el formato de archivo universal para exportar e importar estas referencias de manera fiable. ¡Es una herramienta esencial para cualquier investigador!</p>`
             },
             en: {
-                mainTitle: "Academic Prompt Generator", subtitle: "Create expert-level prompts for your AI research searches.", topicLabel: "Research Topic", reformulate: "Rephrase", suggest: "Suggest Concepts", suggestedConcepts: "AI Suggested Concepts:", filtersGeneralTitle: "General Filters", geographyLabel: "Geographic Area (Optional)", languagesLabel: "Languages", dateLabel: "Publication Date", datePresets: { custom: "Custom", "1": "Last 12 months", "5": "Last 5 years", "10": "Last 10 years", all: "All time" }, sourcesLabel: "Sources & Databases (Open Access)", customSitesLabel: "Other specific sites (comma-separated)", advancedFiltersLabel: "Advanced Filters", docTypeLabel: "Document Type", qualityLabel: "Quality Criteria", peerReviewed: "Peer-reviewed only", fullText: "Full text only (PDF)", outputFormatLabel: "Output Format", outputFormatDetailed: "AI Canvas (Detailed)", outputFormatBibtexApa: "BibTeX + APA (For Managers)", outputFormatBibtexIeee: "BibTeX + IEEE (For Managers)", generateBtn: "Generate Prompt", generatedPromptLabel: "Generated Prompt", copyBtn: "Copy", copiedBtn: "Copied!", manualCopy: "Text selected! Now copy.", alertTopic: "Please enter a research topic.", alertApiError: "AI error occurred. Please try again.", areaTemplateLabel: "Area template", areaTemplateHint: "Preloads sources, document types, and output format for your field.", areaTemplates: { none: "No template (manual)", medicine: "Medicine & health", education: "Education", engineering: "Engineering", social: "Social sciences", environment: "Environmental sciences", law: "Law", techai: "Technology & AI" }, bibtexOk: "BibTeX check: the prompt requests key fields (author, title, year, DOI/URL).", bibtexWarnTitle: "Review before copying (BibTeX):", bibtexMissingFields: "Missing BibTeX fields in the prompt:", bibtexNoSources: "No sources selected; citations may be incomplete.", bibtexNoPeer: "Tip: enable «Peer-reviewed» for more reliable academic bibliography.", bibtexCopyConfirm: "There are BibTeX warnings. Copy anyway?", helpTitle: "How to Use the App", closeBtn: "Close", helpContent: `<p><strong>1. Select your AI:</strong> Choose between Gemini AI or Claude AI in the top selector.</p><p><strong>2. Enter your Topic:</strong> Write your research idea in the main field.</p><p><strong>3. Refine with AI (Optional):</strong> Use the <strong>"Rephrase"</strong> button to get new approaches or <strong>"Suggest Concepts"</strong> to find relevant search terms.</p><p><strong>4. Adjust Filters:</strong> Select the languages, date range, databases, and document types that fit your needs.</p><p><strong>5. Choose Output Format:</strong> Select "AI Canvas" for a detailed list or <strong>"BibTeX"</strong> if you plan to import the results into a reference manager.</p><p><strong>6. Generate the Prompt:</strong> Click the "Generate Prompt" button.</p><p><strong>7. Copy and Use for Deep Research:</strong> Copy the JSON prompt and paste it into your conversation with a research AI like Gemini or Claude to perform a <strong>deep search</strong> and get structured results.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>API Configuration</h4><p>To use AI features, you need to configure API keys in the code:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Get your key from Google AI Studio</li><li><strong>Claude:</strong> Get your key from Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>What is BibTeX & a Reference Manager?</h4><p>A <strong>reference manager</strong> (like Zotero or Mendeley) is software that helps you organize all your sources and automatically generate bibliographies. <strong>BibTeX (.bib)</strong> is the universal file format for reliably exporting and importing these references. It's an essential tool for any researcher!</p>`
+                mainTitle: "Academic Prompt Generator", subtitle: "Create expert-level prompts for your AI research searches.", topicLabel: "Research Topic", reformulate: "Rephrase", suggest: "Suggest Concepts", suggestedConcepts: "AI Suggested Concepts:", filtersGeneralTitle: "General Filters", geographyLabel: "Geographic Area (Optional)", languagesLabel: "Languages", dateLabel: "Publication Date", datePresets: { custom: "Custom", "1": "Last 12 months", "5": "Last 5 years", "10": "Last 10 years", all: "All time" }, sourcesLabel: "Sources & Databases (Open Access)", customSitesLabel: "Other specific sites (comma-separated)", advancedFiltersLabel: "Advanced Filters", docTypeLabel: "Document Type", qualityLabel: "Quality Criteria", peerReviewed: "Peer-reviewed only", fullText: "Full text only (PDF)", outputFormatLabel: "Output Format", outputFormatDetailed: "AI Canvas (Detailed)", outputFormatBibtexApa: "BibTeX + APA (For Managers)", outputFormatBibtexIeee: "BibTeX + IEEE (For Managers)", outputFormatSystematic: "AI Canvas — Systematic Review (PRISMA)", outputFormatScoping: "AI Canvas — Scoping Review (PRISMA-ScR)", outputFormatMeta: "AI Canvas — Meta-analysis", generateBtn: "Generate Prompt", generatedPromptLabel: "Generated Prompt", copyBtn: "Copy", copiedBtn: "Copied!", manualCopy: "Text selected! Now copy.", alertTopic: "Please enter a research topic.", alertApiError: "AI error occurred. Please try again.", areaTemplateLabel: "Area template", areaTemplateHint: "Preloads sources, document types, and output format for your field.", areaTemplates: { none: "No template (manual)", medicine: "Medicine & health", education: "Education", engineering: "Engineering", social: "Social sciences", environment: "Environmental sciences", law: "Law", techai: "Technology & AI", systematicreview: "Systematic review", scopingreview: "Scoping review", metaanalysis: "Meta-analysis" }, bibtexOk: "BibTeX check: the prompt requests key fields (author, title, year, DOI/URL).", bibtexWarnTitle: "Review before copying (BibTeX):", bibtexMissingFields: "Missing BibTeX fields in the prompt:", bibtexNoSources: "No sources selected; citations may be incomplete.", bibtexNoPeer: "Tip: enable «Peer-reviewed» for more reliable academic bibliography.", bibtexCopyConfirm: "There are BibTeX warnings. Copy anyway?", helpTitle: "How to Use the App", closeBtn: "Close", helpContent: `<p><strong>1. Select your AI:</strong> Choose between Gemini AI or Claude AI in the top selector.</p><p><strong>2. Enter your Topic:</strong> Write your research idea in the main field.</p><p><strong>3. Refine with AI (Optional):</strong> Use the <strong>"Rephrase"</strong> button to get new approaches or <strong>"Suggest Concepts"</strong> to find relevant search terms.</p><p><strong>4. Adjust Filters:</strong> Select the languages, date range, databases, and document types that fit your needs.</p><p><strong>5. Choose Output Format:</strong> Select "AI Canvas" for a detailed list or <strong>"BibTeX"</strong> if you plan to import the results into a reference manager.</p><p><strong>6. Generate the Prompt:</strong> Click the "Generate Prompt" button.</p><p><strong>7. Copy and Use for Deep Research:</strong> Copy the JSON prompt and paste it into your conversation with a research AI like Gemini or Claude to perform a <strong>deep search</strong> and get structured results.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>API Configuration</h4><p>To use AI features, you need to configure API keys in the code:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Get your key from Google AI Studio</li><li><strong>Claude:</strong> Get your key from Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>What is BibTeX & a Reference Manager?</h4><p>A <strong>reference manager</strong> (like Zotero or Mendeley) is software that helps you organize all your sources and automatically generate bibliographies. <strong>BibTeX (.bib)</strong> is the universal file format for reliably exporting and importing these references. It's an essential tool for any researcher!</p>`
             }
         };
 
@@ -806,7 +806,8 @@ html.dark .btn-secondary:hover {
                 { id: 'researchgate', name: 'ResearchGate', source: 'site:researchgate.net' },
                 { id: 'jstor', name: 'JSTOR (OA)', source: 'site:jstor.org' },
                 { id: 'base', name: 'BASE', source: 'site:base-search.net' },
-                { id: 'crossref', name: 'Crossref', source: 'site:crossref.org' }
+                { id: 'crossref', name: 'Crossref', source: 'site:crossref.org' },
+                { id: 'cochrane', name: 'Cochrane Library', source: 'site:cochranelibrary.com' }
             ],
             docTypes: [
                 { id: 'article', name: 'Artículo' }, { id: 'book', name: 'Libro / Capítulo' },
@@ -821,7 +822,10 @@ html.dark .btn-secondary:hover {
                 social: { sources: ['trusted', 'scielo', 'redalyc', 'dialnet', 'jstor', 'scholar'], docTypes: ['article', 'book', 'thesis'], peerReviewed: true, fullText: true, datePreset: '10', outputFormat: 'bibtex-apa' },
                 environment: { sources: ['trusted', 'scholar', 'semantic', 'doaj', 'base', 'core'], docTypes: ['article', 'review', 'report'], peerReviewed: true, fullText: true, datePreset: '5', outputFormat: 'detailed' },
                 law: { sources: ['trusted', 'jstor', 'scholar', 'dialnet', 'base'], docTypes: ['article', 'book', 'report'], peerReviewed: true, fullText: true, datePreset: '10', outputFormat: 'bibtex-apa' },
-                techai: { sources: ['trusted', 'arxiv', 'semantic', 'scholar', 'crossref', 'core'], docTypes: ['article', 'conference', 'review'], peerReviewed: true, fullText: true, datePreset: '5', outputFormat: 'bibtex-ieee' }
+                techai: { sources: ['trusted', 'arxiv', 'semantic', 'scholar', 'crossref', 'core'], docTypes: ['article', 'conference', 'review'], peerReviewed: true, fullText: true, datePreset: '5', outputFormat: 'bibtex-ieee' },
+                systematicreview: { sources: ['trusted', 'pubmed', 'scholar', 'semantic', 'doaj', 'core', 'crossref', 'scielo', 'cochrane'], docTypes: ['article', 'review'], peerReviewed: true, fullText: true, datePreset: '10', outputFormat: 'systematic' },
+                scopingreview: { sources: ['trusted', 'pubmed', 'scholar', 'semantic', 'doaj', 'core', 'crossref', 'scielo', 'eric'], docTypes: ['article', 'review', 'report', 'thesis'], peerReviewed: false, fullText: true, datePreset: '10', outputFormat: 'scoping' },
+                metaanalysis: { sources: ['trusted', 'pubmed', 'scholar', 'semantic', 'cochrane', 'doaj', 'core', 'crossref'], docTypes: ['article', 'review'], peerReviewed: true, fullText: true, datePreset: '10', outputFormat: 'meta' }
             }
         };
         
@@ -855,6 +859,10 @@ html.dark .btn-secondary:hover {
 
             dom.outputFormatContainer.innerHTML = `
                 <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="detailed" class="form-radio h-5 w-5" checked><span id="output-detailed-label" class="ml-2 font-medium"></span></label>
+                <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="systematic" class="form-radio h-5 w-5"><span id="output-systematic-label" class="ml-2 font-medium"></span></label>
+                <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="scoping" class="form-radio h-5 w-5"><span id="output-scoping-label" class="ml-2 font-medium"></span></label>
+                <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="meta" class="form-radio h-5 w-5"><span id="output-meta-label" class="ml-2 font-medium"></span></label>
+                <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="stateofart" class="form-radio h-5 w-5"><span id="output-stateofart-label" class="ml-2 font-medium"></span></label>
                 <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="bibtex-apa" class="form-radio h-5 w-5"><span id="output-bibtex-apa-label" class="ml-2 font-medium"></span></label>
                 <label class="flex items-center p-3 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer"><input type="radio" name="output-format" value="bibtex-ieee" class="form-radio h-5 w-5"><span id="output-bibtex-ieee-label" class="ml-2 font-medium"></span></label>
             `;
@@ -881,6 +889,10 @@ html.dark .btn-secondary:hover {
             dom.fullTextLabel.textContent = t.fullText;
             dom.outputFormatLabel.textContent = t.outputFormatLabel;
             dom.outputDetailedLabel.textContent = t.outputFormatDetailed;
+            if (dom.outputSystematicLabel) dom.outputSystematicLabel.textContent = t.outputFormatSystematic;
+            if (dom.outputScopingLabel) dom.outputScopingLabel.textContent = t.outputFormatScoping;
+            if (dom.outputMetaLabel) dom.outputMetaLabel.textContent = t.outputFormatMeta;
+            if (dom.outputStateofartLabel) dom.outputStateofartLabel.textContent = t.outputFormatStateOfArt;
             dom.outputBibtexApaLabel.textContent = t.outputFormatBibtexApa;
             dom.outputBibtexIeeeLabel.textContent = t.outputFormatBibtexIeee;
             dom.generateBtn.textContent = t.generateBtn;
@@ -1303,6 +1315,18 @@ html.dark .btn-secondary:hover {
                 prompt.formato_de_salida = getBibtexApaOutputFormat();
             } else if (outputFormat === 'bibtex-ieee') {
                 prompt.formato_de_salida = getBibtexIeeeOutputFormat();
+            } else if (outputFormat === 'systematic') {
+                Object.assign(prompt, getSystematicReviewPromptExtras(tema));
+                prompt.formato_de_salida = getSystematicReviewOutputFormat();
+            } else if (outputFormat === 'scoping') {
+                Object.assign(prompt, getScopingReviewPromptExtras(tema));
+                prompt.formato_de_salida = getScopingReviewOutputFormat();
+            } else if (outputFormat === 'meta') {
+                Object.assign(prompt, getMetaAnalysisPromptExtras(tema));
+                prompt.formato_de_salida = getMetaAnalysisOutputFormat();
+            } else if (outputFormat === 'stateofart') {
+                Object.assign(prompt, getStateOfArtPromptExtras(tema));
+                prompt.formato_de_salida = getStateOfArtOutputFormat();
             } else {
                 prompt.formato_de_salida = getDetailedOutputFormat();
             }
@@ -1323,6 +1347,405 @@ html.dark .btn-secondary:hover {
         
         function getDetailedOutputFormat() {
             return { "instruccion": "Generar una lista bibliográfica completa de TODOS los documentos encontrados que cumplan con los criterios, agrupada según la 'jerarquia_de_documentos'.", "formato_por_entrada": "Cita en formato APA 7.", "campos_adicionales": ["Tipo de Documento", "Enlace Permanente (URL o DOI)", "Breve Anotación (1-2 líneas describiendo el enfoque)."] };
+        }
+
+        function getSystematicReviewPromptExtras(tema) {
+            return {
+                "task": "Diseñar y ejecutar el protocolo de una revisión sistemática (estilo PRISMA 2020) sobre el tema indicado, incluyendo búsqueda, cribado, extracción y síntesis narrativa o cuantitativa según proceda.",
+                "tipo_revision": "revision_sistematica",
+                "marco_metodologico": {
+                    "estandar": "PRISMA 2020",
+                    "pregunta_pico": {
+                        "instruccion": "Formular o refinar la pregunta de investigación en formato PICO/PECO a partir del tema: \"" + tema + "\".",
+                        "campos": ["Población/Participantes", "Intervención o Exposición", "Comparador", "Outcomes / Resultados", "Tipo de estudio (opcional)"]
+                    },
+                    "protocolo": [
+                        "Definir objetivos y preguntas de revisión",
+                        "Establecer criterios de inclusión y exclusión (PICO + límites temporales/idiomáticos)",
+                        "Documentar estrategia de búsqueda completa por base de datos (booleanos, MeSH/DeCS si aplica)",
+                        "Registrar flujo PRISMA: identificados → cribados → elegibles → incluidos",
+                        "Evaluar riesgo de sesgo / calidad metodológica (herramienta según diseño: RoB 2, ROBINS-I, Newcastle-Ottawa, AMSTAR 2, etc.)",
+                        "Extraer datos en tabla estructurada",
+                        "Sintetizar hallazgos (narrativa y/o meta-análisis si hay homogeneidad)",
+                        "Declarar limitaciones y certeza de la evidencia (GRADE si aplica)"
+                    ]
+                },
+                "criterios_de_inclusion": {
+                    "no_negociables": [
+                        "Estudios empíricos o revisiones previas con metodología explícita.",
+                        "Autoría e institución identificables.",
+                        "Referencias o bibliografía presentes.",
+                        "Texto completo disponible cuando sea posible (PDF o HTML)."
+                    ],
+                    "indicadores_de_alta_calidad": [
+                        "Diseño de estudio claro (ECA, cohorte, caso-control, cualitativo, etc.).",
+                        "Reporte de tamaño muestral y métodos de análisis.",
+                        "Alineación con la pregunta PICO de la revisión.",
+                        "Publicado en revista peer-reviewed o repositorio académico confiable."
+                    ]
+                },
+                "criterios_de_exclusion": {
+                    "contenido_a_ignorar": [
+                        "Opiniones editoriales sin datos, blogs, redes sociales y marketing.",
+                        "Estudios sin método reproducible o sin resultados medibles.",
+                        "Duplicados y versiones preeliminares ya cubiertas por la versión definitiva.",
+                        "Literatura gris no académica salvo informes técnicos o guías oficiales relevantes."
+                    ]
+                },
+                "estrategia_y_prioridad": {
+                    "jerarquia_de_documentos": [
+                        "1. Revisiones sistemáticas y meta-análisis previos (contexto).",
+                        "2. Ensayos controlados aleatorizados (si aplica).",
+                        "3. Estudios observacionales de alta calidad.",
+                        "4. Estudios cualitativos o mixtos pertinentes a la pregunta.",
+                        "5. Guías clínicas / informes técnicos institucionales."
+                    ]
+                }
+            };
+        }
+
+        function getSystematicReviewOutputFormat() {
+            return {
+                "instruccion": "Generar un LIENZO DE REVISIÓN SISTEMÁTICA completo y accionable (estilo PRISMA 2020) que la IA pueda usar para guiar o redactar la revisión. No inventes resultados de estudios no encontrados: marca lagunas cuando falte evidencia.",
+                "estructura_del_lienzo": [
+                    {
+                        "seccion": "1. Pregunta PICO/PECO",
+                        "contenido": ["Pregunta formulada", "P", "I/E", "C", "O", "Tipos de estudio elegibles"]
+                    },
+                    {
+                        "seccion": "2. Protocolo breve",
+                        "contenido": ["Objetivos", "Criterios inclusión/exclusión", "Idiomas y fechas", "Bases de datos consultadas"]
+                    },
+                    {
+                        "seccion": "3. Estrategia de búsqueda",
+                        "contenido": ["Cadenas booleanas por base de datos", "Términos MeSH/DeCS o equivalentes", "Filtros aplicados", "Fecha de la última búsqueda"]
+                    },
+                    {
+                        "seccion": "4. Flujo PRISMA",
+                        "contenido": ["N identificados", "N tras quitar duplicados", "N cribados por título/resumen", "N texto completo evaluados", "N incluidos", "Motivos de exclusión principales"]
+                    },
+                    {
+                        "seccion": "5. Tabla de estudios incluidos",
+                        "formato_por_fila": "Autor(es) | Año | País | Diseño | Muestra | Intervención/Exposición | Comparador | Outcomes | Hallazgos clave | DOI/URL | Riesgo de sesgo"
+                    },
+                    {
+                        "seccion": "6. Evaluación de calidad",
+                        "contenido": ["Herramienta usada", "Resumen por estudio", "Sesgos dominantes"]
+                    },
+                    {
+                        "seccion": "7. Síntesis de hallazgos",
+                        "contenido": ["Síntesis narrativa por outcome", "Heterogeneidad (si aplica)", "Posible meta-análisis o justificación de no hacerlo", "Certeza GRADE (si aplica)"]
+                    },
+                    {
+                        "seccion": "8. Conclusiones y vacíos",
+                        "contenido": ["Respuesta a la pregunta PICO", "Implicaciones para práctica/política", "Implicaciones para investigación futura", "Limitaciones de la revisión"]
+                    }
+                ],
+                "formato_por_entrada": "Citas APA 7 + DOI/URL en la tabla de estudios.",
+                "campos_adicionales": ["Diseño del estudio", "PICO mapeado", "Riesgo de sesgo", "Outcome primario", "Enlace permanente"],
+                "notas_para_la_ia": [
+                    "Priorizar evidencia primaria peer-reviewed y revisiones previas de alta calidad.",
+                    "Separar claramente evidencia encontrada vs. recomendaciones generadas.",
+                    "Si no hay suficientes estudios, documentar el vacío y proponer ampliación de criterios o bases."
+                ]
+            };
+        }
+
+        function getScopingReviewPromptExtras(tema) {
+            return {
+                "task": "Diseñar y ejecutar el protocolo de una revisión de alcance (scoping review, estilo PRISMA-ScR / JBI) sobre el tema indicado, mapeando conceptos, tipos de evidencia y vacíos sin necesariamente evaluar calidad ni sintetizar efectos.",
+                "tipo_revision": "revision_de_alcance",
+                "marco_metodologico": {
+                    "estandar": "PRISMA-ScR / JBI Scoping Review",
+                    "pregunta_pcc": {
+                        "instruccion": "Formular o refinar la pregunta en formato PCC a partir del tema: \"" + tema + "\".",
+                        "campos": ["Población / Participantes", "Concepto", "Contexto", "Tipos de evidencia elegibles"]
+                    },
+                    "protocolo": [
+                        "Definir objetivos de mapeo (qué se sabe, cómo se estudia, dónde hay vacíos)",
+                        "Establecer criterios de inclusión/exclusión con PCC (más amplios que en revisión sistemática)",
+                        "Documentar estrategia de búsqueda sensible (priorizar cobertura sobre precisión)",
+                        "Registrar flujo tipo PRISMA adaptado a scoping",
+                        "Extraer datos de cartografía (diseño, población, conceptos, contexto, resultados reportados)",
+                        "Opcional: evaluación crítica solo si el protocolo lo exige (no es obligatoria en scoping)",
+                        "Presentar mapa/tablas de evidencia y lagunas de investigación",
+                        "No estimar efectos agregados ni hacer meta-análisis"
+                    ]
+                },
+                "criterios_de_inclusion": {
+                    "no_negociables": [
+                        "Documentos académicos o técnicos con autoría identificable.",
+                        "Relación explícita con el concepto y contexto de la pregunta PCC.",
+                        "Referencias o fuente verificable."
+                    ],
+                    "indicadores_de_alta_calidad": [
+                        "Claridad del objetivo y del marco conceptual.",
+                        "Descripción de población/contexto.",
+                        "Aporta tipología, método o hallazgo útil para el mapa de evidencia."
+                    ]
+                },
+                "criterios_de_exclusion": {
+                    "contenido_a_ignorar": [
+                        "Contenido no académico (blogs, marketing, redes).",
+                        "Material sin relación con el concepto o contexto definidos.",
+                        "Duplicados y versiones ya cubiertas por la definitiva."
+                    ]
+                },
+                "estrategia_y_prioridad": {
+                    "jerarquia_de_documentos": [
+                        "1. Revisiones previas (sistemáticas, scoping, narrativas).",
+                        "2. Estudios empíricos de cualquier diseño relevante al concepto.",
+                        "3. Informes técnicos, guías y literatura gris académica pertinente.",
+                        "4. Capítulos y tesis que aporten mapeo conceptual.",
+                        "5. Protocolos registrados (PROSPERO, OSF) relacionados."
+                    ]
+                }
+            };
+        }
+
+        function getScopingReviewOutputFormat() {
+            return {
+                "instruccion": "Generar un LIENZO DE REVISIÓN DE ALCANCE (scoping review) completo y accionable (PRISMA-ScR / JBI). Enfócate en mapear evidencia y vacíos; no inventes estudios ni efectos cuantitativos.",
+                "estructura_del_lienzo": [
+                    {
+                        "seccion": "1. Pregunta PCC",
+                        "contenido": ["Pregunta formulada", "Población", "Concepto", "Contexto", "Tipos de evidencia"]
+                    },
+                    {
+                        "seccion": "2. Objetivos de mapeo",
+                        "contenido": ["Qué se busca cartografiar", "Límites temporales/idiomáticos", "Justificación de scoping (vs. sistemática)"]
+                    },
+                    {
+                        "seccion": "3. Criterios de elegibilidad",
+                        "contenido": ["Inclusión", "Exclusión", "Fuentes (bases, literatura gris)"]
+                    },
+                    {
+                        "seccion": "4. Estrategia de búsqueda",
+                        "contenido": ["Cadenas por base", "Términos clave / tesauros", "Fecha de búsqueda"]
+                    },
+                    {
+                        "seccion": "5. Flujo de selección",
+                        "contenido": ["Identificados", "Duplicados", "Cribados", "Texto completo", "Incluidos", "Motivos de exclusión"]
+                    },
+                    {
+                        "seccion": "6. Tabla / mapa de evidencia",
+                        "formato_por_fila": "Autor(es) | Año | País/Contexto | Diseño | Población | Concepto abordado | Hallazgos/temas | DOI/URL"
+                    },
+                    {
+                        "seccion": "7. Síntesis descriptiva",
+                        "contenido": ["Distribución por año/diseño/país", "Temas emergentes", "Cómo se ha estudiado el concepto", "Vacíos y oportunidades de investigación"]
+                    },
+                    {
+                        "seccion": "8. Conclusiones del alcance",
+                        "contenido": ["Respuesta a la pregunta PCC", "Implicaciones para futuras revisiones sistemáticas o estudios primarios", "Limitaciones del scoping"]
+                    }
+                ],
+                "formato_por_entrada": "Citas APA 7 + DOI/URL en el mapa de evidencia.",
+                "campos_adicionales": ["Diseño", "PCC mapeado", "Tema/concepto", "Contexto", "Enlace permanente"],
+                "notas_para_la_ia": [
+                    "No calcular tamaños de efecto ni meta-análisis.",
+                    "Priorizar cobertura y diversidad de evidencia sobre homogeneidad clínica.",
+                    "Señalar explícitamente lagunas geográficas, metodológicas o conceptuales."
+                ]
+            };
+        }
+
+        function getMetaAnalysisPromptExtras(tema) {
+            return {
+                "task": "Diseñar y ejecutar el protocolo de un meta-análisis (idealmente anclado a una revisión sistemática PRISMA) sobre el tema indicado, incluyendo elegibilidad cuantitativa, extracción de efectos, heterogeneidad y síntesis estadística.",
+                "tipo_revision": "metaanalisis",
+                "marco_metodologico": {
+                    "estandar": "PRISMA 2020 + guía Cochrane / MOOSE según diseño",
+                    "pregunta_pico": {
+                        "instruccion": "Formular o refinar la pregunta PICO con outcome cuantificable a partir del tema: \"" + tema + "\".",
+                        "campos": ["Población", "Intervención/Exposición", "Comparador", "Outcome primario (medida de efecto)", "Outcome(s) secundarios", "Diseños elegibles"]
+                    },
+                    "protocolo": [
+                        "Definir medida de efecto (OR, RR, HR, MD, SMD, etc.) y modelo (fijo/aleatorio)",
+                        "Criterios de inclusión cuantitativos (datos suficientes para efecto + N/varianza)",
+                        "Búsqueda sistemática reproducible por base de datos",
+                        "Flujo PRISMA y registro de exclusiones por falta de datos cuantitativos",
+                        "Extracción: n, eventos/medias/DE, IC, tiempo de seguimiento",
+                        "Evaluación de riesgo de sesgo (RoB 2, ROBINS-I u otra según diseño)",
+                        "Análisis de heterogeneidad (I², tau², Q) y subgrupos/sensibilidad",
+                        "Sesgo de publicación (funnel plot / Egger) si hay estudios suficientes",
+                        "Certeza de evidencia (GRADE) y forest plot narrativo o tabular",
+                        "No inventar datos numéricos: si faltan, listar como no estimables"
+                    ]
+                },
+                "criterios_de_inclusion": {
+                    "no_negociables": [
+                        "Estudios empíricos con resultado cuantitativo alineado al outcome PICO.",
+                        "Datos suficientes para estimar efecto (o convertibles de forma explícita).",
+                        "Autoría, diseño y muestra identificables.",
+                        "Peer-reviewed preferente; preprints solo si el protocolo lo permite y se marcan."
+                    ],
+                    "indicadores_de_alta_calidad": [
+                        "Reporte completo de N, eventos o medias/DE e intervalos de confianza.",
+                        "Aleatorización o control de confusión según diseño.",
+                        "Outcome primario preespecificado y clínicamente/académicamente relevante."
+                    ]
+                },
+                "criterios_de_exclusion": {
+                    "contenido_a_ignorar": [
+                        "Estudios solo cualitativos o sin datos cuantitativos utilizables.",
+                        "Duplicados y análisis secundarios sin datos independientes.",
+                        "Opiniones, editoriales, blogs y marketing.",
+                        "Estudios con solapamiento de población no resoluble (riesgo de doble conteo)."
+                    ]
+                },
+                "estrategia_y_prioridad": {
+                    "jerarquia_de_documentos": [
+                        "1. ECA y meta-análisis previos de alta calidad.",
+                        "2. Estudios cuasi-experimentales / observacionales con efectos reportados.",
+                        "3. Datos individuales o suplementarios con estadísticas convertibles.",
+                        "4. Protocolos y registros de ensayos (contexto).",
+                        "5. Revisiones sistemáticas previas (solo para identificar estudios primarios)."
+                    ]
+                }
+            };
+        }
+
+        function getMetaAnalysisOutputFormat() {
+            return {
+                "instruccion": "Generar un LIENZO DE META-ANÁLISIS completo y accionable. No inventes valores numéricos de estudios no encontrados. Si un estudio no aporta datos para el efecto, márcalo como no estimable.",
+                "estructura_del_lienzo": [
+                    {
+                        "seccion": "1. Pregunta PICO y medida de efecto",
+                        "contenido": ["Pregunta", "P", "I", "C", "O", "Medida de efecto (OR/RR/HR/MD/SMD)", "Modelo (fijo/aleatorio)"]
+                    },
+                    {
+                        "seccion": "2. Protocolo cuantitativo",
+                        "contenido": ["Criterios inclusión/exclusión", "Unidad de análisis", "Transformaciones previstas", "Software o método sugerido (RevMan, R metafor, etc.)"]
+                    },
+                    {
+                        "seccion": "3. Búsqueda y PRISMA",
+                        "contenido": ["Bases", "Cadenas", "Flujo PRISMA", "Exclusiones por datos insuficientes"]
+                    },
+                    {
+                        "seccion": "4. Tabla de datos para meta-análisis",
+                        "formato_por_fila": "Estudio | Año | Diseño | N intervención | N control | Eventos/Media±DE | Efecto (IC 95%) | Peso % | RoB | DOI/URL | Notas"
+                    },
+                    {
+                        "seccion": "5. Resultados del meta-análisis",
+                        "contenido": ["Efecto global (IC 95%)", "p-valor", "I² / tau² / Q", "Forest plot (descripción tabular si no hay gráfico)", "Subgrupos y sensibilidad"]
+                    },
+                    {
+                        "seccion": "6. Sesgo y certeza",
+                        "contenido": ["Riesgo de sesgo resumen", "Sesgo de publicación", "GRADE por outcome"]
+                    },
+                    {
+                        "seccion": "7. Interpretación",
+                        "contenido": ["Significado clínico/práctico del efecto", "Heterogeneidad y causas plausibles", "Limitaciones", "Implicaciones para práctica e investigación"]
+                    }
+                ],
+                "formato_por_entrada": "Citas APA 7 + datos cuantitativos en tabla; DOI/URL obligatorio cuando exista.",
+                "campos_adicionales": ["Medida de efecto", "N", "IC 95%", "Peso", "RoB", "Enlace permanente"],
+                "notas_para_la_ia": [
+                    "Nunca fabricar n, eventos, medias o IC.",
+                    "Declarar cuando el meta-análisis no es viable por heterogeneidad o datos faltantes.",
+                    "Separar resultados estadísticos de recomendaciones normativas."
+                ]
+            };
+        }
+
+        function getStateOfArtPromptExtras(tema) {
+            return {
+                "task": "Elaborar un estado del arte crítico y actualizado sobre el tema indicado: sintetizar teorías, enfoques, hallazgos clave, debates, tendencias y vacíos, orientado a situar una investigación nueva.",
+                "tipo_revision": "estado_del_arte",
+                "marco_metodologico": {
+                    "estandar": "Revisión narrativa crítica / estado del arte (no PRISMA obligatorio)",
+                    "enfoque": {
+                        "instruccion": "Definir el objeto del estado del arte a partir del tema: \"" + tema + "\".",
+                        "campos": ["Objeto de estudio", "Campo disciplinar", "Periodo temporal prioritario", "Enfoques teóricos a cubrir", "Preguntas que el estado del arte debe responder"]
+                    },
+                    "protocolo": [
+                        "Delimitar el campo, subtemas y fronteras del estado del arte",
+                        "Identificar autores, escuelas y obras fundacionales vs. literatura reciente",
+                        "Organizar la evidencia por ejes temáticos, cronológicos o teóricos (no solo listar)",
+                        "Contrastar hallazgos, consensos y controversias",
+                        "Señalar avances metodológicos y tecnológicos relevantes",
+                        "Identificar vacíos, limitaciones y oportunidades de investigación",
+                        "Cerrar con posicionamiento: qué aporta una investigación nueva en este panorama",
+                        "Priorizar síntesis crítica sobre exhaustividad tipo PRISMA"
+                    ]
+                },
+                "criterios_de_inclusion": {
+                    "no_negociables": [
+                        "Fuentes académicas con autoría e institución identificables.",
+                        "Relevancia directa al objeto y al campo del estado del arte.",
+                        "Preferencia por literatura peer-reviewed, libros académicos y tesis de calidad."
+                    ],
+                    "indicadores_de_alta_calidad": [
+                        "Aporta marco teórico, clasificación o hallazgo citado recurrentemente.",
+                        "Representa una corriente, método o debate central del campo.",
+                        "Actualiza o cuestiona el conocimiento previo de forma fundamentada."
+                    ]
+                },
+                "criterios_de_exclusion": {
+                    "contenido_a_ignorar": [
+                        "Material no académico (blogs, marketing, redes).",
+                        "Fuentes tangenciales que no informan el objeto definido.",
+                        "Duplicados y resúmenes sin aporte analítico."
+                    ]
+                },
+                "estrategia_y_prioridad": {
+                    "jerarquia_de_documentos": [
+                        "1. Revisiones, handbooks y textos canónicos del campo.",
+                        "2. Artículos empíricos y teóricos recientes de alto impacto o influencia.",
+                        "3. Libros y capítulos académicos clave.",
+                        "4. Tesis doctorales relevantes.",
+                        "5. Informes técnicos o documentos de política si el campo lo requiere."
+                    ]
+                }
+            };
+        }
+
+        function getStateOfArtOutputFormat() {
+            return {
+                "instruccion": "Generar un LIENZO DE ESTADO DEL ARTE crítico, estructurado y accionable. No inventes referencias: cita solo literatura identificable y marca lagunas cuando falte evidencia.",
+                "estructura_del_lienzo": [
+                    {
+                        "seccion": "1. Delimitación del objeto",
+                        "contenido": ["Tema/objeto", "Campo disciplinar", "Preguntas orientadoras", "Límites temporales y geográficos", "Qué NO cubre este estado del arte"]
+                    },
+                    {
+                        "seccion": "2. Antecedentes y obras fundacionales",
+                        "contenido": ["Autores y escuelas clave", "Conceptos fundacionales", "Evolución histórica breve del campo"]
+                    },
+                    {
+                        "seccion": "3. Mapa teórico y conceptual",
+                        "contenido": ["Enfoques/teorías dominantes", "Definiciones en disputa", "Marcos analíticos más usados"]
+                    },
+                    {
+                        "seccion": "4. Hallazgos y tendencias recientes",
+                        "contenido": ["Ejes temáticos principales", "Resultados empíricos recurrentes", "Innovaciones metodológicas o tecnológicas"]
+                    },
+                    {
+                        "seccion": "5. Debates, consensos y controversias",
+                        "contenido": ["Puntos de acuerdo", "Discrepancias teóricas o empíricas", "Críticas al mainstream"]
+                    },
+                    {
+                        "seccion": "6. Tabla de literatura clave",
+                        "formato_por_fila": "Autor(es) | Año | Tipo | Enfoque/teoría | Aporte principal | Limitación | DOI/URL"
+                    },
+                    {
+                        "seccion": "7. Vacíos y agenda de investigación",
+                        "contenido": ["Qué no se ha estudiado (o poco)", "Problemas metodológicos abiertos", "Oportunidades para tesis/artículos nuevos"]
+                    },
+                    {
+                        "seccion": "8. Posicionamiento y cierre",
+                        "contenido": ["Síntesis crítica del panorama", "Cómo se sitúa una investigación nueva", "Pregunta(s) de investigación sugeridas", "Limitaciones de este estado del arte"]
+                    }
+                ],
+                "formato_por_entrada": "Citas APA 7 + DOI/URL; organizar por ejes, no solo por año.",
+                "campos_adicionales": ["Enfoque teórico", "Aporte", "Eje temático", "Tipo de documento", "Enlace permanente"],
+                "notas_para_la_ia": [
+                    "Priorizar síntesis crítica y articulación entre fuentes; evitar catálogo descriptivo.",
+                    "Equilibrar clásicos y literatura reciente (p. ej. últimos 5–10 años según el campo).",
+                    "Declarar sesgos de idioma, región o base de datos si afectan el panorama."
+                ]
+            };
         }
         
         function getBibtexApaOutputFormat() {

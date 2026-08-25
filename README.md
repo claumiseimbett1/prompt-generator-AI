@@ -29,6 +29,10 @@ Precargan fuentes, tipos de documento, criterios de calidad, rango de fechas y f
 | Ciencias ambientales | DOAJ, BASE, CORE, Semantic Scholar | Lienzo IA |
 | Derecho | JSTOR, Dialnet, BASE, Google Scholar | BibTeX + APA |
 | Tecnología e IA | arXiv, Semantic Scholar, Crossref, CORE | BibTeX + IEEE |
+| Revisión sistemática | PubMed, Cochrane, Semantic Scholar, DOAJ, Scielo | Lienzo PRISMA |
+| Revisión de alcance | PubMed, ERIC, Semantic Scholar, DOAJ, Scielo | Lienzo PRISMA-ScR |
+| Meta-análisis | PubMed, Cochrane, Semantic Scholar, Crossref | Lienzo meta-análisis |
+| Estado del arte | Scholar, Semantic Scholar, Scielo, Redalyc, JSTOR | Lienzo estado del arte |
 
 ### Validación BibTeX (nuevo)
 Al elegir **BibTeX + APA** o **BibTeX + IEEE**, la app:
@@ -53,8 +57,12 @@ Al elegir **BibTeX + APA** o **BibTeX + IEEE**, la app:
 
 ### Formatos de salida
 1. **Lienzo IA (Detallado)** — lista bibliográfica completa en APA 7
-2. **BibTeX + APA** — para Zotero, Mendeley, etc.
-3. **BibTeX + IEEE** — para ingeniería y ciencias exactas
+2. **Lienzo IA — Revisión sistemática (PRISMA)** — protocolo PICO, flujo PRISMA, extracción, calidad y síntesis
+3. **Lienzo IA — Revisión de alcance (PRISMA-ScR)** — pregunta PCC, mapa de evidencia y vacíos
+4. **Lienzo IA — Meta-análisis** — medida de efecto, tabla cuantitativa, heterogeneidad y GRADE
+5. **Lienzo IA — Estado del arte** — mapa teórico, debates, tendencias, vacíos y posicionamiento
+6. **BibTeX + APA** — para Zotero, Mendeley, etc.
+7. **BibTeX + IEEE** — para ingeniería y ciencias exactas
 
 ## Uso rápido
 
@@ -111,6 +119,7 @@ prompt-generator-AI/
 - **CORE**
 
 ### Agregadores y repositorios (nuevo)
+- **Cochrane Library** — revisiones sistemáticas y evidencia clínica
 - **ResearchGate**
 - **JSTOR (OA)**
 - **BASE** — [base-search.net](https://www.base-search.net/)
