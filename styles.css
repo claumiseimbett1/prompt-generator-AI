@@ -143,9 +143,11 @@ a {
 .relative { position: relative; }
 .absolute { position: absolute; }
 .inset-0 { inset: 0; }
+.inset-x-0 { left: 0; right: 0; }
 .top-0 { top: 0; }
 .top-3 { top: 0.75rem; }
 .left-3 { left: 0.75rem; }
+.bottom-0 { bottom: 0; }
 .z-10 { z-index: 10; }
 .z-50 { z-index: 50; }
 
@@ -208,6 +210,7 @@ a {
 .font-bold { font-weight: 700; }
 .text-xs { font-size: 0.75rem; line-height: 1rem; }
 .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
 .text-base { font-size: 1rem; line-height: 1.5rem; }
 .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
 .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
@@ -347,7 +350,7 @@ textarea {
 #output-format-container > label,
 #sources-container > label,
 #quality-container > label {
-  background-color: #fff;
+  background-color: var(--beige-light);
   background-image: none;
   border: 2px solid var(--beige-muted);
   color: var(--text-secondary);
@@ -361,19 +364,24 @@ textarea {
 #sources-container > label:hover,
 #quality-container > label:hover {
   border-color: var(--beige-dark);
-  background-color: var(--beige-light);
+  background-color: #efe6d6;
 }
 
 .choice-btn.is-selected,
+.choice-btn.is-selected:hover,
 #output-format-container > label:has(input:checked),
+#output-format-container > label:has(input:checked):hover,
 #sources-container > label:has(input:checked),
+#sources-container > label:has(input:checked):hover,
 #quality-container > label:has(input:checked),
-.choice-btn:has(input:checked) {
-  background-color: var(--yellow);
-  background-image: none;
-  border-color: var(--black);
-  color: var(--black);
-  box-shadow: 0 0 0 2px var(--yellow), 0 4px 14px rgba(0, 0, 0, 0.12);
+#quality-container > label:has(input:checked):hover,
+.choice-btn:has(input:checked),
+.choice-btn:has(input:checked):hover {
+  background-color: #fffc00 !important;
+  background-image: none !important;
+  border-color: #000 !important;
+  color: #000 !important;
+  box-shadow: 0 0 0 3px #fffc00, 0 4px 14px rgba(0, 0, 0, 0.18) !important;
 }
 
 .choice-btn.is-selected .font-medium,
@@ -393,15 +401,20 @@ html.dark #quality-container > label {
 }
 
 html.dark .choice-btn.is-selected,
+html.dark .choice-btn.is-selected:hover,
 html.dark #output-format-container > label:has(input:checked),
+html.dark #output-format-container > label:has(input:checked):hover,
 html.dark #sources-container > label:has(input:checked),
+html.dark #sources-container > label:has(input:checked):hover,
 html.dark #quality-container > label:has(input:checked),
-html.dark .choice-btn:has(input:checked) {
-  background-color: var(--yellow);
-  background-image: none;
-  border-color: var(--yellow);
-  color: var(--black);
-  box-shadow: 0 0 0 2px rgba(255, 252, 0, 0.5), 0 4px 14px rgba(255, 252, 0, 0.2);
+html.dark #quality-container > label:has(input:checked):hover,
+html.dark .choice-btn:has(input:checked),
+html.dark .choice-btn:has(input:checked):hover {
+  background-color: #fffc00 !important;
+  background-image: none !important;
+  border-color: #fffc00 !important;
+  color: #000 !important;
+  box-shadow: 0 0 0 3px rgba(255, 252, 0, 0.55), 0 4px 14px rgba(255, 252, 0, 0.25) !important;
 }
 
 /* â€”â€”â€” Components â€”â€”â€” */
@@ -448,19 +461,36 @@ html.dark .choice-btn:has(input:checked) {
 }
 
 .app-hero .hero-logo {
-  z-index: 2;
+  z-index: 3;
   transition: transform 0.35s ease;
 }
 
 .app-hero .hero-logo img {
-  width: 7rem;
-  height: 3.5rem;
+  width: 4.25rem;
+  height: 2.125rem;
   object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 0.5rem;
-  padding: 0.25rem 0.4rem;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.35rem;
+  padding: 0.15rem 0.25rem;
   transition: transform 0.35s ease;
+}
+
+.app-hero .hero-copy {
+  z-index: 2;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.45) 55%, transparent 100%);
+  color: #fff;
+  pointer-events: none;
+}
+
+.app-hero .hero-copy #main-title {
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.app-hero .hero-copy #subtitle {
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 html.dark .app-hero .hero-banner {
@@ -469,7 +499,7 @@ html.dark .app-hero .hero-banner {
 }
 
 html.dark .app-hero .hero-logo img {
-  background: rgba(31, 41, 55, 0.9);
+  background: rgba(31, 41, 55, 0.92);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -481,15 +511,18 @@ html.dark .app-hero .hero-logo img {
 
 @media (min-width: 768px) {
   .app-hero .hero-img {
-    max-height: 300px;
+    max-height: 320px;
   }
   .app-hero .hero-logo {
-    top: 1rem;
-    left: 1rem;
+    top: 0.75rem;
+    left: 0.75rem;
   }
   .app-hero .hero-logo img {
-    width: 9rem;
-    height: 4.5rem;
+    width: 5.25rem;
+    height: 2.625rem;
+  }
+  .app-hero .hero-copy {
+    padding-bottom: 1.75rem;
   }
 }
 
@@ -548,8 +581,28 @@ html.dark .app-hero .hero-logo img {
   box-shadow: 0 8px 22px rgba(255, 252, 0, 0.4);
 }
 
-.btn-secondary:active {
+.btn-secondary:active,
+.btn-secondary.is-active,
+#reformulateBtn.is-active,
+#suggestKeywordsBtn.is-active,
+#reformulateBtn:active,
+#suggestKeywordsBtn:active {
+  background-color: #fffc00 !important;
+  background-image: none !important;
+  color: #000 !important;
+  border-color: #000 !important;
   transform: translateY(0) scale(0.98);
+  box-shadow: 0 0 0 2px #fffc00, 0 4px 14px rgba(255, 252, 0, 0.45) !important;
+}
+
+.btn-secondary:disabled.is-active,
+#reformulateBtn:disabled.is-active,
+#suggestKeywordsBtn:disabled.is-active {
+  background-color: #fffc00 !important;
+  background-image: none !important;
+  color: #000 !important;
+  opacity: 1;
+  cursor: wait;
 }
 
 .btn-secondary:focus-visible {
@@ -730,6 +783,17 @@ html.dark .btn-secondary:hover {
   color: var(--black);
   border-color: var(--beige-dark);
   box-shadow: 0 8px 22px rgba(255, 252, 0, 0.3);
+}
+
+html.dark .btn-secondary:active,
+html.dark .btn-secondary.is-active,
+html.dark #reformulateBtn.is-active,
+html.dark #suggestKeywordsBtn.is-active {
+  background-color: var(--yellow);
+  background-image: none;
+  color: var(--black);
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 2px rgba(255, 252, 0, 0.45), 0 4px 14px rgba(255, 252, 0, 0.3);
 }
 
 /* â€”â€”â€” Responsive â€”â€”â€” */
