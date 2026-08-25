@@ -364,7 +364,8 @@ textarea:focus {
 
 /* Idiomas: cajas blancas */
 #languages-container .lang-option {
-  background-color: #ffffff;
+  background-color: #ffffff !important;
+  background-image: none !important;
   border: 2px solid var(--beige-dark);
   border-radius: 0.5rem;
   padding: 0.65rem 0.75rem;
@@ -376,34 +377,50 @@ textarea:focus {
 
 #languages-container .lang-option:hover {
   border-color: var(--beige-hover);
+  background-color: #ffffff !important;
 }
 
-#languages-container .lang-option:has(.lang-cb:checked) {
+#languages-container .lang-option:has(.lang-cb:checked),
+#languages-container .lang-option:has(.lang-cb:checked):hover {
+  background-color: #ffffff !important;
+  background-image: none !important;
   border-color: var(--beige-hover);
   box-shadow: 0 0 0 2px rgba(255, 252, 0, 0.35);
 }
 
 #languages-container .lang-cb.form-checkbox,
 #languages-container .lang-cb.form-checkbox:checked {
-  background-color: #ffffff;
+  background-color: #ffffff !important;
   border-color: var(--beige-dark);
 }
 
 #languages-container .lang-cb.form-checkbox:checked {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E") !important;
   box-shadow: none;
 }
 
-html.dark #languages-container .lang-option {
-  background-color: var(--gray-700);
-  border-color: var(--gray-500);
-  color: var(--gray-100);
+html.dark #languages-container .lang-option,
+html.dark #languages-container .lang-option:hover,
+html.dark #languages-container .lang-option:has(.lang-cb:checked) {
+  background-color: #ffffff !important;
+  color: #333;
+  border-color: var(--beige-dark);
 }
 
 html.dark #languages-container .lang-cb.form-checkbox,
 html.dark #languages-container .lang-cb.form-checkbox:checked {
-  background-color: #ffffff;
+  background-color: #ffffff !important;
   border-color: var(--beige-dark);
+}
+
+#language-selector {
+  background-color: #ffffff !important;
+  color: #000 !important;
+  border: 2px solid var(--beige-dark);
+  font-size: 16px;
+  min-height: 2.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .form-radio:checked {
@@ -1214,13 +1231,6 @@ html.dark .suggestion-chip:hover {
 .opacity-80 { opacity: 0.8; }
 .inline-flex { display: inline-flex; }
 
-#language-selector {
-  font-size: 16px;
-  min-height: 2.75rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
 #instructions-toggle,
 #download-manual-btn {
   min-height: 2.75rem;
@@ -1252,49 +1262,233 @@ html.dark #doc-type-container > label {
 @media (max-width: 640px) {
   body {
     align-items: flex-start;
+    padding: 0.5rem;
   }
 
   .app-card {
-    padding: 1rem;
+    padding: 0.85rem !important;
+    border-radius: 0.85rem;
+    box-shadow: 0 8px 24px rgba(213, 182, 144, 0.22);
   }
 
   .filter-section {
-    padding: 1rem;
-    margin-top: 1rem;
+    padding: 0.85rem;
+    margin-top: 0.85rem;
+    border-radius: 0.75rem;
+  }
+
+  .app-hero {
+    margin-bottom: 0.85rem;
+  }
+
+  .app-hero .hero-banner {
+    border-radius: 0.75rem;
+  }
+
+  .app-hero .hero-logo {
+    top: 0.5rem;
   }
 
   .app-hero .hero-logo img {
-    width: 5.75rem;
-    height: 2.85rem;
+    width: 4.75rem;
+    height: 2.35rem;
+    padding: 0.15rem 0.3rem;
   }
 
   .app-hero .hero-img {
-    max-height: 190px;
+    max-height: 168px;
+  }
+
+  .app-hero .hero-copy {
+    padding: 0.85rem 0.65rem 0.95rem;
   }
 
   .app-hero .hero-copy #main-title {
-    font-size: 1.35rem;
-    line-height: 1.3;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    margin: 0;
   }
 
   .app-hero .hero-copy #subtitle {
-    font-size: 0.8125rem;
-    line-height: 1.4;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    margin-top: 0.35rem;
+  }
+
+  .app-hero .hero-banner::before {
+    height: 36%;
+  }
+
+  /* Toolbar: idioma + iconos en una fila compacta */
+  .app-toolbar {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .app-toolbar > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  #language-selector {
+    flex: 1 1 auto;
+    min-width: 7.5rem;
+    max-width: 100%;
+  }
+
+  .btn-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.55rem;
+  }
+
+  .instructions-panel {
+    margin-bottom: 0.85rem;
+  }
+
+  #instructions-toggle,
+  #download-manual-btn {
+    width: 100%;
+    font-size: 0.875rem;
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .instructions-box {
+    padding: 0.85rem !important;
+  }
+
+  .instructions-box .flex.items-start {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .instructions-box .w-12.h-12 {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  #instructions-title {
+    font-size: 1.05rem;
+  }
+
+  #tema {
+    font-size: 16px;
+    min-height: 3rem;
+  }
+
+  #reformulateBtn,
+  #suggestKeywordsBtn,
+  #generateBtn {
+    width: 100%;
+    min-height: 3rem;
+    font-size: 1rem;
+  }
+
+  #languages-container {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  #languages-container .lang-option {
+    min-height: 3rem;
+    padding: 0.75rem 0.85rem;
+  }
+
+  #doc-type-container {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  #doc-type-container > label {
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+  }
+
+  #sources-container {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  #sources-container > label.choice-btn,
+  #output-format-container > label.choice-btn,
+  #quality-container > label.choice-btn {
+    min-height: 3rem;
+    padding: 0.75rem;
+  }
+
+  #output-format-container {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  #output-format-container > label.choice-btn .text-sm {
+    font-size: 0.8rem;
+  }
+
+  #custom-date-fields {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  #custom-date-fields > span {
+    display: none;
+  }
+
+  .app-credits {
+    margin-top: 1.25rem;
   }
 
   .app-credits .credits-hint {
-    min-height: 2.75rem;
-    padding: 0.75rem 0.85rem;
-    font-size: 0.78rem;
-    text-align: center;
+    min-height: 3rem;
+    padding: 0.85rem;
+    font-size: 0.75rem;
   }
 
-  #sources-container > label.choice-btn {
+  .app-credits .credits-bar.is-open .credits-panel,
+  .app-credits .credits-bar:focus-within .credits-panel {
+    max-height: 28rem;
+  }
+
+  #output-container .flex.justify-between {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  #copyBtn {
+    width: 100%;
     min-height: 2.75rem;
   }
 
-  #output-format-container > label.choice-btn {
+  #help-modal > div {
+    padding: 1rem;
+    max-height: 92vh;
+  }
+
+  #close-modal-btn {
+    min-width: 2.75rem;
     min-height: 2.75rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-hero .hero-copy #main-title {
+    font-size: 1.05rem;
+  }
+
+  .app-hero .hero-img {
+    max-height: 150px;
+  }
+
+  .app-hero .hero-logo img {
+    width: 4.25rem;
+    height: 2.1rem;
   }
 }
 
@@ -1343,8 +1537,8 @@ html.dark #doc-type-container > label {
 
 
         <!-- Idioma y controles -->
-        <div class="flex flex-col sm:flex-row justify-center sm:justify-end items-center mb-6 md:mb-8 space-y-2 sm:space-y-0 sm:space-x-4">
-             <select id="language-selector" class="bg-[#fffc00] text-[#000] rounded-md px-3 py-2 text-base border border-[#b8a082] font-semibold">
+        <div class="app-toolbar flex flex-col sm:flex-row justify-center sm:justify-end items-center mb-6 md:mb-8 space-y-2 sm:space-y-0 sm:space-x-4">
+             <select id="language-selector" class="bg-white text-[#000] rounded-md px-3 py-2 text-base border border-[#b8a082] font-semibold">
                 <option value="es">Español</option>
                 <option value="en">English</option>
             </select>
@@ -1398,7 +1592,7 @@ html.dark #doc-type-container > label {
             <!-- 1. Tema de Investigación -->
             <div class="mb-6">
                 <label for="tema" id="topic-label" class="block text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">Tema de Investigación</label>
-                <div class="flex flex-col md:flex-row md:flex-wrap md:items-center gap-2">
+                <div class="topic-actions flex flex-col md:flex-row md:flex-wrap md:items-center gap-2">
                     <input type="text" id="tema" class="w-full md:flex-1 min-w-0 px-4 py-3 md:py-2 border border-[#d5b690] dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-brand dark:placeholder-gray-400 text-base" placeholder="Ej: energías renovables, óptica, agricultura digital">
                     <button id="reformulateBtn" class="btn-secondary font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 w-full md:w-auto flex-shrink-0">
                         <span id="reformulate-text">Reformular</span>
