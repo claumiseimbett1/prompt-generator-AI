@@ -156,6 +156,7 @@ a {
 .mr-2 { margin-right: 0.5rem; }
 .mr-3 { margin-right: 0.75rem; }
 .ml-2 { margin-left: 0.5rem; }
+.mt-1 { margin-top: 0.25rem; }
 .mt-2 { margin-top: 0.5rem; }
 .mt-3 { margin-top: 0.75rem; }
 .mt-4 { margin-top: 1rem; }
@@ -556,6 +557,7 @@ html.dark .btn-secondary:hover {
   .md\:space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
   .md\:gap-6 { gap: 1.5rem; }
   .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md\:col-span-2 { grid-column: span 2 / span 2; }
   .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .md\:w-auto { width: auto; }
