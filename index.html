@@ -386,6 +386,47 @@ textarea {
   padding: 1.5rem;
 }
 
+.validation-box {
+  border: 1px solid var(--beige-muted);
+  background: #f9fafb;
+  color: var(--gray-700);
+}
+.validation-ok {
+  border-color: #86efac;
+  background: #f0fdf4;
+  color: #166534;
+}
+.validation-warn {
+  border-color: #fcd34d;
+  background: #fffbeb;
+  color: #92400e;
+}
+.validation-error {
+  border-color: #fca5a5;
+  background: #fef2f2;
+  color: #991b1b;
+}
+html.dark .validation-box {
+  background: var(--gray-800);
+  color: var(--gray-200);
+  border-color: var(--gray-600);
+}
+html.dark .validation-ok {
+  background: rgba(22, 101, 52, 0.25);
+  color: #86efac;
+  border-color: #166534;
+}
+html.dark .validation-warn {
+  background: rgba(146, 64, 14, 0.25);
+  color: #fcd34d;
+  border-color: #92400e;
+}
+html.dark .validation-error {
+  background: rgba(153, 27, 27, 0.25);
+  color: #fca5a5;
+  border-color: #991b1b;
+}
+
 .instructions-box {
   background-color: #fffbeb;
   border: 2px solid #fbbf24;
@@ -626,6 +667,13 @@ html.dark .btn-secondary:hover {
             
             <div id="suggestions-container" class="hidden mb-6 p-4 bg-[#f3ede0] dark:bg-gray-700/50 border border-[#d5b690] dark:border-gray-600 rounded-lg"></div>
 
+            <!-- Plantillas por área -->
+            <div class="mb-6">
+                <label for="area-template" id="area-template-label" class="block text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">Plantilla por área</label>
+                <select id="area-template" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg mb-2"></select>
+                <p id="area-template-hint" class="text-sm text-gray-500 dark:text-gray-400"></p>
+            </div>
+
             <!-- Filtros -->
             <div class="filter-section">
                 <h2 id="filters-general-title" class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3">Filtros Generales</h2>
@@ -692,6 +740,7 @@ html.dark .btn-secondary:hover {
                     <h3 id="generated-prompt-label" class="text-lg font-semibold text-gray-700 dark:text-gray-200">Prompt Generado</h3>
                     <button id="copyBtn" class="bg-[#f3ede0] dark:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-1 px-3 rounded-md text-sm border border-[#d5b690] hover:bg-[#d5b690] hover:text-white transition-colors">Copiar</button>
                 </div>
+                <div id="bibtex-validation" class="hidden validation-box mb-3 p-3 rounded-lg text-sm"></div>
                 <div class="bg-gray-900 text-white rounded-lg p-4 max-h-96 overflow-y-auto border border-[#d5b690]">
                     <pre><code id="output-code"></code></pre>
                 </div>
@@ -729,10 +778,10 @@ html.dark .btn-secondary:hover {
         // --- UI Dictionary for i18n ---
         const translations = {
             es: {
-                mainTitle: "Generador de Prompts Académicos", subtitle: "Crea prompts de nivel experto para tus búsquedas de investigación con IA.", topicLabel: "Tema de Investigación", reformulate: "Reformular", suggest: "Sugerir Conceptos", suggestedConcepts: "Conceptos sugeridos por la IA:", filtersGeneralTitle: "Filtros Generales", geographyLabel: "Área Geográfica (Opcional)", languagesLabel: "Idiomas", dateLabel: "Fecha de Publicación", datePresets: { custom: "Personalizado", "1": "Últimos 12 meses", "5": "Últimos 5 años", "10": "Últimos 10 años", all: "Todos los tiempos" }, sourcesLabel: "Fuentes y Bases de Datos (Acceso Abierto)", customSitesLabel: "Otros sitios específicos (separados por comas)", advancedFiltersLabel: "Filtros Avanzados", docTypeLabel: "Tipo de Documento", qualityLabel: "Criterios de Calidad", peerReviewed: "Sólo Revisado por Pares", fullText: "Sólo Texto Completo (PDF)", outputFormatLabel: "Formato de Salida", outputFormatDetailed: "Lienzo IA (Detallado)", outputFormatBibtexApa: "BibTeX + APA (Para Gestores)", outputFormatBibtexIeee: "BibTeX + IEEE (Para Gestores)", generateBtn: "Generar Prompt", generatedPromptLabel: "Prompt Generado", copyBtn: "Copiar", copiedBtn: "¡Copiado!", manualCopy: "¡Texto seleccionado! Cópialo.", alertTopic: "Por favor, ingresa un tema de investigación.", alertApiError: "Hubo un error con la IA. Por favor, intenta de nuevo.", helpTitle: "Cómo Usar la App", closeBtn: "Cerrar", helpContent: `<p><strong>1. Selecciona tu IA:</strong> Elige entre Gemini AI o Claude AI en el selector superior.</p><p><strong>2. Introduce tu Tema:</strong> Escribe tu idea de investigación en el campo principal.</p><p><strong>3. Refina con IA (Opcional):</strong> Usa los botones <strong>"Reformular"</strong> para obtener nuevos enfoques o <strong>"Sugerir Conceptos"</strong> para encontrar términos de búsqueda relevantes.</p><p><strong>4. Ajusta los Filtros:</strong> Selecciona los idiomas, el rango de fechas, las bases de datos y los tipos de documento que se ajusten a tu necesidad.</p><p><strong>5. Elige el Formato de Salida:</strong> Selecciona "Lienzo IA" para una lista detallada o <strong>"BibTeX"</strong> si planeas importar los resultados a un gestor de referencias.</p><p><strong>6. Genera el Prompt:</strong> Haz clic en el botón "Generar Prompt".</p><p><strong>7. Copia y Usa para Búsquedas Profundas:</strong> Copia el prompt JSON y pégalo en tu conversación con una IA de investigación como Gemini o Claude para realizar una <strong>búsqueda profunda</strong> y obtener resultados estructurados.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>Configuración de APIs</h4><p>Para usar las funciones de IA, necesitas configurar las API keys en el código:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Obtén tu clave en Google AI Studio</li><li><strong>Claude:</strong> Obtén tu clave en Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>¿Qué es BibTeX y un Gestor de Referencias?</h4><p>Un <strong>gestor de referencias</strong> (como Zotero o Mendeley) es un software que te ayuda a organizar todas tus fuentes y a generar bibliografías automáticamente. <strong>BibTeX (.bib)</strong> es el formato de archivo universal para exportar e importar estas referencias de manera fiable. ¡Es una herramienta esencial para cualquier investigador!</p>`
+                mainTitle: "Generador de Prompts Académicos", subtitle: "Crea prompts de nivel experto para tus búsquedas de investigación con IA.", topicLabel: "Tema de Investigación", reformulate: "Reformular", suggest: "Sugerir Conceptos", suggestedConcepts: "Conceptos sugeridos por la IA:", filtersGeneralTitle: "Filtros Generales", geographyLabel: "Área Geográfica (Opcional)", languagesLabel: "Idiomas", dateLabel: "Fecha de Publicación", datePresets: { custom: "Personalizado", "1": "Últimos 12 meses", "5": "Últimos 5 años", "10": "Últimos 10 años", all: "Todos los tiempos" }, sourcesLabel: "Fuentes y Bases de Datos (Acceso Abierto)", customSitesLabel: "Otros sitios específicos (separados por comas)", advancedFiltersLabel: "Filtros Avanzados", docTypeLabel: "Tipo de Documento", qualityLabel: "Criterios de Calidad", peerReviewed: "Sólo Revisado por Pares", fullText: "Sólo Texto Completo (PDF)", outputFormatLabel: "Formato de Salida", outputFormatDetailed: "Lienzo IA (Detallado)", outputFormatBibtexApa: "BibTeX + APA (Para Gestores)", outputFormatBibtexIeee: "BibTeX + IEEE (Para Gestores)", generateBtn: "Generar Prompt", generatedPromptLabel: "Prompt Generado", copyBtn: "Copiar", copiedBtn: "¡Copiado!", manualCopy: "¡Texto seleccionado! Cópialo.", alertTopic: "Por favor, ingresa un tema de investigación.", alertApiError: "Hubo un error con la IA. Por favor, intenta de nuevo.", areaTemplateLabel: "Plantilla por área", areaTemplateHint: "Precarga fuentes, tipos de documento y formato según el campo de estudio.", areaTemplates: { none: "Sin plantilla (manual)", medicine: "Medicina y salud", education: "Educación", engineering: "Ingeniería", social: "Ciencias sociales", environment: "Ciencias ambientales", law: "Derecho", techai: "Tecnología e IA" }, bibtexOk: "Validación BibTeX: el prompt pide los campos clave (author, title, year, DOI/URL).", bibtexWarnTitle: "Revisa antes de copiar (BibTeX):", bibtexMissingFields: "Faltan campos BibTeX en el prompt:", bibtexNoSources: "No hay fuentes seleccionadas; las citas pueden ser incompletas.", bibtexNoPeer: "Sugerencia: activa «Revisado por pares» para bibliografía académica más fiable.", bibtexCopyConfirm: "Hay advertencias de BibTeX. ¿Copiar de todos modos?", helpTitle: "Cómo Usar la App", closeBtn: "Cerrar", helpContent: `<p><strong>1. Selecciona tu IA:</strong> Elige entre Gemini AI o Claude AI en el selector superior.</p><p><strong>2. Introduce tu Tema:</strong> Escribe tu idea de investigación en el campo principal.</p><p><strong>3. Refina con IA (Opcional):</strong> Usa los botones <strong>"Reformular"</strong> para obtener nuevos enfoques o <strong>"Sugerir Conceptos"</strong> para encontrar términos de búsqueda relevantes.</p><p><strong>4. Ajusta los Filtros:</strong> Selecciona los idiomas, el rango de fechas, las bases de datos y los tipos de documento que se ajusten a tu necesidad.</p><p><strong>5. Elige el Formato de Salida:</strong> Selecciona "Lienzo IA" para una lista detallada o <strong>"BibTeX"</strong> si planeas importar los resultados a un gestor de referencias.</p><p><strong>6. Genera el Prompt:</strong> Haz clic en el botón "Generar Prompt".</p><p><strong>7. Copia y Usa para Búsquedas Profundas:</strong> Copia el prompt JSON y pégalo en tu conversación con una IA de investigación como Gemini o Claude para realizar una <strong>búsqueda profunda</strong> y obtener resultados estructurados.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>Configuración de APIs</h4><p>Para usar las funciones de IA, necesitas configurar las API keys en el código:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Obtén tu clave en Google AI Studio</li><li><strong>Claude:</strong> Obtén tu clave en Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>¿Qué es BibTeX y un Gestor de Referencias?</h4><p>Un <strong>gestor de referencias</strong> (como Zotero o Mendeley) es un software que te ayuda a organizar todas tus fuentes y a generar bibliografías automáticamente. <strong>BibTeX (.bib)</strong> es el formato de archivo universal para exportar e importar estas referencias de manera fiable. ¡Es una herramienta esencial para cualquier investigador!</p>`
             },
             en: {
-                mainTitle: "Academic Prompt Generator", subtitle: "Create expert-level prompts for your AI research searches.", topicLabel: "Research Topic", reformulate: "Rephrase", suggest: "Suggest Concepts", suggestedConcepts: "AI Suggested Concepts:", filtersGeneralTitle: "General Filters", geographyLabel: "Geographic Area (Optional)", languagesLabel: "Languages", dateLabel: "Publication Date", datePresets: { custom: "Custom", "1": "Last 12 months", "5": "Last 5 years", "10": "Last 10 years", all: "All time" }, sourcesLabel: "Sources & Databases (Open Access)", customSitesLabel: "Other specific sites (comma-separated)", advancedFiltersLabel: "Advanced Filters", docTypeLabel: "Document Type", qualityLabel: "Quality Criteria", peerReviewed: "Peer-reviewed only", fullText: "Full text only (PDF)", outputFormatLabel: "Output Format", outputFormatDetailed: "AI Canvas (Detailed)", outputFormatBibtexApa: "BibTeX + APA (For Managers)", outputFormatBibtexIeee: "BibTeX + IEEE (For Managers)", generateBtn: "Generate Prompt", generatedPromptLabel: "Generated Prompt", copyBtn: "Copy", copiedBtn: "Copied!", manualCopy: "Text selected! Now copy.", alertTopic: "Please enter a research topic.", alertApiError: "AI error occurred. Please try again.", helpTitle: "How to Use the App", closeBtn: "Close", helpContent: `<p><strong>1. Select your AI:</strong> Choose between Gemini AI or Claude AI in the top selector.</p><p><strong>2. Enter your Topic:</strong> Write your research idea in the main field.</p><p><strong>3. Refine with AI (Optional):</strong> Use the <strong>"Rephrase"</strong> button to get new approaches or <strong>"Suggest Concepts"</strong> to find relevant search terms.</p><p><strong>4. Adjust Filters:</strong> Select the languages, date range, databases, and document types that fit your needs.</p><p><strong>5. Choose Output Format:</strong> Select "AI Canvas" for a detailed list or <strong>"BibTeX"</strong> if you plan to import the results into a reference manager.</p><p><strong>6. Generate the Prompt:</strong> Click the "Generate Prompt" button.</p><p><strong>7. Copy and Use for Deep Research:</strong> Copy the JSON prompt and paste it into your conversation with a research AI like Gemini or Claude to perform a <strong>deep search</strong> and get structured results.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>API Configuration</h4><p>To use AI features, you need to configure API keys in the code:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Get your key from Google AI Studio</li><li><strong>Claude:</strong> Get your key from Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>What is BibTeX & a Reference Manager?</h4><p>A <strong>reference manager</strong> (like Zotero or Mendeley) is software that helps you organize all your sources and automatically generate bibliographies. <strong>BibTeX (.bib)</strong> is the universal file format for reliably exporting and importing these references. It's an essential tool for any researcher!</p>`
+                mainTitle: "Academic Prompt Generator", subtitle: "Create expert-level prompts for your AI research searches.", topicLabel: "Research Topic", reformulate: "Rephrase", suggest: "Suggest Concepts", suggestedConcepts: "AI Suggested Concepts:", filtersGeneralTitle: "General Filters", geographyLabel: "Geographic Area (Optional)", languagesLabel: "Languages", dateLabel: "Publication Date", datePresets: { custom: "Custom", "1": "Last 12 months", "5": "Last 5 years", "10": "Last 10 years", all: "All time" }, sourcesLabel: "Sources & Databases (Open Access)", customSitesLabel: "Other specific sites (comma-separated)", advancedFiltersLabel: "Advanced Filters", docTypeLabel: "Document Type", qualityLabel: "Quality Criteria", peerReviewed: "Peer-reviewed only", fullText: "Full text only (PDF)", outputFormatLabel: "Output Format", outputFormatDetailed: "AI Canvas (Detailed)", outputFormatBibtexApa: "BibTeX + APA (For Managers)", outputFormatBibtexIeee: "BibTeX + IEEE (For Managers)", generateBtn: "Generate Prompt", generatedPromptLabel: "Generated Prompt", copyBtn: "Copy", copiedBtn: "Copied!", manualCopy: "Text selected! Now copy.", alertTopic: "Please enter a research topic.", alertApiError: "AI error occurred. Please try again.", areaTemplateLabel: "Area template", areaTemplateHint: "Preloads sources, document types, and output format for your field.", areaTemplates: { none: "No template (manual)", medicine: "Medicine & health", education: "Education", engineering: "Engineering", social: "Social sciences", environment: "Environmental sciences", law: "Law", techai: "Technology & AI" }, bibtexOk: "BibTeX check: the prompt requests key fields (author, title, year, DOI/URL).", bibtexWarnTitle: "Review before copying (BibTeX):", bibtexMissingFields: "Missing BibTeX fields in the prompt:", bibtexNoSources: "No sources selected; citations may be incomplete.", bibtexNoPeer: "Tip: enable «Peer-reviewed» for more reliable academic bibliography.", bibtexCopyConfirm: "There are BibTeX warnings. Copy anyway?", helpTitle: "How to Use the App", closeBtn: "Close", helpContent: `<p><strong>1. Select your AI:</strong> Choose between Gemini AI or Claude AI in the top selector.</p><p><strong>2. Enter your Topic:</strong> Write your research idea in the main field.</p><p><strong>3. Refine with AI (Optional):</strong> Use the <strong>"Rephrase"</strong> button to get new approaches or <strong>"Suggest Concepts"</strong> to find relevant search terms.</p><p><strong>4. Adjust Filters:</strong> Select the languages, date range, databases, and document types that fit your needs.</p><p><strong>5. Choose Output Format:</strong> Select "AI Canvas" for a detailed list or <strong>"BibTeX"</strong> if you plan to import the results into a reference manager.</p><p><strong>6. Generate the Prompt:</strong> Click the "Generate Prompt" button.</p><p><strong>7. Copy and Use for Deep Research:</strong> Copy the JSON prompt and paste it into your conversation with a research AI like Gemini or Claude to perform a <strong>deep search</strong> and get structured results.</p><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>API Configuration</h4><p>To use AI features, you need to configure API keys in the code:</p><ul class='list-disc list-inside mt-2'><li><strong>Gemini:</strong> Get your key from Google AI Studio</li><li><strong>Claude:</strong> Get your key from Anthropic Console</li></ul><hr class='my-4 dark:border-gray-600'><h4 class='font-bold text-gray-800 dark:text-white'>What is BibTeX & a Reference Manager?</h4><p>A <strong>reference manager</strong> (like Zotero or Mendeley) is software that helps you organize all your sources and automatically generate bibliographies. <strong>BibTeX (.bib)</strong> is the universal file format for reliably exporting and importing these references. It's an essential tool for any researcher!</p>`
             }
         };
 
@@ -742,20 +791,38 @@ html.dark .btn-secondary:hover {
                 { id: 'en', name: 'Inglés', checked: true }
             ],
             sources: [
-                { name: 'Dominios Confiables', source: 'site:.edu,site:.gov,site:.org,site:.int,site:.gob,site:.ac.uk', checked: true },
-                { name: 'Google Scholar', source: 'site:scholar.google.com' },
-                { name: 'Semantic Scholar', source: 'site:semanticscholar.org' },
-                { name: 'Scielo', source: 'site:scielo.org' },
-                { name: 'Redalyc', source: 'site:redalyc.org' }, { name: 'Dialnet', source: 'site:dialnet.unirioja.es' },
-                { name: 'Latindex', source: 'site:latindex.org' }, { name: 'PubMed Central', source: 'site:pubmed.ncbi.nlm.nih.gov' },
-                { name: 'ERIC', source: 'site:eric.ed.gov' }, { name: 'arXiv', source: 'site:arxiv.org' },
-                { name: 'DOAJ', source: 'site:doaj.org' }, { name: 'CORE', source: 'site:core.ac.uk' }
+                { id: 'trusted', name: 'Dominios Confiables', source: 'site:.edu,site:.gov,site:.org,site:.int,site:.gob,site:.ac.uk', checked: true },
+                { id: 'scholar', name: 'Google Scholar', source: 'site:scholar.google.com' },
+                { id: 'semantic', name: 'Semantic Scholar', source: 'site:semanticscholar.org' },
+                { id: 'scielo', name: 'Scielo', source: 'site:scielo.org' },
+                { id: 'redalyc', name: 'Redalyc', source: 'site:redalyc.org' },
+                { id: 'dialnet', name: 'Dialnet', source: 'site:dialnet.unirioja.es' },
+                { id: 'latindex', name: 'Latindex', source: 'site:latindex.org' },
+                { id: 'pubmed', name: 'PubMed Central', source: 'site:pubmed.ncbi.nlm.nih.gov' },
+                { id: 'eric', name: 'ERIC', source: 'site:eric.ed.gov' },
+                { id: 'arxiv', name: 'arXiv', source: 'site:arxiv.org' },
+                { id: 'doaj', name: 'DOAJ', source: 'site:doaj.org' },
+                { id: 'core', name: 'CORE', source: 'site:core.ac.uk' },
+                { id: 'researchgate', name: 'ResearchGate', source: 'site:researchgate.net' },
+                { id: 'jstor', name: 'JSTOR (OA)', source: 'site:jstor.org' },
+                { id: 'base', name: 'BASE', source: 'site:base-search.net' },
+                { id: 'crossref', name: 'Crossref', source: 'site:crossref.org' }
             ],
             docTypes: [
                 { id: 'article', name: 'Artículo' }, { id: 'book', name: 'Libro / Capítulo' },
                 { id: 'thesis', name: 'Tesis / Disertación' }, { id: 'review', name: 'Revisión / Meta-análisis' },
                 { id: 'conference', name: 'Ponencia / Conferencia' }, { id: 'report', name: 'Informe Técnico' }, { id: 'patent', name: 'Patente' }
-            ]
+            ],
+            areaTemplates: {
+                none: { sources: ['trusted'], docTypes: [], peerReviewed: false, fullText: true, datePreset: '5', outputFormat: 'detailed' },
+                medicine: { sources: ['trusted', 'pubmed', 'semantic', 'doaj', 'core', 'crossref'], docTypes: ['article', 'review', 'thesis'], peerReviewed: true, fullText: true, datePreset: '5', outputFormat: 'bibtex-apa' },
+                education: { sources: ['trusted', 'eric', 'scholar', 'redalyc', 'scielo', 'doaj'], docTypes: ['article', 'thesis', 'book'], peerReviewed: true, fullText: true, datePreset: '10', outputFormat: 'bibtex-apa' },
+                engineering: { sources: ['trusted', 'arxiv', 'semantic', 'scholar', 'core', 'crossref'], docTypes: ['article', 'conference', 'patent', 'report'], peerReviewed: true, fullText: true, datePreset: '5', outputFormat: 'bibtex-ieee' },
+                social: { sources: ['trusted', 'scielo', 'redalyc', 'dialnet', 'jstor', 'scholar'], docTypes: ['article', 'book', 'thesis'], peerReviewed: true, fullText: true, datePreset: '10', outputFormat: 'bibtex-apa' },
+                environment: { sources: ['trusted', 'scholar', 'semantic', 'doaj', 'base', 'core'], docTypes: ['article', 'review', 'report'], peerReviewed: true, fullText: true, datePreset: '5', outputFormat: 'detailed' },
+                law: { sources: ['trusted', 'jstor', 'scholar', 'dialnet', 'base'], docTypes: ['article', 'book', 'report'], peerReviewed: true, fullText: true, datePreset: '10', outputFormat: 'bibtex-apa' },
+                techai: { sources: ['trusted', 'arxiv', 'semantic', 'scholar', 'crossref', 'core'], docTypes: ['article', 'conference', 'review'], peerReviewed: true, fullText: true, datePreset: '5', outputFormat: 'bibtex-ieee' }
+            }
         };
         
         const dom = {};
@@ -774,7 +841,7 @@ html.dark .btn-secondary:hover {
             `).join('');
 
             dom.sourcesContainer.innerHTML = staticData.sources.map(src => `
-                <label class="flex items-center gap-2 p-2 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer min-w-0"><input type="checkbox" data-source="${src.source}" class="source-cb form-checkbox h-5 w-5" ${src.checked ? 'checked' : ''}><span class="text-sm leading-snug break-words">${src.name}</span></label>
+                <label class="flex items-center gap-2 p-2 border border-[#d5b690] dark:border-gray-600 rounded-lg hover:bg-[#f3ede0] dark:hover:bg-gray-700 cursor-pointer min-w-0"><input type="checkbox" data-source-id="${src.id}" data-source="${src.source}" class="source-cb form-checkbox h-5 w-5" ${src.checked ? 'checked' : ''}><span class="text-sm leading-snug break-words">${src.name}</span></label>
             `).join('');
             
             dom.docTypeContainer.innerHTML = staticData.docTypes.map(doc => `
@@ -824,6 +891,13 @@ html.dark .btn-secondary:hover {
             dom.closeBtnText.textContent = t.closeBtn;
 
             dom.dateRangePreset.innerHTML = Object.entries(t.datePresets).map(([value, text]) => `<option value="${value}">${text}</option>`).join('');
+            if (dom.areaTemplateLabel) dom.areaTemplateLabel.textContent = t.areaTemplateLabel;
+            if (dom.areaTemplateHint) dom.areaTemplateHint.textContent = t.areaTemplateHint;
+            if (dom.areaTemplate) {
+                const prev = dom.areaTemplate.value || 'none';
+                dom.areaTemplate.innerHTML = Object.entries(t.areaTemplates).map(([value, text]) => `<option value="${value}">${text}</option>`).join('');
+                dom.areaTemplate.value = prev;
+            }
             updateDateFields();
         }
 
@@ -964,6 +1038,81 @@ html.dark .btn-secondary:hover {
             }
         }
 
+        function applyAreaTemplate(key) {
+            const tpl = staticData.areaTemplates[key];
+            if (!tpl) return;
+            const sourceSet = new Set(tpl.sources);
+            document.querySelectorAll('.source-cb').forEach(cb => {
+                cb.checked = sourceSet.has(cb.dataset.sourceId);
+            });
+            const docSet = new Set(tpl.docTypes);
+            document.querySelectorAll('.doc-type-cb').forEach(cb => {
+                const id = cb.id.replace(/^doc-/, '');
+                cb.checked = docSet.has(id);
+            });
+            if (dom.peerReviewed) dom.peerReviewed.checked = !!tpl.peerReviewed;
+            if (dom.fullText) dom.fullText.checked = !!tpl.fullText;
+            if (dom.dateRangePreset) {
+                dom.dateRangePreset.value = tpl.datePreset || '5';
+                updateDateFields();
+            }
+            const formatRadio = document.querySelector(`input[name="output-format"][value="${tpl.outputFormat}"]`);
+            if (formatRadio) formatRadio.checked = true;
+        }
+
+        const BIBTEX_REQUIRED_FIELDS = ['author', 'title', 'year', 'doi', 'url'];
+
+        function getSelectedOutputFormat() {
+            const el = document.querySelector('input[name="output-format"]:checked');
+            return el ? el.value : 'detailed';
+        }
+
+        function validateBibtexPrompt(promptObject) {
+            const format = getSelectedOutputFormat();
+            const isBibtex = format === 'bibtex-apa' || format === 'bibtex-ieee';
+            if (!isBibtex) return { isBibtex: false, ok: true, missingFields: [], warnings: [] };
+
+            const t = translations[document.documentElement.lang];
+            const fields = (promptObject.formato_de_salida && promptObject.formato_de_salida.campos_requeridos) || [];
+            const missingFields = BIBTEX_REQUIRED_FIELDS.filter(f => !fields.includes(f));
+            const warnings = [];
+            const checkedSources = document.querySelectorAll('.source-cb:checked').length;
+            const customSites = (dom.customSites?.value || '').trim();
+            if (!checkedSources && !customSites) warnings.push(t.bibtexNoSources);
+            if (!dom.peerReviewed?.checked) warnings.push(t.bibtexNoPeer);
+            if (missingFields.length) warnings.push(`${t.bibtexMissingFields} ${missingFields.join(', ')}`);
+
+            return {
+                isBibtex: true,
+                ok: missingFields.length === 0 && (checkedSources > 0 || !!customSites),
+                missingFields,
+                warnings
+            };
+        }
+
+        function renderBibtexValidation(result) {
+            if (!dom.bibtexValidation) return;
+            const t = translations[document.documentElement.lang];
+            if (!result.isBibtex) {
+                dom.bibtexValidation.classList.add('hidden');
+                dom.bibtexValidation.innerHTML = '';
+                return;
+            }
+            dom.bibtexValidation.classList.remove('hidden');
+            if (result.ok && result.warnings.length === 0) {
+                dom.bibtexValidation.className = 'validation-box validation-ok mb-3 p-3 rounded-lg text-sm';
+                dom.bibtexValidation.innerHTML = `<strong>${t.bibtexOk}</strong>`;
+                return;
+            }
+            if (result.ok && result.warnings.length) {
+                dom.bibtexValidation.className = 'validation-box validation-warn mb-3 p-3 rounded-lg text-sm';
+                dom.bibtexValidation.innerHTML = `<strong>${t.bibtexWarnTitle}</strong><ul class="list-disc list-inside mt-2">${result.warnings.map(w => `<li>${w}</li>`).join('')}</ul>`;
+                return;
+            }
+            dom.bibtexValidation.className = 'validation-box validation-error mb-3 p-3 rounded-lg text-sm';
+            dom.bibtexValidation.innerHTML = `<strong>${t.bibtexWarnTitle}</strong><ul class="list-disc list-inside mt-2">${result.warnings.map(w => `<li>${w}</li>`).join('')}</ul>`;
+        }
+
         function setupEventListeners() {
             dom.languageSelector.addEventListener('change', (e) => setLanguage(e.target.value));
             dom.themeToggle.addEventListener('click', () => {
@@ -972,6 +1121,9 @@ html.dark .btn-secondary:hover {
                 dom.themeIconDark.classList.toggle('hidden');
             });
             dom.dateRangePreset.addEventListener('change', updateDateFields);
+            if (dom.areaTemplate) {
+                dom.areaTemplate.addEventListener('change', (e) => applyAreaTemplate(e.target.value));
+            }
             dom.generateBtn.addEventListener('click', () => {
                 const tema = dom.tema.value.trim();
                 if (!tema) {
@@ -980,12 +1132,24 @@ html.dark .btn-secondary:hover {
                 }
                 const promptObject = buildPromptObject(tema);
                 dom.outputCode.textContent = JSON.stringify(promptObject, null, 2);
+                renderBibtexValidation(validateBibtexPrompt(promptObject));
                 dom.outputContainer.classList.remove('hidden');
+                dom.outputContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
 
             dom.copyBtn.addEventListener('click', async () => {
                 const textToCopy = dom.outputCode.textContent;
                 const lang = document.documentElement.lang;
+                const t = translations[lang];
+                let promptObject = null;
+                try { promptObject = JSON.parse(textToCopy); } catch (_) {}
+                if (promptObject) {
+                    const result = validateBibtexPrompt(promptObject);
+                    renderBibtexValidation(result);
+                    if (result.isBibtex && result.warnings.length && !confirm(t.bibtexCopyConfirm)) {
+                        return;
+                    }
+                }
                 try {
                     if (navigator.clipboard && window.isSecureContext) {
                         await navigator.clipboard.writeText(textToCopy);
@@ -1000,12 +1164,12 @@ html.dark .btn-secondary:hover {
                         document.execCommand('copy');
                         document.body.removeChild(textArea);
                     }
-                    dom.copyBtn.textContent = translations[lang].copiedBtn;
+                    dom.copyBtn.textContent = t.copiedBtn;
                 } catch (err) {
                     console.error('Unable to copy', err);
                     dom.copyBtn.textContent = 'Error';
                 }
-                setTimeout(() => { dom.copyBtn.textContent = translations[lang].copyBtn; }, 2000);
+                setTimeout(() => { dom.copyBtn.textContent = t.copyBtn; }, 2000);
             });
 
             // AI Features
@@ -1163,7 +1327,7 @@ html.dark .btn-secondary:hover {
         
         function getBibtexApaOutputFormat() {
             return { 
-                "instruccion": "Para cada documento encontrado que cumpla los criterios, generar una entrada en formato BibTeX optimizada para estilo APA 7. Incluir también la cita formateada en APA 7 como comentario.", 
+                "instruccion": "Para cada documento encontrado que cumpla los criterios, generar una entrada en formato BibTeX optimizada para estilo APA 7. Incluir también la cita formateada en APA 7 como comentario. NO omitir author, title, year ni doi/url; si un campo no aplica, usar note explicativa.", 
                 "formato_por_entrada": "Entrada BibTeX con metadatos completos + Cita APA 7 como comentario.", 
                 "campos_requeridos": ["author", "title", "year", "journal", "volume", "number", "pages", "doi", "url", "note"],
                 "estilo_citacion": "APA 7th Edition",
@@ -1173,7 +1337,7 @@ html.dark .btn-secondary:hover {
         
         function getBibtexIeeeOutputFormat() {
             return { 
-                "instruccion": "Para cada documento encontrado que cumpla los criterios, generar una entrada en formato BibTeX optimizada para estilo IEEE. Incluir también la cita formateada en IEEE como comentario.", 
+                "instruccion": "Para cada documento encontrado que cumpla los criterios, generar una entrada en formato BibTeX optimizada para estilo IEEE. Incluir también la cita formateada en IEEE como comentario. NO omitir author, title, year ni doi/url; si un campo no aplica, usar note explicativa.", 
                 "formato_por_entrada": "Entrada BibTeX con metadatos completos + Cita IEEE como comentario.", 
                 "campos_requeridos": ["author", "title", "year", "journal", "volume", "number", "pages", "doi", "url", "note"],
                 "estilo_citacion": "IEEE Citation Style",

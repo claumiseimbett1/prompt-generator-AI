@@ -378,6 +378,47 @@ textarea {
   padding: 1.5rem;
 }
 
+.validation-box {
+  border: 1px solid var(--beige-muted);
+  background: #f9fafb;
+  color: var(--gray-700);
+}
+.validation-ok {
+  border-color: #86efac;
+  background: #f0fdf4;
+  color: #166534;
+}
+.validation-warn {
+  border-color: #fcd34d;
+  background: #fffbeb;
+  color: #92400e;
+}
+.validation-error {
+  border-color: #fca5a5;
+  background: #fef2f2;
+  color: #991b1b;
+}
+html.dark .validation-box {
+  background: var(--gray-800);
+  color: var(--gray-200);
+  border-color: var(--gray-600);
+}
+html.dark .validation-ok {
+  background: rgba(22, 101, 52, 0.25);
+  color: #86efac;
+  border-color: #166534;
+}
+html.dark .validation-warn {
+  background: rgba(146, 64, 14, 0.25);
+  color: #fcd34d;
+  border-color: #92400e;
+}
+html.dark .validation-error {
+  background: rgba(153, 27, 27, 0.25);
+  color: #fca5a5;
+  border-color: #991b1b;
+}
+
 .instructions-box {
   background-color: #fffbeb;
   border: 2px solid #fbbf24;
