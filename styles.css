@@ -41,11 +41,11 @@ html {
 
 body {
   font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-  background: #ffffff;
+  background: linear-gradient(180deg, #fffef5 0%, var(--beige-light) 100%);
   margin: 0;
   min-height: 100vh;
   line-height: 1.5;
-  color: var(--gray-800);
+  color: var(--text-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -220,10 +220,10 @@ a {
 .text-white { color: #fff; }
 .text-black { color: #000; }
 .text-gray-400 { color: var(--gray-400); }
-.text-gray-500 { color: var(--gray-500); }
-.text-gray-600 { color: var(--gray-600); }
-.text-gray-700 { color: var(--gray-700); }
-.text-gray-800 { color: var(--gray-800); }
+.text-gray-500 { color: var(--beige-hover); }
+.text-gray-600 { color: var(--text-secondary); }
+.text-gray-700 { color: var(--text-secondary); }
+.text-gray-800 { color: var(--text-secondary); }
 .text-gray-900 { color: var(--gray-900); }
 .text-\[\#333\] { color: #333; }
 .text-indigo-600, .text-brand { color: var(--beige-hover); }
@@ -246,12 +246,12 @@ a {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.border { border-width: 1px; border-style: solid; border-color: var(--gray-300); }
+.border { border-width: 1px; border-style: solid; border-color: var(--beige-muted); }
 .border-2 { border-width: 2px; border-style: solid; }
-.border-t { border-top: 1px solid var(--gray-200); }
-.border-b { border-bottom: 1px solid var(--gray-200); }
+.border-t { border-top: 1px solid var(--beige-muted); }
+.border-b { border-bottom: 1px solid var(--beige-muted); }
 .border-\[\#d5b690\] { border-color: var(--beige-dark); }
-.border-gray-200 { border-color: var(--gray-200); }
+.border-gray-200 { border-color: var(--beige-muted); }
 .border-gray-300 { border-color: var(--beige-dark); }
 
 .rounded { border-radius: 0.25rem; }
@@ -273,8 +273,8 @@ a {
 .hover\:bg-\[\#d5b690\]:hover { background-color: var(--beige-dark); }
 .hover\:bg-\[\#b8a082\]:hover { background-color: var(--beige-hover); }
 .hover\:bg-\[\#f3ede0\]:hover { background-color: var(--beige-light); }
-.hover\:bg-gray-50:hover { background-color: #f9fafb; }
-.hover\:bg-gray-100:hover { background-color: var(--gray-100); }
+.hover\:bg-gray-50:hover { background-color: var(--beige-light); }
+.hover\:bg-gray-100:hover { background-color: var(--beige-light); }
 .hover\:text-white:hover { color: #fff; }
 .hover\:text-gray-800:hover { color: var(--gray-800); }
 
@@ -317,8 +317,8 @@ textarea:focus {
   display: inline-block;
   flex-shrink: 0;
   vertical-align: middle;
-  background-color: #fff;
-  border: 2px solid var(--beige-muted);
+  background-color: var(--white);
+  border: 2px solid var(--beige-dark);
   cursor: pointer;
   accent-color: var(--beige-dark);
   margin: 0;
@@ -378,7 +378,7 @@ textarea:focus {
 #sources-container > label:hover,
 #quality-container > label:hover {
   border-color: var(--beige-dark);
-  background-color: #efe6d6;
+  background-color: var(--beige-light);
 }
 
 .choice-btn.is-selected,
@@ -445,8 +445,9 @@ html.dark .form-radio:checked {
 
 /* â€”â€”â€” Components â€”â€”â€” */
 .app-card {
-  border: 2px solid var(--beige-muted);
-  background: #fff;
+  border: 2px solid var(--beige-dark);
+  background: #ffffff;
+  box-shadow: 0 12px 40px rgba(213, 182, 144, 0.25);
 }
 
 .app-hero .hero-banner {
@@ -903,8 +904,8 @@ html.dark .btn-icon:hover {
 }
 #instructions-toggle.is-open {
   background-color: var(--yellow);
-  color: #000;
-  border-color: #111;
+  color: var(--black);
+  border-color: var(--beige-dark);
 }
 
 

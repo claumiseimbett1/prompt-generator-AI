@@ -49,11 +49,11 @@ html {
 
 body {
   font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-  background: #ffffff;
+  background: linear-gradient(180deg, #fffef5 0%, var(--beige-light) 100%);
   margin: 0;
   min-height: 100vh;
   line-height: 1.5;
-  color: var(--gray-800);
+  color: var(--text-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -228,10 +228,10 @@ a {
 .text-white { color: #fff; }
 .text-black { color: #000; }
 .text-gray-400 { color: var(--gray-400); }
-.text-gray-500 { color: var(--gray-500); }
-.text-gray-600 { color: var(--gray-600); }
-.text-gray-700 { color: var(--gray-700); }
-.text-gray-800 { color: var(--gray-800); }
+.text-gray-500 { color: var(--beige-hover); }
+.text-gray-600 { color: var(--text-secondary); }
+.text-gray-700 { color: var(--text-secondary); }
+.text-gray-800 { color: var(--text-secondary); }
 .text-gray-900 { color: var(--gray-900); }
 .text-\[\#333\] { color: #333; }
 .text-indigo-600, .text-brand { color: var(--beige-hover); }
@@ -254,12 +254,12 @@ a {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.border { border-width: 1px; border-style: solid; border-color: var(--gray-300); }
+.border { border-width: 1px; border-style: solid; border-color: var(--beige-muted); }
 .border-2 { border-width: 2px; border-style: solid; }
-.border-t { border-top: 1px solid var(--gray-200); }
-.border-b { border-bottom: 1px solid var(--gray-200); }
+.border-t { border-top: 1px solid var(--beige-muted); }
+.border-b { border-bottom: 1px solid var(--beige-muted); }
 .border-\[\#d5b690\] { border-color: var(--beige-dark); }
-.border-gray-200 { border-color: var(--gray-200); }
+.border-gray-200 { border-color: var(--beige-muted); }
 .border-gray-300 { border-color: var(--beige-dark); }
 
 .rounded { border-radius: 0.25rem; }
@@ -281,8 +281,8 @@ a {
 .hover\:bg-\[\#d5b690\]:hover { background-color: var(--beige-dark); }
 .hover\:bg-\[\#b8a082\]:hover { background-color: var(--beige-hover); }
 .hover\:bg-\[\#f3ede0\]:hover { background-color: var(--beige-light); }
-.hover\:bg-gray-50:hover { background-color: #f9fafb; }
-.hover\:bg-gray-100:hover { background-color: var(--gray-100); }
+.hover\:bg-gray-50:hover { background-color: var(--beige-light); }
+.hover\:bg-gray-100:hover { background-color: var(--beige-light); }
 .hover\:text-white:hover { color: #fff; }
 .hover\:text-gray-800:hover { color: var(--gray-800); }
 
@@ -325,8 +325,8 @@ textarea:focus {
   display: inline-block;
   flex-shrink: 0;
   vertical-align: middle;
-  background-color: #fff;
-  border: 2px solid var(--beige-muted);
+  background-color: var(--white);
+  border: 2px solid var(--beige-dark);
   cursor: pointer;
   accent-color: var(--beige-dark);
   margin: 0;
@@ -386,7 +386,7 @@ textarea:focus {
 #sources-container > label:hover,
 #quality-container > label:hover {
   border-color: var(--beige-dark);
-  background-color: #efe6d6;
+  background-color: var(--beige-light);
 }
 
 .choice-btn.is-selected,
@@ -453,8 +453,9 @@ html.dark .form-radio:checked {
 
 /* â€”â€”â€” Components â€”â€”â€” */
 .app-card {
-  border: 2px solid var(--beige-muted);
-  background: #fff;
+  border: 2px solid var(--beige-dark);
+  background: #ffffff;
+  box-shadow: 0 12px 40px rgba(213, 182, 144, 0.25);
 }
 
 .app-hero .hero-banner {
@@ -911,8 +912,8 @@ html.dark .btn-icon:hover {
 }
 #instructions-toggle.is-open {
   background-color: var(--yellow);
-  color: #000;
-  border-color: #111;
+  color: var(--black);
+  border-color: var(--beige-dark);
 }
 
 
@@ -1022,7 +1023,7 @@ html.dark .suggestion-chip:hover {
                         <h3 id="instructions-title" class="text-xl font-bold text-black dark:text-white mb-3">Cómo usar esta herramienta</h3>
                         <div id="instructions-steps" class="text-gray-700 dark:text-gray-200 space-y-3 md:space-y-2"></div>
                         <div id="instructions-formats" class="mt-4 text-sm text-gray-700 dark:text-gray-200 space-y-2"></div>
-                        <div class="mt-3 p-3 bg-white dark:bg-gray-800 rounded instructions-tip">
+                        <div class="mt-3 p-3 rounded instructions-tip">
                             <p id="instructions-tip" class="text-sm text-gray-600 dark:text-gray-300"></p>
                         </div>
                     </div>
@@ -1035,7 +1036,7 @@ html.dark .suggestion-chip:hover {
             <div class="mb-6">
                 <label for="tema" id="topic-label" class="block text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">Tema de Investigación</label>
                 <div class="flex flex-col md:flex-row md:flex-wrap md:items-center gap-2">
-                    <input type="text" id="tema" class="w-full md:flex-1 min-w-0 px-4 py-3 md:py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-brand dark:placeholder-gray-400 text-base" placeholder="Ej: energías renovables, óptica, agricultura digital">
+                    <input type="text" id="tema" class="w-full md:flex-1 min-w-0 px-4 py-3 md:py-2 border border-[#d5b690] dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-brand dark:placeholder-gray-400 text-base" placeholder="Ej: energías renovables, óptica, agricultura digital">
                     <button id="reformulateBtn" class="btn-secondary font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 w-full md:w-auto flex-shrink-0">
                         <span id="reformulate-text">Reformular</span>
                         <div id="reformulate-loader" class="loader hidden"></div>
@@ -1052,7 +1053,7 @@ html.dark .suggestion-chip:hover {
             <!-- Plantillas por área -->
             <div class="mb-6">
                 <label for="area-template" id="area-template-label" class="block text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">Plantilla por área</label>
-                <select id="area-template" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg mb-2"></select>
+                <select id="area-template" class="w-full px-3 py-2 border border-[#d5b690] dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg mb-2"></select>
                 <p id="area-template-hint" class="text-sm text-gray-500 dark:text-gray-400"></p>
             </div>
 
@@ -1062,7 +1063,7 @@ html.dark .suggestion-chip:hover {
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                     <div>
                         <label id="geography-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Área Geográfica (Opcional)</label>
-                        <input type="text" id="geography" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="Ej: América Latina">
+                        <input type="text" id="geography" class="w-full px-3 py-2 border border-[#d5b690] dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="Ej: América Latina">
                     </div>
                     <div>
                         <label id="languages-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Idiomas</label>
@@ -1070,11 +1071,11 @@ html.dark .suggestion-chip:hover {
                     </div>
                     <div>
                         <label id="date-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Fecha de Publicación</label>
-                        <select id="date-range-preset" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg mb-2"></select>
+                        <select id="date-range-preset" class="w-full px-3 py-2 border border-[#d5b690] dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg mb-2"></select>
                         <div id="custom-date-fields" class="flex items-center space-x-2">
-                            <input type="number" id="date-from" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="Desde">
+                            <input type="number" id="date-from" class="w-full px-3 py-2 border border-[#d5b690] dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="Desde">
                             <span class="text-gray-500 dark:text-gray-400">-</span>
-                            <input type="number" id="date-to" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="Hasta">
+                            <input type="number" id="date-to" class="w-full px-3 py-2 border border-[#d5b690] dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="Hasta">
                         </div>
                     </div>
                 </div>
@@ -1085,7 +1086,7 @@ html.dark .suggestion-chip:hover {
                 <div id="sources-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-gray-700 dark:text-gray-200"></div>
                 <div class="mt-4">
                     <label for="custom-sites" id="custom-sites-label" class="block text-md font-medium text-gray-600 dark:text-gray-300 mb-2">Otros sitios específicos (separados por comas)</label>
-                    <input type="text" id="custom-sites" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="ej: site:colciencias.gov.co, minciencias.gov.co, unal.edu.co">
+                    <input type="text" id="custom-sites" class="w-full px-3 py-2 border border-[#d5b690] dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg dark:placeholder-gray-400" placeholder="ej: site:colciencias.gov.co, minciencias.gov.co, unal.edu.co">
                 </div>
             </div>
 
@@ -1146,7 +1147,7 @@ html.dark .suggestion-chip:hover {
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 md:p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-3 dark:border-gray-600 sticky top-0 bg-white dark:bg-gray-800 z-10">
                 <h3 id="help-modal-title" class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white"></h3>
-                <button id="close-modal-btn" class="text-3xl md:text-2xl font-bold text-gray-500 hover:text-gray-800 dark:hover:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">&times;</button>
+                <button id="close-modal-btn" class="btn-icon text-3xl md:text-2xl font-bold p-1 rounded">&times;</button>
             </div>
             <div id="help-modal-content" class="mt-4 space-y-4 text-gray-600 dark:text-gray-300 text-sm md:text-base">
                 <!-- Content will be injected by JS -->
@@ -1736,7 +1737,7 @@ html.dark .suggestion-chip:hover {
             let content = '';
             if (type === 'keywords') {
                 content = `<h3 class="font-semibold text-gray-700 dark:text-gray-200 mb-3">${translations[document.documentElement.lang].suggestedConcepts}</h3><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">` +
-                    items.map(item => `<label class="flex items-center p-2 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"><input type="checkbox" data-keyword="${item}" class="suggest-cb form-checkbox h-4 w-4 mr-3"><span class="text-sm">${item}</span></label>`).join('') + `</div>`;
+                    items.map(item => `<label class="choice-btn flex items-center p-2 cursor-pointer"><input type="checkbox" data-keyword="${item}" class="suggest-cb form-checkbox h-4 w-4 mr-3"><span class="text-sm">${item}</span></label>`).join('') + `</div>`;
             } else if (type === 'reformulations') {
                  content = `<h3 class="font-semibold text-gray-700 dark:text-gray-200 mb-2">Sugerencias para reformular:</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-3">` +
                     items.map(item => {
